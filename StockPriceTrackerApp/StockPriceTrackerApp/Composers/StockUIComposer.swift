@@ -20,14 +20,12 @@ public final class StockUIComposer {
             loadingView: WeakRefVirtualProxy(stateStore),
             errorView: WeakRefVirtualProxy(stateStore),
             mapper: { stocks in
+                viewAdapter.updateRawStocks(stocks)
                 let stockPresenter = StockPresenter(
                     listView: viewAdapter,
                     connectionView: WeakRefVirtualProxy(stateStore)
                 )
-                // Default sorting option applied here; StockPresenter does the mapping
                 stockPresenter.didReceive(stocks, sortedBy: stateStore.currentSort)
-                // Returning a dummy wrapper since StockPresenter handled the direct display
-                // (Alternatively, StockPresenter itself mapping `-> StockListViewModel` can be passed)
                 return stateStore.listViewModel 
             }
         )
@@ -45,10 +43,14 @@ public final class StockUIComposer {
                 feedController.stop()
             },
             onSort: { newSort in
-                // TODO
+                let stockPresenter = StockPresenter(
+                    listView: viewAdapter,
+                    connectionView: WeakRefVirtualProxy(stateStore)
+                )
+                stockPresenter.didReceive(viewAdapter.currentStocks, sortedBy: newSort)
             },
             onRowSelected: { symbol in
-                // TODO
+                viewAdapter.select(symbol: symbol)
             }
         )
         

@@ -17,6 +17,7 @@
 		F40BE21B2F7EB23100545F17 /* StockDetailViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE2132F7EB23100545F17 /* StockDetailViewAdapter.swift */; };
 		F40BE21F2F7EB37900545F17 /* StockUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE21D2F7EB37900545F17 /* StockUIComposer.swift */; };
 		F40BE2202F7EB37900545F17 /* StockDetailUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE21C2F7EB37900545F17 /* StockDetailUIComposer.swift */; };
+		F40BE2222F7EB4CF00545F17 /* StockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE2212F7EB4CF00545F17 /* StockService.swift */; };
 		F470B2FC2F7E8C290044964C /* StockPriceTrackerAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B2F82F7E8C290044964C /* StockPriceTrackerAppTests.swift */; };
 		F470B2FE2F7E8C290044964C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F470B2F42F7E8C290044964C /* Assets.xcassets */; };
 		F470B2FF2F7E8C290044964C /* StockPriceTrackerAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B2F62F7E8C290044964C /* StockPriceTrackerAppApp.swift */; };
@@ -58,6 +59,7 @@
 		F40BE2162F7EB23100545F17 /* WeakRefVirtualProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakRefVirtualProxy.swift; sourceTree = "<group>"; };
 		F40BE21C2F7EB37900545F17 /* StockDetailUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailUIComposer.swift; sourceTree = "<group>"; };
 		F40BE21D2F7EB37900545F17 /* StockUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockUIComposer.swift; sourceTree = "<group>"; };
+		F40BE2212F7EB4CF00545F17 /* StockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockService.swift; sourceTree = "<group>"; };
 		F428F9F42F7E8B4E00C84A3C /* StockPriceTrackerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StockPriceTrackerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F428FA012F7E8B4F00C84A3C /* StockPriceTrackerAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockPriceTrackerAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F470B2F42F7E8C290044964C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				F470B2F42F7E8C290044964C /* Assets.xcassets */,
 				F470B2F52F7E8C290044964C /* ContentView.swift */,
 				F470B2F62F7E8C290044964C /* StockPriceTrackerAppApp.swift */,
+				F40BE2212F7EB4CF00545F17 /* StockService.swift */,
 				F40BE21E2F7EB37900545F17 /* Composers */,
 				F40BE2172F7EB23100545F17 /* Adapters */,
 			);
@@ -263,6 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F470B2FF2F7E8C290044964C /* StockPriceTrackerAppApp.swift in Sources */,
+				F40BE2222F7EB4CF00545F17 /* StockService.swift in Sources */,
 				F470B3012F7E8C290044964C /* ContentView.swift in Sources */,
 				F40BE2182F7EB23100545F17 /* StockFeedPresentationAdapter.swift in Sources */,
 				F40BE2192F7EB23100545F17 /* WeakRefVirtualProxy.swift in Sources */,

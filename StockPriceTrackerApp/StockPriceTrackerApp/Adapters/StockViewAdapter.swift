@@ -5,6 +5,7 @@ import StockPriceTrackeriOS
 @MainActor
 public final class StockViewAdapter: ResourceView {
     private weak var stateStore: StockListStateStore?
+    public private(set) var currentStocks: [Stock] = []
     
     // Allows us to navigate when a user selects a row
     private let selection: (Stock) -> Void
@@ -19,6 +20,16 @@ public final class StockViewAdapter: ResourceView {
 
     public func display(_ viewModel: StockListViewModel) {
         stateStore?.listViewModel = viewModel
+    }
+    
+    public func updateRawStocks(_ stocks: [Stock]) {
+        self.currentStocks = stocks
+    }
+    
+    public func select(symbol: String) {
+        if let stock = currentStocks.first(where: { $0.symbol == symbol }) {
+            selection(stock)
+        }
     }
 }
 
