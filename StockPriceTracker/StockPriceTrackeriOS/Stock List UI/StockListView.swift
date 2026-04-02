@@ -34,6 +34,8 @@ public struct StockListView: View {
             List(stateStore.listViewModel.rows) { row in
                 Button(action: { onRowSelected(row.symbol) }) {
                     StockRowView(viewModel: row)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .contentShape(Rectangle())
                 }
                 .buttonStyle(PlainButtonStyle())
             }
@@ -83,7 +85,8 @@ public final class StockListStateStore: ObservableObject {
     @Published public var isLoading = false
     @Published public var errorMessage: String?
     @Published public var currentSort: SortOption = .byPrice
-    
+    public var rawStocks: [Stock] = []
+
     public init() {}
 }
 

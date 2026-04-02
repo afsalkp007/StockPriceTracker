@@ -7,11 +7,11 @@ public final class StockUIComposer {
     private init() {}
     
     public static func stockListComposedWith(
+        stateStore: StockListStateStore,
         feedLoader: @escaping () -> AsyncThrowingStream<[Stock], Error>,
         feedController: StockFeedController,
         selection: @escaping (Stock) -> Void
     ) -> some View {
-        let stateStore = StockListStateStore()
         let presentationAdapter = StockFeedPresentationAdapter(loader: feedLoader)
         let viewAdapter = StockViewAdapter(stateStore: stateStore, selection: selection)
         
@@ -25,8 +25,9 @@ public final class StockUIComposer {
                     listView: viewAdapter,
                     connectionView: WeakRefVirtualProxy(stateStore)
                 )
+                stockPresenter.didConnect()
                 stockPresenter.didReceive(stocks, sortedBy: stateStore.currentSort)
-                return stateStore.listViewModel 
+                return stateStore.listViewModel
             }
         )
         
@@ -39,6 +40,7 @@ public final class StockUIComposer {
                 feedController.start()
             },
             onStop: {
+                stateStore.display(.disconnected)
                 Task {
                     await presentationAdapter.didCancelFeedLoad()
                     await feedController.stop()

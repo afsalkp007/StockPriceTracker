@@ -1,15 +1,18 @@
 import SwiftUI
 import Combine
 import StockPriceTracker
+import StockPriceTrackeriOS
 
 @main
 struct StockPriceTrackerAppApp: App {
     @StateObject private var serviceState = AppServiceState()
-    
+    @StateObject private var stockListStateStore = StockListStateStore()
+
     var body: some Scene {
         WindowGroup {
             NavigationStack {
                 StockUIComposer.stockListComposedWith(
+                    stateStore: stockListStateStore,
                     feedLoader: serviceState.service.makeFeedLoader(),
                     feedController: serviceState.service.feedController(),
                     selection: { stock in
