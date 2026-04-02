@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "0DD5DC0E-D714-4451-9739-F01F75831696",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "performanceAntipatternCheckerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:StockPriceTracker.xcodeproj",
+        "identifier" : "F48301CD2F7E7CEF00310FC2",
+        "name" : "StockPriceTrackerTests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -4,25 +4,30 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>CI-macOS.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>StockPriceTracker.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>StockPriceTrackeriOS.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>F4A2F9122F7D8B0500718A47</key>
+		<key>F470B3082F7E8F580044964C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F4A2F91F2F7D8B0600718A47</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F4A2F9292F7D8B0600718A47</key>
+		<key>F48301C42F7E7CEE00310FC2</key>
 		<dict>
 			<key>primary</key>
 			<true/>

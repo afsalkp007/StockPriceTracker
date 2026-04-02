@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "BED24711-9B41-447A-95F7-CBE76AACC839",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:StockPriceTracker.xcodeproj",
+        "identifier" : "F470B3102F7E8F580044964C",
+        "name" : "StockPriceTrackeriOSTests"
+      }
+    }
+  ],
+  "version" : 1
+}

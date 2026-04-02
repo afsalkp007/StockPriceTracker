@@ -2,11 +2,11 @@
 //  StockPriceTrackerTests.swift
 //  StockPriceTrackerTests
 //
-//  Created by Afsal on 01/04/2026.
+//  Created by Afsal on 02/04/2026.
 //
 
 import XCTest
-@testable import StockPriceTracker
+import StockPriceTracker
 
 final class StockPriceTrackerTests: XCTestCase {
 

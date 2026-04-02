@@ -1,0 +1,37 @@
+{
+  "configurations" : [
+    {
+      "id" : "939E018E-1627-489A-BB10-AB3A220D7695",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:StockPriceTrackerApp.xcodeproj",
+      "identifier" : "F428F9F32F7E8B4E00C84A3C",
+      "name" : "StockPriceTrackerApp"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:..\/StockPriceTracker\/StockPriceTracker.xcodeproj",
+        "identifier" : "F48301CD2F7E7CEF00310FC2",
+        "name" : "StockPriceTrackerTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:StockPriceTrackerApp.xcodeproj",
+        "identifier" : "F428FA002F7E8B4F00C84A3C",
+        "name" : "StockPriceTrackerAppTests"
+      }
+    }
+  ],
+  "version" : 1
+}

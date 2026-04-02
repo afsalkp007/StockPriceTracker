@@ -4,8 +4,7 @@
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
-      buildImplicitDependencies = "YES"
-      buildArchitectures = "Automatic">
+      buildImplicitDependencies = "YES">
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
@@ -15,9 +14,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F4A2F9122F7D8B0500718A47"
-               BuildableName = "StockPriceTracker.app"
+               BlueprintIdentifier = "F48301C42F7E7CEE00310FC2"
+               BuildableName = "StockPriceTracker.framework"
                BlueprintName = "StockPriceTracker"
+               ReferencedContainer = "container:StockPriceTracker.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F48301CD2F7E7CEF00310FC2"
+               BuildableName = "StockPriceTrackerTests.xctest"
+               BlueprintName = "StockPriceTrackerTests"
                ReferencedContainer = "container:StockPriceTracker.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -27,32 +40,16 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      shouldAutocreateTestPlan = "YES">
-      <Testables>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F4A2F91F2F7D8B0600718A47"
-               BuildableName = "StockPriceTrackerTests.xctest"
-               BlueprintName = "StockPriceTrackerTests"
-               ReferencedContainer = "container:StockPriceTracker.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F4A2F9292F7D8B0600718A47"
-               BuildableName = "StockPriceTrackerUITests.xctest"
-               BlueprintName = "StockPriceTrackerUITests"
-               ReferencedContainer = "container:StockPriceTracker.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
+      shouldUseLaunchSchemeArgsEnv = "YES">
+      <TestPlans>
+         <TestPlanReference
+            reference = "container:StockPriceTrackerTests/StockPriceTracker.xctestplan"
+            default = "YES">
+         </TestPlanReference>
+         <TestPlanReference
+            reference = "container:StockPriceTrackeriOSTests/StockPriceTrackeriOS.xctestplan">
+         </TestPlanReference>
+      </TestPlans>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -65,16 +62,6 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
       queueDebuggingEnableBacktraceRecording = "Yes">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F4A2F9122F7D8B0500718A47"
-            BuildableName = "StockPriceTracker.app"
-            BlueprintName = "StockPriceTracker"
-            ReferencedContainer = "container:StockPriceTracker.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -82,16 +69,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F4A2F9122F7D8B0500718A47"
-            BuildableName = "StockPriceTracker.app"
+            BlueprintIdentifier = "F48301C42F7E7CEE00310FC2"
+            BuildableName = "StockPriceTracker.framework"
             BlueprintName = "StockPriceTracker"
             ReferencedContainer = "container:StockPriceTracker.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
