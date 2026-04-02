@@ -30,7 +30,7 @@ private struct BlinkEffect: ViewModifier {
         content
             .opacity(isOpacityReduced ? 0.3 : 1.0)
             .onAppear { resetAnimation() }
-            .onChange(of: isConnected) { _ in resetAnimation() }
+            .onChange(of: isConnected) { resetAnimation() }
     }
     
     private func resetAnimation() {
