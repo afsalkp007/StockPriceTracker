@@ -8,12 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		F470B3022F7E8D000044964C /* StockPriceTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F428F9AC2F7E7DA000C84A3C /* StockPriceTrackerTests.swift */; };
-		F470B3032F7E8D060044964C /* StockPriceTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F428F9AA2F7E7DA000C84A3C /* StockPriceTracker.swift */; };
 		F470B3122F7E8F580044964C /* StockPriceTrackeriOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F470B3092F7E8F580044964C /* StockPriceTrackeriOS.framework */; };
 		F470B32A2F7E8FC40044964C /* StockPriceTrackeriOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B3282F7E8FC40044964C /* StockPriceTrackeriOSTests.swift */; };
 		F470B32B2F7E8FC40044964C /* StockPriceTrackeriOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B3262F7E8FC40044964C /* StockPriceTrackeriOS.swift */; };
 		F470B32D2F7E8FC40044964C /* StockPriceTrackeriOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B3262F7E8FC40044964C /* StockPriceTrackeriOS.swift */; };
 		F470B3322F7E930E0044964C /* StockPriceTrackeriOS.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = F470B3312F7E930E0044964C /* StockPriceTrackeriOS.xctestplan */; };
+		F470B34A2F7EAA050044964C /* ResourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B3392F7EAA050044964C /* ResourceView.swift */; };
+		F470B34B2F7EAA050044964C /* StockFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B33C2F7EAA050044964C /* StockFeedController.swift */; };
+		F470B34C2F7EAA050044964C /* StockViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B3422F7EAA050044964C /* StockViewModels.swift */; };
+		F470B34D2F7EAA050044964C /* StockDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B3402F7EAA050044964C /* StockDetailPresenter.swift */; };
+		F470B34E2F7EAA050044964C /* StockDescriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B3442F7EAA050044964C /* StockDescriptions.swift */; };
+		F470B34F2F7EAA050044964C /* WebSocketStockFeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B3482F7EAA050044964C /* WebSocketStockFeedLoader.swift */; };
+		F470B3502F7EAA050044964C /* StockPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B3412F7EAA050044964C /* StockPresenter.swift */; };
+		F470B3512F7EAA050044964C /* SortOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B33F2F7EAA050044964C /* SortOption.swift */; };
+		F470B3522F7EAA050044964C /* StockFeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B33D2F7EAA050044964C /* StockFeedLoader.swift */; };
+		F470B3532F7EAA050044964C /* StockMessageMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B3452F7EAA050044964C /* StockMessageMapper.swift */; };
+		F470B3542F7EAA050044964C /* Stock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B33B2F7EAA050044964C /* Stock.swift */; };
+		F470B3552F7EAA050044964C /* ResourceErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B3372F7EAA050044964C /* ResourceErrorViewModel.swift */; };
+		F470B3562F7EAA050044964C /* LoadResourcePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B3362F7EAA050044964C /* LoadResourcePresenter.swift */; };
+		F470B3572F7EAA050044964C /* ResourceLoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B3382F7EAA050044964C /* ResourceLoadingViewModel.swift */; };
+		F470B3582F7EAA050044964C /* URLSessionWebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B3462F7EAA050044964C /* URLSessionWebSocketClient.swift */; };
+		F470B3592F7EAA050044964C /* WebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B3472F7EAA050044964C /* WebSocketClient.swift */; };
 		F48301CF2F7E7CEF00310FC2 /* StockPriceTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48301C52F7E7CEE00310FC2 /* StockPriceTracker.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,7 +50,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		F428F9AA2F7E7DA000C84A3C /* StockPriceTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPriceTracker.swift; sourceTree = "<group>"; };
 		F428F9AC2F7E7DA000C84A3C /* StockPriceTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPriceTrackerTests.swift; sourceTree = "<group>"; };
 		F470B3092F7E8F580044964C /* StockPriceTrackeriOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StockPriceTrackeriOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F470B3112F7E8F580044964C /* StockPriceTrackeriOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockPriceTrackeriOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,6 +57,22 @@
 		F470B3282F7E8FC40044964C /* StockPriceTrackeriOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPriceTrackeriOSTests.swift; sourceTree = "<group>"; };
 		F470B32E2F7E92510044964C /* StockPriceTracker.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = StockPriceTracker.xctestplan; sourceTree = "<group>"; };
 		F470B3312F7E930E0044964C /* StockPriceTrackeriOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = StockPriceTrackeriOS.xctestplan; sourceTree = "<group>"; };
+		F470B3362F7EAA050044964C /* LoadResourcePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadResourcePresenter.swift; sourceTree = "<group>"; };
+		F470B3372F7EAA050044964C /* ResourceErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceErrorViewModel.swift; sourceTree = "<group>"; };
+		F470B3382F7EAA050044964C /* ResourceLoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLoadingViewModel.swift; sourceTree = "<group>"; };
+		F470B3392F7EAA050044964C /* ResourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceView.swift; sourceTree = "<group>"; };
+		F470B33B2F7EAA050044964C /* Stock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock.swift; sourceTree = "<group>"; };
+		F470B33C2F7EAA050044964C /* StockFeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockFeedController.swift; sourceTree = "<group>"; };
+		F470B33D2F7EAA050044964C /* StockFeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockFeedLoader.swift; sourceTree = "<group>"; };
+		F470B33F2F7EAA050044964C /* SortOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOption.swift; sourceTree = "<group>"; };
+		F470B3402F7EAA050044964C /* StockDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailPresenter.swift; sourceTree = "<group>"; };
+		F470B3412F7EAA050044964C /* StockPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPresenter.swift; sourceTree = "<group>"; };
+		F470B3422F7EAA050044964C /* StockViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockViewModels.swift; sourceTree = "<group>"; };
+		F470B3442F7EAA050044964C /* StockDescriptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDescriptions.swift; sourceTree = "<group>"; };
+		F470B3452F7EAA050044964C /* StockMessageMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockMessageMapper.swift; sourceTree = "<group>"; };
+		F470B3462F7EAA050044964C /* URLSessionWebSocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionWebSocketClient.swift; sourceTree = "<group>"; };
+		F470B3472F7EAA050044964C /* WebSocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketClient.swift; sourceTree = "<group>"; };
+		F470B3482F7EAA050044964C /* WebSocketStockFeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketStockFeedLoader.swift; sourceTree = "<group>"; };
 		F48301C52F7E7CEE00310FC2 /* StockPriceTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StockPriceTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48301CE2F7E7CEF00310FC2 /* StockPriceTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockPriceTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -84,7 +114,10 @@
 		F428F9AB2F7E7DA000C84A3C /* StockPriceTracker */ = {
 			isa = PBXGroup;
 			children = (
-				F428F9AA2F7E7DA000C84A3C /* StockPriceTracker.swift */,
+				F470B33A2F7EAA050044964C /* Shared Presentation */,
+				F470B33E2F7EAA050044964C /* Stock Feature */,
+				F470B3432F7EAA050044964C /* Stock Presentation */,
+				F470B3492F7EAA050044964C /* Stock WebSocket API */,
 			);
 			path = StockPriceTracker;
 			sourceTree = "<group>";
@@ -113,6 +146,50 @@
 				F470B3282F7E8FC40044964C /* StockPriceTrackeriOSTests.swift */,
 			);
 			path = StockPriceTrackeriOSTests;
+			sourceTree = "<group>";
+		};
+		F470B33A2F7EAA050044964C /* Shared Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				F470B3362F7EAA050044964C /* LoadResourcePresenter.swift */,
+				F470B3372F7EAA050044964C /* ResourceErrorViewModel.swift */,
+				F470B3382F7EAA050044964C /* ResourceLoadingViewModel.swift */,
+				F470B3392F7EAA050044964C /* ResourceView.swift */,
+			);
+			path = "Shared Presentation";
+			sourceTree = "<group>";
+		};
+		F470B33E2F7EAA050044964C /* Stock Feature */ = {
+			isa = PBXGroup;
+			children = (
+				F470B33B2F7EAA050044964C /* Stock.swift */,
+				F470B33C2F7EAA050044964C /* StockFeedController.swift */,
+				F470B33D2F7EAA050044964C /* StockFeedLoader.swift */,
+			);
+			path = "Stock Feature";
+			sourceTree = "<group>";
+		};
+		F470B3432F7EAA050044964C /* Stock Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				F470B33F2F7EAA050044964C /* SortOption.swift */,
+				F470B3402F7EAA050044964C /* StockDetailPresenter.swift */,
+				F470B3412F7EAA050044964C /* StockPresenter.swift */,
+				F470B3422F7EAA050044964C /* StockViewModels.swift */,
+			);
+			path = "Stock Presentation";
+			sourceTree = "<group>";
+		};
+		F470B3492F7EAA050044964C /* Stock WebSocket API */ = {
+			isa = PBXGroup;
+			children = (
+				F470B3442F7EAA050044964C /* StockDescriptions.swift */,
+				F470B3452F7EAA050044964C /* StockMessageMapper.swift */,
+				F470B3462F7EAA050044964C /* URLSessionWebSocketClient.swift */,
+				F470B3472F7EAA050044964C /* WebSocketClient.swift */,
+				F470B3482F7EAA050044964C /* WebSocketStockFeedLoader.swift */,
+			);
+			path = "Stock WebSocket API";
 			sourceTree = "<group>";
 		};
 		F48301BB2F7E7CEE00310FC2 = {
@@ -337,7 +414,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F470B3032F7E8D060044964C /* StockPriceTracker.swift in Sources */,
+				F470B34A2F7EAA050044964C /* ResourceView.swift in Sources */,
+				F470B34B2F7EAA050044964C /* StockFeedController.swift in Sources */,
+				F470B34C2F7EAA050044964C /* StockViewModels.swift in Sources */,
+				F470B34D2F7EAA050044964C /* StockDetailPresenter.swift in Sources */,
+				F470B34E2F7EAA050044964C /* StockDescriptions.swift in Sources */,
+				F470B34F2F7EAA050044964C /* WebSocketStockFeedLoader.swift in Sources */,
+				F470B3502F7EAA050044964C /* StockPresenter.swift in Sources */,
+				F470B3512F7EAA050044964C /* SortOption.swift in Sources */,
+				F470B3522F7EAA050044964C /* StockFeedLoader.swift in Sources */,
+				F470B3532F7EAA050044964C /* StockMessageMapper.swift in Sources */,
+				F470B3542F7EAA050044964C /* Stock.swift in Sources */,
+				F470B3552F7EAA050044964C /* ResourceErrorViewModel.swift in Sources */,
+				F470B3562F7EAA050044964C /* LoadResourcePresenter.swift in Sources */,
+				F470B3572F7EAA050044964C /* ResourceLoadingViewModel.swift in Sources */,
+				F470B3582F7EAA050044964C /* URLSessionWebSocketClient.swift in Sources */,
+				F470B3592F7EAA050044964C /* WebSocketClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
