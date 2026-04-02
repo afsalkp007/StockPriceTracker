@@ -11,6 +11,10 @@
 		F40BE20F2F7EAE4000545F17 /* StockPriceTracker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F40BE20C2F7EAE4000545F17 /* StockPriceTracker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F40BE2102F7EAE4000545F17 /* StockPriceTrackeriOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F40BE20D2F7EAE4000545F17 /* StockPriceTrackeriOS.framework */; };
 		F40BE2112F7EAE4000545F17 /* StockPriceTrackeriOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F40BE20D2F7EAE4000545F17 /* StockPriceTrackeriOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F40BE2182F7EB23100545F17 /* StockFeedPresentationAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE2142F7EB23100545F17 /* StockFeedPresentationAdapter.swift */; };
+		F40BE2192F7EB23100545F17 /* WeakRefVirtualProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE2162F7EB23100545F17 /* WeakRefVirtualProxy.swift */; };
+		F40BE21A2F7EB23100545F17 /* StockViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE2152F7EB23100545F17 /* StockViewAdapter.swift */; };
+		F40BE21B2F7EB23100545F17 /* StockDetailViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE2132F7EB23100545F17 /* StockDetailViewAdapter.swift */; };
 		F470B2FC2F7E8C290044964C /* StockPriceTrackerAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B2F82F7E8C290044964C /* StockPriceTrackerAppTests.swift */; };
 		F470B2FE2F7E8C290044964C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F470B2F42F7E8C290044964C /* Assets.xcassets */; };
 		F470B2FF2F7E8C290044964C /* StockPriceTrackerAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B2F62F7E8C290044964C /* StockPriceTrackerAppApp.swift */; };
@@ -46,6 +50,10 @@
 /* Begin PBXFileReference section */
 		F40BE20C2F7EAE4000545F17 /* StockPriceTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StockPriceTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F40BE20D2F7EAE4000545F17 /* StockPriceTrackeriOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StockPriceTrackeriOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F40BE2132F7EB23100545F17 /* StockDetailViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailViewAdapter.swift; sourceTree = "<group>"; };
+		F40BE2142F7EB23100545F17 /* StockFeedPresentationAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockFeedPresentationAdapter.swift; sourceTree = "<group>"; };
+		F40BE2152F7EB23100545F17 /* StockViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockViewAdapter.swift; sourceTree = "<group>"; };
+		F40BE2162F7EB23100545F17 /* WeakRefVirtualProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakRefVirtualProxy.swift; sourceTree = "<group>"; };
 		F428F9F42F7E8B4E00C84A3C /* StockPriceTrackerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StockPriceTrackerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F428FA012F7E8B4F00C84A3C /* StockPriceTrackerAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockPriceTrackerAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F470B2F42F7E8C290044964C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -84,6 +92,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F40BE2172F7EB23100545F17 /* Adapters */ = {
+			isa = PBXGroup;
+			children = (
+				F40BE2132F7EB23100545F17 /* StockDetailViewAdapter.swift */,
+				F40BE2142F7EB23100545F17 /* StockFeedPresentationAdapter.swift */,
+				F40BE2152F7EB23100545F17 /* StockViewAdapter.swift */,
+				F40BE2162F7EB23100545F17 /* WeakRefVirtualProxy.swift */,
+			);
+			path = Adapters;
+			sourceTree = "<group>";
+		};
 		F428F9EB2F7E8B4E00C84A3C = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +128,7 @@
 				F470B2F42F7E8C290044964C /* Assets.xcassets */,
 				F470B2F52F7E8C290044964C /* ContentView.swift */,
 				F470B2F62F7E8C290044964C /* StockPriceTrackerAppApp.swift */,
+				F40BE2172F7EB23100545F17 /* Adapters */,
 			);
 			path = StockPriceTrackerApp;
 			sourceTree = "<group>";
@@ -230,6 +250,10 @@
 			files = (
 				F470B2FF2F7E8C290044964C /* StockPriceTrackerAppApp.swift in Sources */,
 				F470B3012F7E8C290044964C /* ContentView.swift in Sources */,
+				F40BE2182F7EB23100545F17 /* StockFeedPresentationAdapter.swift in Sources */,
+				F40BE2192F7EB23100545F17 /* WeakRefVirtualProxy.swift in Sources */,
+				F40BE21A2F7EB23100545F17 /* StockViewAdapter.swift in Sources */,
+				F40BE21B2F7EB23100545F17 /* StockDetailViewAdapter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
