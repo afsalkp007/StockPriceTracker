@@ -1,6 +1,6 @@
 @MainActor
 public protocol StockFeedController {
     func start()
-    func stop()
+    func stop() async
 }
 

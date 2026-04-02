@@ -28,12 +28,14 @@ public final class WebSocketStockFeedLoader: StockFeedLoader, StockFeedControlle
         }
     }
 
-    public func stop() {
-        feedTask?.cancel()
+    public func stop() async {
+        let task = feedTask
         feedTask = nil
+        task?.cancel()
         client.disconnect()
         continuation?.finish()
         continuation = nil
+        await task?.value
     }
 
     // MARK: - Private Helpers -
