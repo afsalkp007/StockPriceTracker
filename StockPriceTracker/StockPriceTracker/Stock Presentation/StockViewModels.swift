@@ -7,10 +7,22 @@ public struct StockRowViewModel: Identifiable, Equatable {
     public let price: String
     public let priceChange: String
     public let isPositive: Bool
+
+    public init(symbol: String, name: String, price: String, priceChange: String, isPositive: Bool) {
+        self.symbol = symbol
+        self.name = name
+        self.price = price
+        self.priceChange = priceChange
+        self.isPositive = isPositive
+    }
 }
 
 public struct StockListViewModel: Equatable {
     public let rows: [StockRowViewModel]
+
+    public init(rows: [StockRowViewModel]) {
+        self.rows = rows
+    }
 }
 
 public struct StockDetailViewModel: Equatable {
@@ -21,6 +33,16 @@ public struct StockDetailViewModel: Equatable {
     public let priceChangePercent: String
     public let isPositive: Bool
     public let description: String
+
+    public init(symbol: String, name: String, price: String, priceChange: String, priceChangePercent: String, isPositive: Bool, description: String) {
+        self.symbol = symbol
+        self.name = name
+        self.price = price
+        self.priceChange = priceChange
+        self.priceChangePercent = priceChangePercent
+        self.isPositive = isPositive
+        self.description = description
+    }
 }
 
 public struct ConnectionStatusViewModel: Equatable {
