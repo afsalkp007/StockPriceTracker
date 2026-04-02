@@ -14,6 +14,10 @@ public final class StockFeedPresentationAdapter {
         self.loader = loader
     }
 
+    deinit {
+        feedTask?.cancel()
+    }
+
     public func didRequestFeedLoad() {
         presenter?.didStartLoading()
         
@@ -33,8 +37,10 @@ public final class StockFeedPresentationAdapter {
         }
     }
     
-    public func didCancelFeedLoad() {
-        feedTask?.cancel()
+    public func didCancelFeedLoad() async {
+        let task = feedTask
         feedTask = nil
+        task?.cancel()
+        await task?.value
     }
 }

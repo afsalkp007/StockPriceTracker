@@ -39,8 +39,10 @@ public final class StockUIComposer {
                 feedController.start()
             },
             onStop: {
-                presentationAdapter.didCancelFeedLoad()
-                Task { await feedController.stop() }
+                Task {
+                    await presentationAdapter.didCancelFeedLoad()
+                    await feedController.stop()
+                }
             },
             onSort: { newSort in
                 let stockPresenter = StockPresenter(

@@ -18,7 +18,7 @@
 		F40BE21F2F7EB37900545F17 /* StockUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE21D2F7EB37900545F17 /* StockUIComposer.swift */; };
 		F40BE2202F7EB37900545F17 /* StockDetailUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE21C2F7EB37900545F17 /* StockDetailUIComposer.swift */; };
 		F40BE2222F7EB4CF00545F17 /* StockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE2212F7EB4CF00545F17 /* StockService.swift */; };
-		F470B2FC2F7E8C290044964C /* StockPriceTrackerAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B2F82F7E8C290044964C /* StockPriceTrackerAppTests.swift */; };
+		F40BE2322F7ED49500545F17 /* StockUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE2312F7ED49500545F17 /* StockUIIntegrationTests.swift */; };
 		F470B2FE2F7E8C290044964C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F470B2F42F7E8C290044964C /* Assets.xcassets */; };
 		F470B2FF2F7E8C290044964C /* StockPriceTrackerAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B2F62F7E8C290044964C /* StockPriceTrackerAppApp.swift */; };
 		F470B3012F7E8C290044964C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B2F52F7E8C290044964C /* ContentView.swift */; };
@@ -60,12 +60,12 @@
 		F40BE21C2F7EB37900545F17 /* StockDetailUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailUIComposer.swift; sourceTree = "<group>"; };
 		F40BE21D2F7EB37900545F17 /* StockUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockUIComposer.swift; sourceTree = "<group>"; };
 		F40BE2212F7EB4CF00545F17 /* StockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockService.swift; sourceTree = "<group>"; };
+		F40BE2312F7ED49500545F17 /* StockUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockUIIntegrationTests.swift; sourceTree = "<group>"; };
 		F428F9F42F7E8B4E00C84A3C /* StockPriceTrackerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StockPriceTrackerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F428FA012F7E8B4F00C84A3C /* StockPriceTrackerAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockPriceTrackerAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F470B2F42F7E8C290044964C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F470B2F52F7E8C290044964C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F470B2F62F7E8C290044964C /* StockPriceTrackerAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPriceTrackerAppApp.swift; sourceTree = "<group>"; };
-		F470B2F82F7E8C290044964C /* StockPriceTrackerAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPriceTrackerAppTests.swift; sourceTree = "<group>"; };
 		F470B3332F7E93660044964C /* StockPriceTrackerApp.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = StockPriceTrackerApp.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -154,7 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				F470B3332F7E93660044964C /* StockPriceTrackerApp.xctestplan */,
-				F470B2F82F7E8C290044964C /* StockPriceTrackerAppTests.swift */,
+				F40BE2312F7ED49500545F17 /* StockUIIntegrationTests.swift */,
 			);
 			path = StockPriceTrackerAppTests;
 			sourceTree = "<group>";
@@ -217,6 +217,7 @@
 					};
 					F428FA002F7E8B4F00C84A3C = {
 						CreatedOnToolsVersion = 26.4;
+						LastSwiftMigration = 2640;
 						TestTargetID = F428F9F32F7E8B4E00C84A3C;
 					};
 				};
@@ -281,7 +282,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F470B2FC2F7E8C290044964C /* StockPriceTrackerAppTests.swift in Sources */,
+				F40BE2322F7ED49500545F17 /* StockUIIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,6 +492,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -505,6 +507,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -516,6 +519,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
