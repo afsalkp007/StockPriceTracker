@@ -19,6 +19,13 @@
         "identifier" : "F48301CD2F7E7CEF00310FC2",
         "name" : "StockPriceTrackerTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:StockPriceTracker.xcodeproj",
+        "identifier" : "F470B3102F7E8F580044964C",
+        "name" : "StockPriceTrackeriOSTests"
+      }
     }
   ],
   "version" : 1

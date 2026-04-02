@@ -43,11 +43,8 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:StockPriceTrackerTests/StockPriceTracker.xctestplan"
+            reference = "container:../CI-macOS.xctestplan"
             default = "YES">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:StockPriceTrackeriOSTests/StockPriceTrackeriOS.xctestplan">
          </TestPlanReference>
       </TestPlans>
    </TestAction>
