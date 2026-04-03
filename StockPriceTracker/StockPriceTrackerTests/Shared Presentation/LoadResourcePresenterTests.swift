@@ -34,6 +34,17 @@ final class LoadResourcePresenterTests: XCTestCase {
         ])
     }
 
+    func test_didFinishLoading_withoutMapper_displaysResourceAndStopsLoading() {
+        let (sut, view) = makeIdentitySUT()
+
+        sut.didFinishLoading(with: "resource")
+
+        XCTAssertEqual(view.messages, [
+            .displayResource("resource"),
+            .displayLoading(false)
+        ])
+    }
+
     func test_didFinishLoadingWithMapperError_displaysErrorMessageAndStopsLoading() {
         let error = anyNSError()
 
@@ -61,6 +72,7 @@ final class LoadResourcePresenterTests: XCTestCase {
     }
 
     private typealias SUT = LoadResourcePresenter<String, ViewSpy>
+    private typealias IdentitySUT = LoadResourcePresenter<String, ViewSpy>
 
     private func makeSUT(
         mapper: @escaping SUT.Mapper = { _ in "any" },
@@ -69,6 +81,17 @@ final class LoadResourcePresenterTests: XCTestCase {
     ) -> (sut: SUT, view: ViewSpy) {
         let view = ViewSpy()
         let sut = SUT(resourceView: view, loadingView: view, errorView: view, mapper: mapper)
+        trackForMemoryLeaks(view, file: file, line: line)
+        trackForMemoryLeaks(sut, file: file, line: line)
+        return (sut, view)
+    }
+
+    private func makeIdentitySUT(
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> (sut: IdentitySUT, view: ViewSpy) {
+        let view = ViewSpy()
+        let sut = IdentitySUT(resourceView: view, loadingView: view, errorView: view)
         trackForMemoryLeaks(view, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, view)
