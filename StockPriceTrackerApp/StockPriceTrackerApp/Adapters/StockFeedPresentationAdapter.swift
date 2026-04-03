@@ -6,6 +6,7 @@ import StockPriceTrackeriOS
 public final class StockFeedPresentationAdapter {
     private let loader: () -> AsyncThrowingStream<[Stock], Error>
     public var presenter: LoadResourcePresenter<[Stock], StockViewAdapter>?
+    public var onFeedEnd: (() -> Void)?
     
     // We hold a reference to the active iteration task so we don't leak it
     private var feedTask: Task<Void, Never>?
@@ -30,9 +31,12 @@ public final class StockFeedPresentationAdapter {
                     guard !Task.isCancelled else { break }
                     self.presenter?.didFinishLoading(with: stocks)
                 }
+                guard !Task.isCancelled else { return }
+                self.onFeedEnd?()
             } catch {
                 guard !Task.isCancelled else { return }
                 self.presenter?.didFinishLoading(with: error)
+                self.onFeedEnd?()
             }
         }
     }

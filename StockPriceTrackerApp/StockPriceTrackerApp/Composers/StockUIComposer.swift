@@ -32,6 +32,9 @@ public final class StockUIComposer {
         )
         
         presentationAdapter.presenter = presenter
+        presentationAdapter.onFeedEnd = { [weak stateStore] in
+            stateStore?.display(.disconnected)
+        }
         
         let view = StockListView(
             stateStore: stateStore,
