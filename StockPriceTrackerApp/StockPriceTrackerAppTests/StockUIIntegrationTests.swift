@@ -2,6 +2,7 @@ import XCTest
 import StockPriceTracker
 import StockPriceTrackeriOS
 import StockPriceTrackerApp
+import Combine
 
 @MainActor
 final class StockUIIntegrationTests: XCTestCase {
@@ -50,6 +51,29 @@ final class StockUIIntegrationTests: XCTestCase {
         XCTAssertFalse(stateStore.isLoading)
         
         await adapter.didCancelFeedLoad()
+    }
+    
+    func test_detailFeedSync_updatesDetailStateStore() {
+        let stateStore = StockDetailStateStore()
+        let viewAdapter = StockDetailViewAdapter(stateStore: stateStore)
+        let presenter = StockDetailPresenter(detailView: viewAdapter, locale: Locale(identifier: "en_US"))
+        let subject = Combine.PassthroughSubject<[Stock], Never>()
+        
+        viewAdapter.observe(subject.eraseToAnyPublisher(), for: "AAPL", presenter: presenter)
+        
+        let initialStock = makeStock(symbol: "AAPL", price: 150)
+        presenter.didReceive(initialStock)
+        
+        XCTAssertEqual(stateStore.viewModel?.price, "$150.00")
+        
+        let updatedStock = makeStock(symbol: "AAPL", price: 155)
+        subject.send([updatedStock])
+        
+        let exp = expectation(description: "Wait for main queue dispatch")
+        DispatchQueue.main.async { exp.fulfill() }
+        wait(for: [exp], timeout: 1.0)
+        
+        XCTAssertEqual(stateStore.viewModel?.price, "$155.00")
     }
 
     // MARK: - Helpers

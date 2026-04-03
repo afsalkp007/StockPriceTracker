@@ -10,6 +10,7 @@ public struct StockListView: View {
     public let onRowSelected: (String) -> Void
     
     @Environment(\.scenePhase) private var scenePhase
+    @State private var hasAppeared = false
     
     public init(
         stateStore: StockListStateStore,
@@ -49,8 +50,11 @@ public struct StockListView: View {
             })
         }
         .navigationTitle(StockPresenter.title)
-        .onAppear(perform: onStart)
-        .onDisappear(perform: onStop)
+        .onAppear {
+            guard !hasAppeared else { return }
+            hasAppeared = true
+            onStart()
+        }
         .onChange(of: scenePhase) { _, newPhase in
             handleScenePhaseChange(newPhase)
         }
@@ -117,7 +121,7 @@ public final class StockListStateStore: ObservableObject {
     @Published public var isLoading = false
     @Published public var errorMessage: String?
     @Published public var currentSort: SortOption = .byPrice
-    public var rawStocks: [Stock] = []
+    @Published public var rawStocks: [Stock] = []
 
     public init() {}
 }

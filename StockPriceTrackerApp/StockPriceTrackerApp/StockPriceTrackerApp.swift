@@ -20,7 +20,10 @@ struct StockPriceTrackerApp: App {
                     }
                 )
                 .navigationDestination(item: $serviceState.selectedStock) { stock in
-                    StockDetailUIComposer.stockDetailComposedWith(stock: stock)
+                    StockDetailUIComposer.stockDetailComposedWith(
+                        stock: stock,
+                        stockUpdates: stockListStateStore.$rawStocks.eraseToAnyPublisher()
+                    )
                 }
             }
         }
