@@ -60,7 +60,7 @@ public struct StockListView: View {
         }
     }
 
-    func handleScenePhaseChange(_ newPhase: ScenePhase) {
+    private func handleScenePhaseChange(_ newPhase: ScenePhase) {
         if newPhase == .active {
             onStart()
         } else if newPhase == .background {

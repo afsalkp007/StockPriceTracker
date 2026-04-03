@@ -1,60 +1,83 @@
+import UIKit
 import SwiftUI
 import XCTest
-@testable import StockPriceTrackeriOS
+import StockPriceTrackeriOS
 
 @MainActor
 final class StockListViewTests: XCTestCase {
 
-    func test_handleScenePhaseChange_toBackground_stopsFeed() {
-        let stateStore = StockListStateStore()
-        var stopCallCount = 0
+    func test_onFirstAppearance_startsFeed() {
+        let (sut, callbacks) = makeSUT()
 
-        let sut = StockListView(
-            stateStore: stateStore,
-            onStart: {},
-            onStop: { stopCallCount += 1 },
-            onSort: { _ in },
-            onRowSelected: { _ in }
-        )
+        sut.simulateAppearance()
 
-        sut.handleScenePhaseChange(.background)
-
-        XCTAssertEqual(stopCallCount, 1)
+        XCTAssertEqual(callbacks.startCallCount, 1)
+        XCTAssertEqual(callbacks.stopCallCount, 0)
     }
 
-    func test_handleScenePhaseChange_toActive_startsFeed() {
-        let stateStore = StockListStateStore()
-        var startCallCount = 0
+    func test_onRepeatedAppearance_startsFeedOnlyOnce() {
+        let (sut, callbacks) = makeSUT()
 
-        let sut = StockListView(
-            stateStore: stateStore,
-            onStart: { startCallCount += 1 },
-            onStop: {},
-            onSort: { _ in },
-            onRowSelected: { _ in }
-        )
+        sut.simulateAppearance()
+        sut.simulateDisappearance()
+        sut.simulateAppearance()
 
-        sut.handleScenePhaseChange(.active)
-
-        XCTAssertEqual(startCallCount, 1)
+        XCTAssertEqual(callbacks.startCallCount, 1)
     }
 
-    func test_handleScenePhaseChange_toInactive_doesNotStartOrStopFeed() {
-        let stateStore = StockListStateStore()
-        var startCallCount = 0
-        var stopCallCount = 0
-
-        let sut = StockListView(
-            stateStore: stateStore,
-            onStart: { startCallCount += 1 },
-            onStop: { stopCallCount += 1 },
-            onSort: { _ in },
-            onRowSelected: { _ in }
+    private func makeSUT() -> (sut: ViewHost, callbacks: CallbackSpy) {
+        let callbacks = CallbackSpy()
+        let controller = UIHostingController(
+            rootView: StockListView(
+                stateStore: StockListStateStore(),
+                onStart: callbacks.start,
+                onStop: callbacks.stop,
+                onSort: { _ in },
+                onRowSelected: { _ in }
+            )
         )
 
-        sut.handleScenePhaseChange(.inactive)
+        let sut = ViewHost(controller: controller)
 
-        XCTAssertEqual(startCallCount, 0)
-        XCTAssertEqual(stopCallCount, 0)
+        return (sut, callbacks)
+    }
+
+    private final class CallbackSpy {
+        private(set) var startCallCount = 0
+        private(set) var stopCallCount = 0
+
+        func start() {
+            startCallCount += 1
+        }
+
+        func stop() {
+            stopCallCount += 1
+        }
+    }
+}
+
+private final class ViewHost {
+    private let window = UIWindow(frame: UIScreen.main.bounds)
+    private let controller: UIHostingController<StockListView>
+
+    init(controller: UIHostingController<StockListView>) {
+        self.controller = controller
+        controller.loadViewIfNeeded()
+        window.rootViewController = controller
+    }
+
+    func simulateAppearance() {
+        window.makeKeyAndVisible()
+        controller.beginAppearanceTransition(true, animated: false)
+        controller.endAppearanceTransition()
+        controller.view.layoutIfNeeded()
+        RunLoop.current.run(until: Date())
+    }
+
+    func simulateDisappearance() {
+        controller.beginAppearanceTransition(false, animated: false)
+        controller.endAppearanceTransition()
+        window.isHidden = true
+        RunLoop.current.run(until: Date())
     }
 }
