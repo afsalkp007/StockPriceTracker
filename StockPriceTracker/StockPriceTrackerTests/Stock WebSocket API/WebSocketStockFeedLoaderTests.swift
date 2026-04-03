@@ -59,6 +59,19 @@ final class WebSocketStockFeedLoaderTests: XCTestCase {
         try? await Task.sleep(nanoseconds: 10_000_000)
 
         XCTAssertEqual(client.connectionCallCount, 2)
+        
+        await sut.stop()
+    }
+
+    func test_start_whenAlreadyStarted_doesNotConnectAgain() async {
+        let (sut, client) = makeSUT()
+
+        sut.start()
+        sut.start()
+
+        try? await Task.sleep(nanoseconds: 10_000_000)
+
+        XCTAssertEqual(client.connectionCallCount, 1)
 
         await sut.stop()
     }
@@ -121,6 +134,29 @@ final class WebSocketStockFeedLoaderTests: XCTestCase {
         }
 
         XCTAssertLessThanOrEqual(aapl.history.count, 30, "Expected history to be capped at 30 entries, got \(aapl.history.count)")
+    }
+
+    func test_receivedInvalidMessage_ignoresPayloadUntilValidUpdateArrives() async throws {
+        let (sut, client) = makeSUT()
+        let stream = sut.startFeed()
+        sut.start()
+        try? await Task.sleep(nanoseconds: 10_000_000)
+
+        client.yieldMessage("{\"symbol\":\"AAPL\"}")
+        try? await Task.sleep(nanoseconds: 10_000_000)
+
+        client.yieldMessage(makeBatchJSON([("AAPL", 150.0)]))
+        try? await Task.sleep(nanoseconds: 10_000_000)
+
+        await sut.stop()
+
+        var receivedBatches = [[Stock]]()
+        for try await batch in stream {
+            receivedBatches.append(batch)
+        }
+
+        XCTAssertEqual(receivedBatches.count, 1)
+        XCTAssertEqual(receivedBatches.first?.first(where: { $0.symbol == "AAPL" })?.price, 150.0)
     }
     
     // MARK: - Helpers -
