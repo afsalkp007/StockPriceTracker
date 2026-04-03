@@ -10,13 +10,14 @@ import Combine
 final class StockUIIntegrationTests: XCTestCase {
 
     func test_feedLoad_updatesListStateStore() async {
-        let (adapter, stateStore, loader) = makeSUT()
+        let (sut, stateStore, loader, feedController) = makeSUT()
         
         XCTAssertEqual(stateStore.listViewModel.rows.count, 0)
         XCTAssertFalse(stateStore.isLoading)
         
-        adapter.didRequestFeedLoad()
+        sut.simulateAppearance()
         
+        XCTAssertEqual(feedController.startCallCount, 1)
         XCTAssertTrue(stateStore.isLoading, "Expected loading state to be true after requesting feed load")
         
         let stock1 = makeStock(symbol: "A", price: 100)
@@ -35,14 +36,16 @@ final class StockUIIntegrationTests: XCTestCase {
         try? await Task.sleep(nanoseconds: 10_000_000)
         XCTAssertEqual(stateStore.listViewModel.rows.count, 2)
         XCTAssertFalse(stateStore.isLoading)
-        
-        await adapter.didCancelFeedLoad()
+
+        loader.complete()
     }
     
     func test_feedLoad_completesWithError() async {
-        let (adapter, stateStore, loader) = makeSUT()
+        let (sut, stateStore, loader, feedController) = makeSUT()
         
-        adapter.didRequestFeedLoad()
+        sut.simulateAppearance()
+
+        XCTAssertEqual(feedController.startCallCount, 1)
         XCTAssertTrue(stateStore.isLoading)
         
         loader.complete(with: NSError(domain: "any error", code: 0))
@@ -51,8 +54,6 @@ final class StockUIIntegrationTests: XCTestCase {
         
         XCTAssertNotNil(stateStore.errorMessage)
         XCTAssertFalse(stateStore.isLoading)
-        
-        await adapter.didCancelFeedLoad()
     }
     
     func test_stockDetailComposition_rendersInitialAndUpdatedMatchingStock() {
@@ -71,6 +72,7 @@ final class StockUIIntegrationTests: XCTestCase {
                 stateStore: stateStore
             )
         )
+        sut.simulateAppearance()
 
         XCTAssertEqual(stateStore.viewModel?.name, "Apple")
         XCTAssertEqual(stateStore.viewModel?.description, "Initial description")
@@ -95,40 +97,27 @@ final class StockUIIntegrationTests: XCTestCase {
 
     // MARK: - Helpers
 
-    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (
-        adapter: StockFeedPresentationAdapter,
+    private func makeSUT() -> (
+        sut: ViewHost<AnyView>,
         stateStore: StockListStateStore,
-        loader: MockStreamLoader
+        loader: MockStreamLoader,
+        feedController: FeedControllerSpy
     ) {
         let stateStore = StockListStateStore()
         let loader = MockStreamLoader()
-        
-        let presentationAdapter = StockFeedPresentationAdapter(loader: { loader.stream })
-        let viewAdapter = StockViewAdapter(stateStore: stateStore, selection: { _ in })
-        
-        let presenter = LoadResourcePresenter<[Stock], StockViewAdapter>(
-            resourceView: viewAdapter,
-            loadingView: WeakRefVirtualProxy(viewAdapter),
-            errorView: WeakRefVirtualProxy(viewAdapter),
-            mapper: { (stocks: [Stock]) -> StockListViewModel in
-                viewAdapter.updateRawStocks(stocks)
-                let stockPresenter = StockPresenter(
-                    listView: viewAdapter,
-                    connectionView: WeakRefVirtualProxy(viewAdapter)
+        let feedController = FeedControllerSpy()
+        let sut = ViewHost(
+            rootView: AnyView(
+                StockUIComposer.stockListComposedWith(
+                    stateStore: stateStore,
+                    feedLoader: { loader.stream },
+                    feedController: feedController,
+                    selection: { _ in }
                 )
-                stockPresenter.didReceive(stocks, sortedBy: stateStore.currentSort)
-                return stateStore.listViewModel 
-            }
+            )
         )
-        presentationAdapter.presenter = presenter
         
-        // Simple manual validation leak checks, because trackForMemoryLeaks requires nonisolated contexts
-        addTeardownBlock { [weak presentationAdapter, weak stateStore] in
-            XCTAssertNil(presentationAdapter, "Expected adapter to be deallocated", file: file, line: line)
-            XCTAssertNil(stateStore, "Expected state store to be deallocated", file: file, line: line)
-        }
-        
-        return (presentationAdapter, stateStore, loader)
+        return (sut, stateStore, loader, feedController)
     }
     
     private func makeStock(
@@ -155,6 +144,16 @@ final class StockUIIntegrationTests: XCTestCase {
             }
         }
     }
+
+    private final class FeedControllerSpy: StockFeedController {
+        private(set) var startCallCount = 0
+
+        func start() {
+            startCallCount += 1
+        }
+
+        func stop() async {}
+    }
 }
 
 @MainActor
@@ -166,7 +165,12 @@ private final class ViewHost<Content: View> {
         controller = UIHostingController(rootView: rootView)
         controller.loadViewIfNeeded()
         window.rootViewController = controller
+    }
+
+    func simulateAppearance() {
         window.makeKeyAndVisible()
+        controller.beginAppearanceTransition(true, animated: false)
+        controller.endAppearanceTransition()
         render()
     }
 
