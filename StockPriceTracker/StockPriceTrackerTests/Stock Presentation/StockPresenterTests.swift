@@ -101,9 +101,37 @@ final class StockPresenterTests: XCTestCase {
         ])
     }
 
-    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: StockPresenter, view: ViewSpy) {
+    func test_didReceiveStocks_formatsValuesUsingLocale() {
+        let (sut, view) = makeSUT(locale: Locale(identifier: "pt_BR"))
+        let stocks = [
+            makeStock(symbol: "AAPL", price: 1234.56, previousPrice: 1200.00)
+        ]
+
+        sut.didReceive(stocks, sortedBy: .byPrice)
+
+        guard case let .displayList(listViewModel)? = view.messages.first else {
+            XCTFail("Expected list view model, got \(view.messages)")
+            return
+        }
+
+        XCTAssertEqual(listViewModel.rows, [
+            StockRowViewModel(
+                symbol: "AAPL",
+                name: "AAPL Name",
+                price: "US$ 1.234,56",
+                priceChange: "+US$ 34,56 (2,88%)",
+                isPositive: true
+            )
+        ])
+    }
+
+    private func makeSUT(
+        locale: Locale = Locale(identifier: "en_US"),
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> (sut: StockPresenter, view: ViewSpy) {
         let view = ViewSpy()
-        let sut = StockPresenter(listView: view, connectionView: view, locale: Locale(identifier: "en_US"))
+        let sut = StockPresenter(listView: view, connectionView: view, locale: locale)
         trackForMemoryLeaks(view, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, view)
