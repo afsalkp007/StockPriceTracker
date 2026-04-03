@@ -3,7 +3,7 @@ import StockPriceTracker
 import StockPriceTrackeriOS
 
 @MainActor
-public final class StockViewAdapter: ResourceView {
+public final class StockViewAdapter {
     private weak var stateStore: StockListStateStore?
     public var currentStocks: [Stock] { stateStore?.rawStocks ?? [] }
 
@@ -18,10 +18,6 @@ public final class StockViewAdapter: ResourceView {
         self.selection = selection
     }
 
-    public func display(_ viewModel: StockListViewModel) {
-        stateStore?.listViewModel = viewModel
-    }
-    
     public func updateRawStocks(_ stocks: [Stock]) {
         stateStore?.rawStocks = stocks
     }
@@ -33,20 +29,28 @@ public final class StockViewAdapter: ResourceView {
     }
 }
 
-extension StockListStateStore: ResourceLoadingView {
+extension StockViewAdapter: ResourceView {
+    public typealias ResourceViewModel = StockListViewModel
+
+    public func display(_ viewModel: StockListViewModel) {
+        stateStore?.listViewModel = viewModel
+    }
+}
+
+extension StockViewAdapter: ResourceLoadingView {
     public func display(_ viewModel: ResourceLoadingViewModel) {
-        self.isLoading = viewModel.isLoading
+        stateStore?.isLoading = viewModel.isLoading
     }
 }
 
-extension StockListStateStore: ResourceErrorView {
+extension StockViewAdapter: ResourceErrorView {
     public func display(_ viewModel: ResourceErrorViewModel) {
-        self.errorMessage = viewModel.message
+        stateStore?.errorMessage = viewModel.message
     }
 }
 
-extension StockListStateStore: ConnectionStatusViewProtocol {
+extension StockViewAdapter: ConnectionStatusViewProtocol {
     public func display(_ viewModel: ConnectionStatusViewModel) {
-        self.connectionViewModel = viewModel
+        stateStore?.connectionViewModel = viewModel
     }
 }

@@ -65,15 +65,15 @@ final class StockUIIntegrationTests: XCTestCase {
         let presentationAdapter = StockFeedPresentationAdapter(loader: { loader.stream })
         let viewAdapter = StockViewAdapter(stateStore: stateStore, selection: { _ in })
         
-        let presenter = LoadResourcePresenter(
+        let presenter = LoadResourcePresenter<[Stock], StockViewAdapter>(
             resourceView: viewAdapter,
-            loadingView: WeakRefVirtualProxy(stateStore),
-            errorView: WeakRefVirtualProxy(stateStore),
-            mapper: { stocks in
+            loadingView: WeakRefVirtualProxy(viewAdapter),
+            errorView: WeakRefVirtualProxy(viewAdapter),
+            mapper: { (stocks: [Stock]) -> StockListViewModel in
                 viewAdapter.updateRawStocks(stocks)
                 let stockPresenter = StockPresenter(
                     listView: viewAdapter,
-                    connectionView: WeakRefVirtualProxy(stateStore)
+                    connectionView: WeakRefVirtualProxy(viewAdapter)
                 )
                 stockPresenter.didReceive(stocks, sortedBy: stateStore.currentSort)
                 return stateStore.listViewModel 

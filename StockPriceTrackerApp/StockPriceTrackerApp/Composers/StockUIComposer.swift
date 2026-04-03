@@ -15,15 +15,15 @@ public final class StockUIComposer {
         let presentationAdapter = StockFeedPresentationAdapter(loader: feedLoader)
         let viewAdapter = StockViewAdapter(stateStore: stateStore, selection: selection)
         
-        let presenter = LoadResourcePresenter(
+        let presenter = LoadResourcePresenter<[Stock], StockViewAdapter>(
             resourceView: viewAdapter,
-            loadingView: WeakRefVirtualProxy(stateStore),
-            errorView: WeakRefVirtualProxy(stateStore),
-            mapper: { stocks in
+            loadingView: WeakRefVirtualProxy(viewAdapter),
+            errorView: WeakRefVirtualProxy(viewAdapter),
+            mapper: { (stocks: [Stock]) -> StockListViewModel in
                 viewAdapter.updateRawStocks(stocks)
                 let stockPresenter = StockPresenter(
                     listView: viewAdapter,
-                    connectionView: WeakRefVirtualProxy(stateStore)
+                    connectionView: WeakRefVirtualProxy(viewAdapter)
                 )
                 stockPresenter.didConnect()
                 stockPresenter.didReceive(stocks, sortedBy: stateStore.currentSort)
@@ -32,8 +32,8 @@ public final class StockUIComposer {
         )
         
         presentationAdapter.presenter = presenter
-        presentationAdapter.onFeedEnd = { [weak stateStore] in
-            stateStore?.display(.disconnected)
+        presentationAdapter.onFeedEnd = { [weak viewAdapter] in
+            viewAdapter?.display(.disconnected)
         }
         
         let view = StockListView(
@@ -43,7 +43,7 @@ public final class StockUIComposer {
                 feedController.start()
             },
             onStop: {
-                stateStore.display(.disconnected)
+                viewAdapter.display(.disconnected)
                 Task {
                     await presentationAdapter.didCancelFeedLoad()
                     await feedController.stop()
@@ -52,7 +52,7 @@ public final class StockUIComposer {
             onSort: { newSort in
                 let stockPresenter = StockPresenter(
                     listView: viewAdapter,
-                    connectionView: WeakRefVirtualProxy(stateStore)
+                    connectionView: WeakRefVirtualProxy(viewAdapter)
                 )
                 stockPresenter.didReceive(viewAdapter.currentStocks, sortedBy: newSort)
             },
