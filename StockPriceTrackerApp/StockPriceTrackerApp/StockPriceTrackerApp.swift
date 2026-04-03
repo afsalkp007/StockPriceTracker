@@ -4,7 +4,7 @@ import StockPriceTracker
 import StockPriceTrackeriOS
 
 @main
-struct StockPriceTrackerAppApp: App {
+struct StockPriceTrackerApp: App {
     @StateObject private var serviceState = AppServiceState()
     @StateObject private var stockListStateStore = StockListStateStore()
 
