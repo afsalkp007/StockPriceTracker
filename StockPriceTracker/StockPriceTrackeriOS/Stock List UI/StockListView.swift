@@ -9,6 +9,8 @@ public struct StockListView: View {
     public let onSort: (SortOption) -> Void
     public let onRowSelected: (String) -> Void
     
+    @Environment(\.scenePhase) private var scenePhase
+    
     public init(
         stateStore: StockListStateStore,
         onStart: @escaping () -> Void,
@@ -49,6 +51,17 @@ public struct StockListView: View {
         .navigationTitle(StockPresenter.title)
         .onAppear(perform: onStart)
         .onDisappear(perform: onStop)
+        .onChange(of: scenePhase) { _, newPhase in
+            handleScenePhaseChange(newPhase)
+        }
+    }
+
+    func handleScenePhaseChange(_ newPhase: ScenePhase) {
+        if newPhase == .active {
+            onStart()
+        } else if newPhase == .background {
+            onStop()
+        }
     }
     
     private var toolbarView: some View {

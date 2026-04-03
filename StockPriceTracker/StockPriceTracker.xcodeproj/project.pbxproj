@@ -13,7 +13,6 @@
 		F40BE22E2F7EC16F00545F17 /* WebSocketStockFeedLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE22D2F7EC16F00545F17 /* WebSocketStockFeedLoaderTests.swift */; };
 		F40BE2302F7EC17900545F17 /* StockPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE22F2F7EC17900545F17 /* StockPresenterTests.swift */; };
 		F470B3122F7E8F580044964C /* StockPriceTrackeriOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F470B3092F7E8F580044964C /* StockPriceTrackeriOS.framework */; };
-		F470B32A2F7E8FC40044964C /* StockPriceTrackeriOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B3282F7E8FC40044964C /* StockPriceTrackeriOSTests.swift */; };
 		F470B3322F7E930E0044964C /* StockPriceTrackeriOS.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = F470B3312F7E930E0044964C /* StockPriceTrackeriOS.xctestplan */; };
 		F470B34A2F7EAA050044964C /* ResourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B3392F7EAA050044964C /* ResourceView.swift */; };
 		F470B34B2F7EAA050044964C /* StockFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B33C2F7EAA050044964C /* StockFeedController.swift */; };
@@ -38,6 +37,7 @@
 		F470B3652F7EAC5F0044964C /* ConnectionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B35C2F7EAC5F0044964C /* ConnectionStatusView.swift */; };
 		F470B3672F7EACA20044964C /* StockPriceTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48301C52F7E7CEE00310FC2 /* StockPriceTracker.framework */; };
 		F48301CF2F7E7CEF00310FC2 /* StockPriceTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48301C52F7E7CEE00310FC2 /* StockPriceTracker.framework */; };
+		F49A10012F81D0010044964C /* StockListViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49A10002F81D0010044964C /* StockListViewTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,7 +72,6 @@
 		F40BE22F2F7EC17900545F17 /* StockPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPresenterTests.swift; sourceTree = "<group>"; };
 		F470B3092F7E8F580044964C /* StockPriceTrackeriOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StockPriceTrackeriOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F470B3112F7E8F580044964C /* StockPriceTrackeriOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockPriceTrackeriOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F470B3282F7E8FC40044964C /* StockPriceTrackeriOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPriceTrackeriOSTests.swift; sourceTree = "<group>"; };
 		F470B32E2F7E92510044964C /* StockPriceTracker.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = StockPriceTracker.xctestplan; sourceTree = "<group>"; };
 		F470B3312F7E930E0044964C /* StockPriceTrackeriOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = StockPriceTrackeriOS.xctestplan; sourceTree = "<group>"; };
 		F470B3362F7EAA050044964C /* LoadResourcePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadResourcePresenter.swift; sourceTree = "<group>"; };
@@ -98,6 +97,7 @@
 		F470B35F2F7EAC5F0044964C /* StockRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockRowView.swift; sourceTree = "<group>"; };
 		F48301C52F7E7CEE00310FC2 /* StockPriceTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StockPriceTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48301CE2F7E7CEF00310FC2 /* StockPriceTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockPriceTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F49A10002F81D0010044964C /* StockListViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockListViewTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,7 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				F470B3312F7E930E0044964C /* StockPriceTrackeriOS.xctestplan */,
-				F470B3282F7E8FC40044964C /* StockPriceTrackeriOSTests.swift */,
+				F49A10002F81D0010044964C /* StockListViewTests.swift */,
 			);
 			path = StockPriceTrackeriOSTests;
 			sourceTree = "<group>";
@@ -498,7 +498,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F470B32A2F7E8FC40044964C /* StockPriceTrackeriOSTests.swift in Sources */,
+				F49A10012F81D0010044964C /* StockListViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
