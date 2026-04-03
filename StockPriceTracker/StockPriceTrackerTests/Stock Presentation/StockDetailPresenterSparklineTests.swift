@@ -27,6 +27,26 @@ final class StockDetailPresenterSparklineTests: XCTestCase {
         XCTAssertEqual(view.lastViewModel?.history, [], "Expected presenter to pass empty history through without crashing")
     }
 
+    func test_didReceive_preservesHistoryOrder() {
+        let (sut, view) = makeSUT()
+        var stock = makeStock(symbol: "AAPL", price: 150)
+        stock.history = [150, 145, 160, 155]
+
+        sut.didReceive(stock)
+
+        XCTAssertEqual(view.lastViewModel?.history, [150, 145, 160, 155])
+    }
+
+    func test_didReceive_preservesDuplicateHistoryValues() {
+        let (sut, view) = makeSUT()
+        var stock = makeStock(symbol: "AAPL", price: 150)
+        stock.history = [150, 150, 151, 151, 150]
+
+        sut.didReceive(stock)
+
+        XCTAssertEqual(view.lastViewModel?.history, [150, 150, 151, 151, 150])
+    }
+
     func test_didReceive_updatesHistoryOnEachNewTick() {
         let (sut, view) = makeSUT()
         var stock = makeStock(symbol: "AAPL", price: 150)
@@ -59,6 +79,20 @@ final class StockDetailPresenterSparklineTests: XCTestCase {
         XCTAssertEqual(view.lastViewModel?.history.count, 30, "Expected a maximum of 30 history points")
         XCTAssertEqual(view.lastViewModel?.history.first, 2.0, "Expected oldest price (1.0) to have been dropped")
         XCTAssertEqual(view.lastViewModel?.history.last, 31.0)
+    }
+
+    func test_didReceive_replacesHistoryWithLatestPayload() {
+        let (sut, view) = makeSUT()
+        var stock = makeStock(symbol: "AAPL", price: 150)
+        stock.history = [140, 145, 150]
+
+        sut.didReceive(stock)
+        XCTAssertEqual(view.lastViewModel?.history, [140, 145, 150])
+
+        stock.history = [148, 149, 151]
+        sut.didReceive(stock)
+
+        XCTAssertEqual(view.lastViewModel?.history, [148, 149, 151])
     }
 
     // MARK: - Helpers -
