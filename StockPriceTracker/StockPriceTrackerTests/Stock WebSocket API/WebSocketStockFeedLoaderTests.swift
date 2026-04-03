@@ -42,6 +42,26 @@ final class WebSocketStockFeedLoaderTests: XCTestCase {
         didFinish = true
         XCTAssertTrue(didFinish)
     }
+
+    func test_start_afterSocketDrop_connectsAgain() async {
+        let (sut, client) = makeSUT()
+
+        _ = sut.startFeed()
+        sut.start()
+
+        try? await Task.sleep(nanoseconds: 10_000_000)
+        client.completeReceive(with: anyNSError())
+        try? await Task.sleep(nanoseconds: 10_000_000)
+
+        _ = sut.startFeed()
+        sut.start()
+
+        try? await Task.sleep(nanoseconds: 10_000_000)
+
+        XCTAssertEqual(client.connectionCallCount, 2)
+
+        await sut.stop()
+    }
     
     // MARK: - Helpers -
 
@@ -81,6 +101,11 @@ final class WebSocketStockFeedLoaderTests: XCTestCase {
                     continuation.finish()
                 }
             }
+        }
+
+        func completeReceive(with error: Error) {
+            streamContinuation?.yield(.failure(error))
+            streamContinuation?.finish()
         }
     }
 }

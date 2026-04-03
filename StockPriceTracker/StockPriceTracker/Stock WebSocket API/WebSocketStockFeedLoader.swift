@@ -6,6 +6,7 @@ public final class WebSocketStockFeedLoader: StockFeedLoader, StockFeedControlle
     private let updateInterval: TimeInterval
     private var stocks: [String: Stock]
     private var feedTask: Task<Void, Never>?
+    private var activeFeedID: UUID?
     private var continuation: AsyncThrowingStream<[Stock], Error>.Continuation?
 
     public init(client: WebSocketClient, updateInterval: TimeInterval = 1.5) {
@@ -22,8 +23,11 @@ public final class WebSocketStockFeedLoader: StockFeedLoader, StockFeedControlle
 
     public func start() {
         guard feedTask == nil else { return }
+        let feedID = UUID()
+        activeFeedID = feedID
         feedTask = Task { [weak self] in
             guard let self else { return }
+            defer { self.clearFeedTaskIfNeeded(for: feedID) }
             await self.runFeedLoop()
         }
     }
@@ -31,6 +35,7 @@ public final class WebSocketStockFeedLoader: StockFeedLoader, StockFeedControlle
     public func stop() async {
         let task = feedTask
         feedTask = nil
+        activeFeedID = nil
         task?.cancel()
         client.disconnect()
         continuation?.finish()
@@ -48,9 +53,14 @@ public final class WebSocketStockFeedLoader: StockFeedLoader, StockFeedControlle
             return
         }
 
+        defer { client.disconnect() }
+
         await withTaskGroup(of: Void.self) { group in
             group.addTask { await self.sendLoop() }
             group.addTask { await self.receiveLoop() }
+            await group.next()
+            group.cancelAll()
+            while await group.next() != nil {}
         }
     }
 
@@ -86,6 +96,9 @@ public final class WebSocketStockFeedLoader: StockFeedLoader, StockFeedControlle
                 return
             }
         }
+
+        guard !Task.isCancelled else { return }
+        continuation?.finish()
     }
 
     private func applyUpdate(_ update: StockMessageMapper.StockPriceUpdate) {
@@ -110,5 +123,11 @@ public final class WebSocketStockFeedLoader: StockFeedLoader, StockFeedControlle
                 previousPrice: seedPrice
             )
         }
+    }
+
+    private func clearFeedTaskIfNeeded(for feedID: UUID) {
+        guard activeFeedID == feedID else { return }
+        feedTask = nil
+        activeFeedID = nil
     }
 }
