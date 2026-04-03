@@ -5,16 +5,19 @@ public final class StockPresenter {
     private let listView: any ResourceView<StockListViewModel>
     private let connectionView: any ConnectionStatusViewProtocol
     private let priceFormatter: NumberFormatter
+    private let percentFormatter: NumberFormatter
 
     public static var title: String { "Stocks" }
 
     public init(
         listView: any ResourceView<StockListViewModel>,
-        connectionView: any ConnectionStatusViewProtocol
+        connectionView: any ConnectionStatusViewProtocol,
+        locale: Locale = .current
     ) {
         self.listView = listView
         self.connectionView = connectionView
-        self.priceFormatter = Self.makePriceFormatter()
+        self.priceFormatter = Self.makePriceFormatter(locale: locale)
+        self.percentFormatter = Self.makePercentFormatter(locale: locale)
     }
 
     public func didReceive(_ stocks: [Stock], sortedBy option: SortOption) {
@@ -51,16 +54,27 @@ public final class StockPresenter {
     }
 
     private func formatChange(_ change: Double, percent: Double) -> String {
-        let sign = change >= 0 ? "+" : ""
+        let sign = change > 0 ? "+" : ""
         let formattedChange = priceFormatter.string(from: NSNumber(value: change)) ?? ""
-        let formattedPercent = String(format: "%.2f", abs(percent))
-        return "\(sign)\(formattedChange) (\(formattedPercent)%)"
+        let formattedPercent = percentFormatter.string(from: NSNumber(value: abs(percent))) ?? ""
+        return "\(sign)\(formattedChange) (\(formattedPercent))"
     }
 
-    private static func makePriceFormatter() -> NumberFormatter {
+    private static func makePriceFormatter(locale: Locale) -> NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        formatter.currencySymbol = "$"
+        formatter.currencyCode = "USD"
+        formatter.locale = locale
+        formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 2
+        return formatter
+    }
+
+    private static func makePercentFormatter(locale: Locale) -> NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        formatter.multiplier = 1 // Our model's percent is e.g. 2.5 for 2.5%, so multiplier is 1.
+        formatter.locale = locale
         formatter.maximumFractionDigits = 2
         formatter.minimumFractionDigits = 2
         return formatter

@@ -48,7 +48,7 @@ final class StockPresenterTests: XCTestCase {
 
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: StockPresenter, view: ViewSpy) {
         let view = ViewSpy()
-        let sut = StockPresenter(listView: view, connectionView: view)
+        let sut = StockPresenter(listView: view, connectionView: view, locale: Locale(identifier: "en_US"))
         trackForMemoryLeaks(view, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, view)

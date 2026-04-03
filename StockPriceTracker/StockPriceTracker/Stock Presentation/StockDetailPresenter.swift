@@ -4,10 +4,12 @@ import Foundation
 public final class StockDetailPresenter {
     private let detailView: any ResourceView<StockDetailViewModel>
     private let priceFormatter: NumberFormatter
+    private let percentFormatter: NumberFormatter
 
-    public init(detailView: any ResourceView<StockDetailViewModel>) {
+    public init(detailView: any ResourceView<StockDetailViewModel>, locale: Locale = .current) {
         self.detailView = detailView
-        self.priceFormatter = Self.makePriceFormatter()
+        self.priceFormatter = Self.makePriceFormatter(locale: locale)
+        self.percentFormatter = Self.makePercentFormatter(locale: locale)
     }
 
     public func didReceive(_ stock: Stock) {
@@ -22,21 +24,32 @@ public final class StockDetailPresenter {
             name: stock.name,
             price: priceFormatter.string(from: NSNumber(value: stock.price)) ?? "",
             priceChange: formatChange(stock.priceChange),
-            priceChangePercent: String(format: "%.2f%%", abs(stock.priceChangePercent)),
+            priceChangePercent: percentFormatter.string(from: NSNumber(value: abs(stock.priceChangePercent))) ?? "",
             isPositive: stock.isPositive,
             description: stock.description
         )
     }
 
     private func formatChange(_ change: Double) -> String {
-        let sign = change >= 0 ? "+" : ""
+        let sign = change > 0 ? "+" : ""
         return "\(sign)\(priceFormatter.string(from: NSNumber(value: change)) ?? "")"
     }
 
-    private static func makePriceFormatter() -> NumberFormatter {
+    private static func makePriceFormatter(locale: Locale) -> NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        formatter.currencySymbol = "$"
+        formatter.currencyCode = "USD"
+        formatter.locale = locale
+        formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 2
+        return formatter
+    }
+
+    private static func makePercentFormatter(locale: Locale) -> NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        formatter.multiplier = 1
+        formatter.locale = locale
         formatter.maximumFractionDigits = 2
         formatter.minimumFractionDigits = 2
         return formatter
