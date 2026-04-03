@@ -64,9 +64,30 @@ final class StockDetailPresenterTests: XCTestCase {
         XCTAssertEqual(view.receivedViewModels.last?.priceChangePercent, "0.00%")
     }
 
-    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: StockDetailPresenter, view: DetailViewSpy) {
+    func test_didReceive_formatsValuesUsingLocale() {
+        let (sut, view) = makeSUT(locale: Locale(identifier: "pt_BR"))
+        let stock = makeStock(
+            symbol: "AAPL",
+            name: "Apple",
+            description: "Apple description",
+            price: 1234.56,
+            previousPrice: 1200.00
+        )
+
+        sut.didReceive(stock)
+
+        XCTAssertEqual(view.receivedViewModels.last?.price, "US$ 1.234,56")
+        XCTAssertEqual(view.receivedViewModels.last?.priceChange, "+US$ 34,56")
+        XCTAssertEqual(view.receivedViewModels.last?.priceChangePercent, "2,88%")
+    }
+
+    private func makeSUT(
+        locale: Locale = Locale(identifier: "en_US"),
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> (sut: StockDetailPresenter, view: DetailViewSpy) {
         let view = DetailViewSpy()
-        let sut = StockDetailPresenter(detailView: view, locale: Locale(identifier: "en_US"))
+        let sut = StockDetailPresenter(detailView: view, locale: locale)
         trackForMemoryLeaks(view, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, view)
