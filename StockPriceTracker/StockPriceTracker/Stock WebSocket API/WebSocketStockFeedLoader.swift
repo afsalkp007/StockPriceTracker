@@ -56,12 +56,17 @@ public final class WebSocketStockFeedLoader: StockFeedLoader, StockFeedControlle
 
     private func sendLoop() async {
         while !Task.isCancelled {
+            var updates: [[String: Any]] = []
             for symbol in StockDescriptions.symbols {
-                guard !Task.isCancelled else { return }
                 guard let current = stocks[symbol] else { continue }
                 let newPrice = current.price * Double.random(in: 0.985...1.015)
-                try? await client.send(makeMessage(symbol: symbol, price: newPrice))
+                updates.append(["symbol": symbol, "price": newPrice])
             }
+            
+            if !updates.isEmpty, let payload = try? JSONSerialization.data(withJSONObject: updates), let message = String(data: payload, encoding: .utf8) {
+                try? await client.send(message)
+            }
+            
             try? await Task.sleep(nanoseconds: UInt64(updateInterval * 1_000_000_000))
         }
     }
@@ -71,8 +76,10 @@ public final class WebSocketStockFeedLoader: StockFeedLoader, StockFeedControlle
             guard !Task.isCancelled else { break }
             switch result {
             case .success(let message):
-                guard let update = try? StockMessageMapper.map(message) else { continue }
-                applyUpdate(update)
+                guard let updates = try? StockMessageMapper.map(message) else { continue }
+                for update in updates {
+                    applyUpdate(update)
+                }
                 continuation?.yield(currentStocks())
             case .failure(let error):
                 continuation?.finish(throwing: error)
@@ -90,12 +97,6 @@ public final class WebSocketStockFeedLoader: StockFeedLoader, StockFeedControlle
 
     private func currentStocks() -> [Stock] {
         StockDescriptions.symbols.compactMap { stocks[$0] }
-    }
-
-    private func makeMessage(symbol: String, price: Double) -> String {
-        let payload: [String: Any] = ["symbol": symbol, "price": price]
-        return (try? JSONSerialization.data(withJSONObject: payload))
-            .flatMap { String(data: $0, encoding: .utf8) } ?? ""
     }
 
     private static func makeInitialStocks() -> [String: Stock] {
