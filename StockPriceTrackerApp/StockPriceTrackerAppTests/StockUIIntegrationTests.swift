@@ -1,4 +1,6 @@
 import XCTest
+import SwiftUI
+import UIKit
 import StockPriceTracker
 import StockPriceTrackeriOS
 import StockPriceTrackerApp
@@ -53,27 +55,42 @@ final class StockUIIntegrationTests: XCTestCase {
         await adapter.didCancelFeedLoad()
     }
     
-    func test_detailFeedSync_updatesDetailStateStore() {
+    func test_stockDetailComposition_rendersInitialAndUpdatedMatchingStock() {
+        let initialStock = makeStock(
+            symbol: "AAPL",
+            name: "Apple",
+            description: "Initial description",
+            price: 150
+        )
+        let updates = PassthroughSubject<[Stock], Never>()
         let stateStore = StockDetailStateStore()
-        let viewAdapter = StockDetailViewAdapter(stateStore: stateStore)
-        let presenter = StockDetailPresenter(detailView: viewAdapter, locale: Locale(identifier: "en_US"))
-        let subject = Combine.PassthroughSubject<[Stock], Never>()
-        
-        viewAdapter.observe(subject.eraseToAnyPublisher(), for: "AAPL", presenter: presenter)
-        
-        let initialStock = makeStock(symbol: "AAPL", price: 150)
-        presenter.didReceive(initialStock)
-        
-        XCTAssertEqual(stateStore.viewModel?.price, "$150.00")
-        
-        let updatedStock = makeStock(symbol: "AAPL", price: 155)
-        subject.send([updatedStock])
-        
+        let sut = ViewHost(
+            rootView: StockDetailUIComposer.stockDetailComposedWith(
+                stock: initialStock,
+                stockUpdates: updates.eraseToAnyPublisher(),
+                stateStore: stateStore
+            )
+        )
+
+        XCTAssertEqual(stateStore.viewModel?.name, "Apple")
+        XCTAssertEqual(stateStore.viewModel?.description, "Initial description")
+
+        updates.send([
+            makeStock(
+                symbol: "AAPL",
+                name: "Apple Updated",
+                description: "Updated description",
+                price: 155
+            )
+        ])
+
         let exp = expectation(description: "Wait for main queue dispatch")
         DispatchQueue.main.async { exp.fulfill() }
         wait(for: [exp], timeout: 1.0)
-        
-        XCTAssertEqual(stateStore.viewModel?.price, "$155.00")
+        sut.render()
+
+        XCTAssertEqual(stateStore.viewModel?.name, "Apple Updated")
+        XCTAssertEqual(stateStore.viewModel?.description, "Updated description")
     }
 
     // MARK: - Helpers
@@ -114,8 +131,13 @@ final class StockUIIntegrationTests: XCTestCase {
         return (presentationAdapter, stateStore, loader)
     }
     
-    private func makeStock(symbol: String, price: Double) -> Stock {
-        Stock(symbol: symbol, name: "Name", description: "Desc", price: price, previousPrice: price)
+    private func makeStock(
+        symbol: String,
+        name: String = "Name",
+        description: String = "Desc",
+        price: Double
+    ) -> Stock {
+        Stock(symbol: symbol, name: name, description: description, price: price, previousPrice: price)
     }
 
     private class MockStreamLoader {
@@ -132,5 +154,25 @@ final class StockUIIntegrationTests: XCTestCase {
                 continuation.finish()
             }
         }
+    }
+}
+
+@MainActor
+private final class ViewHost<Content: View> {
+    private let window = UIWindow(frame: UIScreen.main.bounds)
+    private let controller: UIHostingController<Content>
+
+    init(rootView: Content) {
+        controller = UIHostingController(rootView: rootView)
+        controller.loadViewIfNeeded()
+        window.rootViewController = controller
+        window.makeKeyAndVisible()
+        render()
+    }
+
+    func render() {
+        controller.view.setNeedsLayout()
+        controller.view.layoutIfNeeded()
+        RunLoop.current.run(until: Date().addingTimeInterval(0.01))
     }
 }

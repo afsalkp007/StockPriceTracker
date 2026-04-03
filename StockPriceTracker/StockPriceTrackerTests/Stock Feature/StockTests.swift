@@ -1,5 +1,5 @@
 import XCTest
-import StockPriceTracker // Using @testable to test pure models
+import StockPriceTracker
 
 final class StockTests: XCTestCase {
 
