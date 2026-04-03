@@ -38,13 +38,68 @@ final class StockPresenterTests: XCTestCase {
             return
         }
         
-        // Expected sort: B ($200) then A ($100)
         XCTAssertEqual(listViewModel.rows.map { $0.symbol }, ["B", "A"])
         XCTAssertEqual(listViewModel.rows[0].price, "$200.00")
         XCTAssertEqual(listViewModel.rows[1].price, "$100.00")
     }
 
-    // MARK: - Helpers -
+    func test_didReceiveStocks_createsViewModelsSortedByPriceChangeMagnitude() {
+        let (sut, view) = makeSUT()
+        let stocks = [
+            makeStock(symbol: "A", price: 110, previousPrice: 100),
+            makeStock(symbol: "B", price: 80, previousPrice: 100),
+            makeStock(symbol: "C", price: 105, previousPrice: 100)
+        ]
+
+        sut.didReceive(stocks, sortedBy: .byPriceChange)
+
+        guard case let .displayList(listViewModel)? = view.messages.first else {
+            XCTFail("Expected list view model, got \(view.messages)")
+            return
+        }
+
+        XCTAssertEqual(listViewModel.rows.map(\.symbol), ["B", "A", "C"])
+    }
+
+    func test_didReceiveStocks_createsViewModelsWithFormattedPriceChange() {
+        let (sut, view) = makeSUT()
+        let stocks = [
+            makeStock(symbol: "POS", price: 110, previousPrice: 100),
+            makeStock(symbol: "NEG", price: 80, previousPrice: 100),
+            makeStock(symbol: "ZER", price: 100, previousPrice: 100)
+        ]
+
+        sut.didReceive(stocks, sortedBy: .byPrice)
+
+        guard case let .displayList(listViewModel)? = view.messages.first else {
+            XCTFail("Expected list view model, got \(view.messages)")
+            return
+        }
+
+        XCTAssertEqual(listViewModel.rows, [
+            StockRowViewModel(
+                symbol: "POS",
+                name: "POS Name",
+                price: "$110.00",
+                priceChange: "+$10.00 (10.00%)",
+                isPositive: true
+            ),
+            StockRowViewModel(
+                symbol: "ZER",
+                name: "ZER Name",
+                price: "$100.00",
+                priceChange: "$0.00 (0.00%)",
+                isPositive: true
+            ),
+            StockRowViewModel(
+                symbol: "NEG",
+                name: "NEG Name",
+                price: "$80.00",
+                priceChange: "-$20.00 (20.00%)",
+                isPositive: false
+            )
+        ])
+    }
 
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: StockPresenter, view: ViewSpy) {
         let view = ViewSpy()
