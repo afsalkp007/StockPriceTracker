@@ -14,6 +14,7 @@ public struct StockDetailView: View {
             VStack(alignment: .leading, spacing: 24) {
                 if let viewModel = stateStore.viewModel {
                     headerView(for: viewModel)
+                    sparklineCard(for: viewModel)
                     Divider()
                     descriptionView(for: viewModel)
                 } else if stateStore.isLoading {
@@ -44,6 +45,8 @@ public struct StockDetailView: View {
                 Text(viewModel.price)
                     .font(.system(size: 40, weight: .bold, design: .default))
                     .monospacedDigit()
+                    .contentTransition(.numericText())
+                    .animation(.default, value: viewModel.price)
                 
                 HStack(spacing: 8) {
                     PriceChangeView(
@@ -58,6 +61,30 @@ public struct StockDetailView: View {
             }
             Spacer()
         }
+    }
+    
+    private func sparklineCard(for viewModel: StockDetailViewModel) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text("Price History")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.secondary)
+                Spacer()
+                Text("Last \(viewModel.history.count) ticks")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+            
+            SparklineView(data: viewModel.history, isPositive: viewModel.isPositive)
+                .frame(height: 80)
+                .animation(.easeInOut(duration: 0.4), value: viewModel.history)
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(.secondarySystemBackground))
+        )
     }
     
     private func descriptionView(for viewModel: StockDetailViewModel) -> some View {

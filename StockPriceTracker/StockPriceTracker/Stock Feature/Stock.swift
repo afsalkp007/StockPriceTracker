@@ -6,6 +6,7 @@ public struct Stock: Hashable, Sendable {
     public let description: String
     public var price: Double
     public var previousPrice: Double
+    public var history: [Double]
 
     public init(
         symbol: String,
@@ -19,6 +20,7 @@ public struct Stock: Hashable, Sendable {
         self.description = description
         self.price = price
         self.previousPrice = previousPrice
+        self.history = [price]
     }
 
     public var priceChange: Double {

@@ -37,6 +37,9 @@
 		F470B3652F7EAC5F0044964C /* ConnectionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B35C2F7EAC5F0044964C /* ConnectionStatusView.swift */; };
 		F470B3672F7EACA20044964C /* StockPriceTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48301C52F7E7CEE00310FC2 /* StockPriceTracker.framework */; };
 		F48301CF2F7E7CEF00310FC2 /* StockPriceTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48301C52F7E7CEE00310FC2 /* StockPriceTracker.framework */; };
+		F48A0F352F7FF7E80084C3FD /* SparklineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48A0F342F7FF7E80084C3FD /* SparklineView.swift */; };
+		F48A0F372F7FF9650084C3FD /* StockHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48A0F362F7FF9650084C3FD /* StockHistoryTests.swift */; };
+		F48A0F392F7FF9720084C3FD /* StockDetailPresenterSparklineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48A0F382F7FF9720084C3FD /* StockDetailPresenterSparklineTests.swift */; };
 		F49A10012F81D0010044964C /* StockListViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49A10002F81D0010044964C /* StockListViewTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +100,9 @@
 		F470B35F2F7EAC5F0044964C /* StockRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockRowView.swift; sourceTree = "<group>"; };
 		F48301C52F7E7CEE00310FC2 /* StockPriceTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StockPriceTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48301CE2F7E7CEF00310FC2 /* StockPriceTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockPriceTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F48A0F342F7FF7E80084C3FD /* SparklineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SparklineView.swift; sourceTree = "<group>"; };
+		F48A0F362F7FF9650084C3FD /* StockHistoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockHistoryTests.swift; sourceTree = "<group>"; };
+		F48A0F382F7FF9720084C3FD /* StockDetailPresenterSparklineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailPresenterSparklineTests.swift; sourceTree = "<group>"; };
 		F49A10002F81D0010044964C /* StockListViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockListViewTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				F40BE2252F7EBE5A00545F17 /* StockTests.swift */,
+				F48A0F362F7FF9650084C3FD /* StockHistoryTests.swift */,
 			);
 			path = "Stock Feature";
 			sourceTree = "<group>";
@@ -155,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				F40BE22F2F7EC17900545F17 /* StockPresenterTests.swift */,
+				F48A0F382F7FF9720084C3FD /* StockDetailPresenterSparklineTests.swift */,
 			);
 			path = "Stock Presentation";
 			sourceTree = "<group>";
@@ -257,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				F470B35A2F7EAC5F0044964C /* StockDetailView.swift */,
+				F48A0F342F7FF7E80084C3FD /* SparklineView.swift */,
 			);
 			path = "Stock Detail UI";
 			sourceTree = "<group>";
@@ -490,6 +499,7 @@
 				F470B3622F7EAC5F0044964C /* StockListView.swift in Sources */,
 				F470B3632F7EAC5F0044964C /* PriceChangeView.swift in Sources */,
 				F470B3642F7EAC5F0044964C /* StockDetailView.swift in Sources */,
+				F48A0F352F7FF7E80084C3FD /* SparklineView.swift in Sources */,
 				F470B3652F7EAC5F0044964C /* ConnectionStatusView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -531,9 +541,11 @@
 			files = (
 				F40BE2302F7EC17900545F17 /* StockPresenterTests.swift in Sources */,
 				F40BE22A2F7EBE5A00545F17 /* StockMessageMapperTests.swift in Sources */,
+				F48A0F392F7FF9720084C3FD /* StockDetailPresenterSparklineTests.swift in Sources */,
 				F40BE22B2F7EBE5A00545F17 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				F40BE22C2F7EBE5A00545F17 /* StockTests.swift in Sources */,
 				F40BE22E2F7EC16F00545F17 /* WebSocketStockFeedLoaderTests.swift in Sources */,
+				F48A0F372F7FF9650084C3FD /* StockHistoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

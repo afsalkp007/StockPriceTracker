@@ -105,6 +105,8 @@ public final class WebSocketStockFeedLoader: StockFeedLoader, StockFeedControlle
         guard var stock = stocks[update.symbol] else { return }
         stock.previousPrice = stock.price
         stock.price = update.price
+        stock.history.append(update.price)
+        if stock.history.count > 30 { stock.history.removeFirst() }
         stocks[update.symbol] = stock
     }
 

@@ -33,8 +33,9 @@ public struct StockDetailViewModel: Equatable {
     public let priceChangePercent: String
     public let isPositive: Bool
     public let description: String
+    public let history: [Double]
 
-    public init(symbol: String, name: String, price: String, priceChange: String, priceChangePercent: String, isPositive: Bool, description: String) {
+    public init(symbol: String, name: String, price: String, priceChange: String, priceChangePercent: String, isPositive: Bool, description: String, history: [Double] = []) {
         self.symbol = symbol
         self.name = name
         self.price = price
@@ -42,6 +43,7 @@ public struct StockDetailViewModel: Equatable {
         self.priceChangePercent = priceChangePercent
         self.isPositive = isPositive
         self.description = description
+        self.history = history
     }
 }
 

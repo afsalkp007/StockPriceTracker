@@ -62,17 +62,84 @@ final class WebSocketStockFeedLoaderTests: XCTestCase {
 
         await sut.stop()
     }
+
+    func test_receivedMessage_appendsPriceToStockHistory() async throws {
+        let (sut, client) = makeSUT()
+        let stream = sut.startFeed()
+        sut.start()
+        try? await Task.sleep(nanoseconds: 10_000_000)
+
+        // Emit a single price update for AAPL
+        client.yieldMessage(makeBatchJSON([("AAPL", 150.0)]))
+        try? await Task.sleep(nanoseconds: 10_000_000)
+
+        // Emit a second update for AAPL
+        client.yieldMessage(makeBatchJSON([("AAPL", 155.0)]))
+        try? await Task.sleep(nanoseconds: 10_000_000)
+
+        await sut.stop()
+
+        var receivedBatches = [[Stock]]()
+        for try await batch in stream {
+            receivedBatches.append(batch)
+        }
+
+        guard let lastBatch = receivedBatches.last,
+              let aapl = lastBatch.first(where: { $0.symbol == "AAPL" }) else {
+            XCTFail("Expected at least one batch with AAPL")
+            return
+        }
+
+        XCTAssertTrue(aapl.history.count >= 2, "Expected history to grow with each received tick, got \(aapl.history.count) entries")
+        XCTAssertTrue(aapl.history.contains(155.0), "Expected latest price 155.0 to appear in history")
+    }
+
+    func test_receivedMessages_historyCapAt30_dropsOldestEntry() async throws {
+        let (sut, client) = makeSUT()
+        let stream = sut.startFeed()
+        sut.start()
+        try? await Task.sleep(nanoseconds: 10_000_000)
+
+        // Emit 35 price updates to exceed the 30-point window
+        for i in 1...35 {
+            client.yieldMessage(makeBatchJSON([("AAPL", Double(100 + i))]))
+            try? await Task.sleep(nanoseconds: 1_000_000)
+        }
+        try? await Task.sleep(nanoseconds: 10_000_000)
+
+        await sut.stop()
+
+        var receivedBatches = [[Stock]]()
+        for try await batch in stream {
+            receivedBatches.append(batch)
+        }
+
+        guard let lastBatch = receivedBatches.last,
+              let aapl = lastBatch.first(where: { $0.symbol == "AAPL" }) else {
+            XCTFail("Expected at least one batch with AAPL")
+            return
+        }
+
+        XCTAssertLessThanOrEqual(aapl.history.count, 30, "Expected history to be capped at 30 entries, got \(aapl.history.count)")
+    }
     
     // MARK: - Helpers -
 
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: WebSocketStockFeedLoader, client: WebSocketClientSpy) {
         let client = WebSocketClientSpy()
-        let sut = WebSocketStockFeedLoader(client: client, updateInterval: 0.1) // Fast interval for testing
+        let sut = WebSocketStockFeedLoader(client: client, updateInterval: 0.1)
         trackForMemoryLeaks(client, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, client)
     }
-    
+
+    /// Produces a JSON array batch string for the given (symbol, price) pairs — matching what the loader's sendLoop emits.
+    private func makeBatchJSON(_ pairs: [(String, Double)]) -> String {
+        let entries = pairs.map { "\"symbol\":\"\($0.0)\",\"price\":\($0.1)" }.map { "{\($0)}" }.joined(separator: ",")
+        return "[\(entries)]"
+    }
+
+
     private class WebSocketClientSpy: WebSocketClient {
         var connectionCallCount = 0
         var disconnectedCalled: Bool?
@@ -101,6 +168,10 @@ final class WebSocketStockFeedLoaderTests: XCTestCase {
                     continuation.finish()
                 }
             }
+        }
+
+        func yieldMessage(_ message: String) {
+            streamContinuation?.yield(.success(message))
         }
 
         func completeReceive(with error: Error) {

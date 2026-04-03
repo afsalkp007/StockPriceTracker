@@ -26,7 +26,8 @@ public final class StockDetailPresenter {
             priceChange: formatChange(stock.priceChange),
             priceChangePercent: percentFormatter.string(from: NSNumber(value: abs(stock.priceChangePercent))) ?? "",
             isPositive: stock.isPositive,
-            description: stock.description
+            description: stock.description,
+            history: stock.history
         )
     }
 
