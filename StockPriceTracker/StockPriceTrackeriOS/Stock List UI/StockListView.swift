@@ -57,6 +57,25 @@ public struct StockListView: View {
             
             Spacer()
             
+            Button(action: {
+                if stateStore.connectionViewModel.isConnected {
+                    onStop()
+                } else {
+                    onStart()
+                }
+            }) {
+                Text(stateStore.connectionViewModel.isConnected ? "Stop" : "Start")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 6)
+                    .background(stateStore.connectionViewModel.isConnected ? Color.red.opacity(0.15) : Color.green.opacity(0.15))
+                    .foregroundColor(stateStore.connectionViewModel.isConnected ? .red : .green)
+                    .cornerRadius(8)
+            }
+            
+            Spacer()
+            
             Picker("Sort", selection: Binding(
                 get: { stateStore.currentSort },
                 set: { newSort in
