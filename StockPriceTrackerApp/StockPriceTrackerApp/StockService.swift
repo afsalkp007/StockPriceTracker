@@ -3,22 +3,25 @@ import StockPriceTracker
 
 @MainActor
 public final class StockService {
-    private lazy var webSocketClient: WebSocketClient = {
-        let url = URL(string: "wss://ws.postman-echo.com/raw")!
-        return URLSessionWebSocketClient(url: url)
-    }()
-    
-    private lazy var feedLoader = WebSocketStockFeedLoader(client: webSocketClient)
-    
-    public init() {}
+    private let stockFeed: any StockFeedLoader & StockFeedController
+
+    public init(stockFeed: (any StockFeedLoader & StockFeedController)? = nil) {
+        self.stockFeed = stockFeed ?? Self.makeDefaultStockFeed()
+    }
     
     public func makeFeedLoader() -> () -> AsyncThrowingStream<[Stock], Error> {
-        return { [feedLoader] in
-            feedLoader.startFeed()
+        return { [stockFeed] in
+            stockFeed.startFeed()
         }
     }
     
     public func feedController() -> StockFeedController {
-        return feedLoader
+        return stockFeed
+    }
+
+    private static func makeDefaultStockFeed() -> any StockFeedLoader & StockFeedController {
+        let url = URL(string: "wss://ws.postman-echo.com/raw")!
+        let client = URLSessionWebSocketClient(url: url)
+        return WebSocketStockFeedLoader(client: client)
     }
 }

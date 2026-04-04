@@ -1,26 +1,32 @@
 import Foundation
 
 @MainActor
-public final class WebSocketStockFeedLoader: StockFeedLoader, StockFeedController {
+public final class WebSocketStockFeedLoader {
     private let client: WebSocketClient
     private let updateInterval: TimeInterval
     private var stocks: [String: Stock]
     private var feedTask: Task<Void, Never>?
     private var activeFeedID: UUID?
     private var continuation: AsyncThrowingStream<[Stock], Error>.Continuation?
-
+    
     public init(client: WebSocketClient, updateInterval: TimeInterval = 1.5) {
         self.client = client
         self.updateInterval = updateInterval
         self.stocks = Self.makeInitialStocks()
     }
+}
 
+extension WebSocketStockFeedLoader: StockFeedLoader {
+    
     public func startFeed() -> AsyncThrowingStream<[Stock], Error> {
         let (stream, continuation) = AsyncThrowingStream<[Stock], Error>.makeStream()
         self.continuation = continuation
         return stream
     }
+}
 
+extension WebSocketStockFeedLoader: StockFeedController {
+    
     public func start() {
         guard feedTask == nil else { return }
         let feedID = UUID()
@@ -31,7 +37,7 @@ public final class WebSocketStockFeedLoader: StockFeedLoader, StockFeedControlle
             await self.runFeedLoop()
         }
     }
-
+    
     public func stop() async {
         let task = feedTask
         feedTask = nil
@@ -42,8 +48,11 @@ public final class WebSocketStockFeedLoader: StockFeedLoader, StockFeedControlle
         continuation = nil
         await task?.value
     }
+}
 
-    // MARK: - Private Helpers -
+// MARK: - Private Helpers
+
+extension WebSocketStockFeedLoader {
 
     private func runFeedLoop() async {
         do {
