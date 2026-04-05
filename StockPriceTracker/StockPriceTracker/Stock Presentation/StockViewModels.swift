@@ -52,15 +52,36 @@ public struct ConnectionStatusViewModel: Equatable {
     public let label: String
 
     public static var connected: ConnectionStatusViewModel {
-        ConnectionStatusViewModel(isConnected: true, label: "Connected")
+        ConnectionStatusViewModel(isConnected: true, label: Localized.connected)
     }
 
     public static var disconnected: ConnectionStatusViewModel {
-        ConnectionStatusViewModel(isConnected: false, label: "Disconnected")
+        ConnectionStatusViewModel(isConnected: false, label: Localized.disconnected)
     }
 
     private init(isConnected: Bool, label: String) {
         self.isConnected = isConnected
         self.label = label
     }
+}
+
+private enum Localized {
+    static var connected: String {
+        localized("CONNECTION_STATUS_CONNECTED")
+    }
+
+    static var disconnected: String {
+        localized("CONNECTION_STATUS_DISCONNECTED")
+    }
+
+    private static func localized(_ key: String) -> String {
+        NSLocalizedString(
+            key,
+            tableName: "StockPresentation",
+            bundle: Bundle(for: BundleToken.self),
+            comment: ""
+        )
+    }
+
+    private final class BundleToken {}
 }

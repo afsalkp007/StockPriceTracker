@@ -5,7 +5,14 @@ import StockPriceTracker
 final class StockPresenterTests: XCTestCase {
 
     func test_title_isLocalized() {
-        XCTAssertEqual(StockPresenter.title, "Stocks")
+        XCTAssertEqual(
+            StockPresenter.title,
+            localizedString(
+                forKey: "STOCK_VIEW_TITLE",
+                table: "StockPresentation",
+                bundle: Bundle(for: StockPresenter.self)
+            )
+        )
     }
 
     func test_didConnect_displaysConnectedStatus() {

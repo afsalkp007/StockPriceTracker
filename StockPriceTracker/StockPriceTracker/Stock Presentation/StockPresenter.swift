@@ -7,7 +7,7 @@ public final class StockPresenter {
     private let priceFormatter: NumberFormatter
     private let percentFormatter: NumberFormatter
 
-    public static var title: String { "Stocks" }
+    public static var title: String { Localized.title }
 
     public init(
         listView: any ResourceView<StockListViewModel>,
@@ -84,4 +84,15 @@ public final class StockPresenter {
 @MainActor
 public protocol ConnectionStatusViewProtocol {
     func display(_ viewModel: ConnectionStatusViewModel)
+}
+
+private enum Localized {
+    static var title: String {
+        NSLocalizedString(
+            "STOCK_VIEW_TITLE",
+            tableName: "StockPresentation",
+            bundle: Bundle(for: StockPresenter.self),
+            comment: ""
+        )
+    }
 }
