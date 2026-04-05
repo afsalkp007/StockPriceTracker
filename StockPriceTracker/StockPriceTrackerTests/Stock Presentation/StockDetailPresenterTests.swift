@@ -28,6 +28,18 @@ final class StockDetailPresenterTests: XCTestCase {
         )
     }
 
+    func test_connectionRetryAlert_isLocalized() {
+        XCTAssertEqual(
+            StockDetailPresenter.connectionRetryAlert,
+            ConnectionRetryAlertViewModel(
+                title: localizedPresentationString(forKey: "STOCK_DETAIL_CONNECTION_RETRY_ALERT_TITLE"),
+                message: localizedPresentationString(forKey: "STOCK_DETAIL_CONNECTION_RETRY_ALERT_MESSAGE"),
+                retryActionTitle: localizedPresentationString(forKey: "STOCK_DETAIL_CONNECTION_RETRY_ACTION"),
+                cancelActionTitle: localizedPresentationString(forKey: "STOCK_DETAIL_CONNECTION_CANCEL_ACTION")
+            )
+        )
+    }
+
     func test_didReceive_mapsStockDetailsToViewModel() {
         let (sut, view) = makeSUT()
         let stock = makeStock(

@@ -123,7 +123,7 @@ final class StockUIIntegrationTests: XCTestCase {
         waitForMainQueue()
         sut.render()
 
-        XCTAssertEqual(sut.presentedAlertTitle, "Connection Lost")
+        XCTAssertEqual(sut.presentedAlertTitle, StockDetailPresenter.connectionRetryAlert.title)
     }
 
     func test_stockDetailComposition_doesNotShowRetryAlertWithoutPriorConnection() {

@@ -47,6 +47,25 @@ public struct StockDetailViewModel: Equatable {
     }
 }
 
+public struct ConnectionRetryAlertViewModel: Equatable {
+    public let title: String
+    public let message: String
+    public let retryActionTitle: String
+    public let cancelActionTitle: String
+
+    public init(
+        title: String,
+        message: String,
+        retryActionTitle: String,
+        cancelActionTitle: String
+    ) {
+        self.title = title
+        self.message = message
+        self.retryActionTitle = retryActionTitle
+        self.cancelActionTitle = cancelActionTitle
+    }
+}
+
 public struct ConnectionStatusViewModel: Equatable {
     public let isConnected: Bool
     public let label: String

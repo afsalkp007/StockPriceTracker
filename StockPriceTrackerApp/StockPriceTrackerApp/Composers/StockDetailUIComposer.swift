@@ -39,34 +39,28 @@ private struct ComposedStockDetailView: View {
     let onRetryConnection: () -> Void
 
     @State private var lastConnectionStatus = ConnectionStatusViewModel.disconnected
-    @State private var showsConnectionRetryAlert = false
 
     var body: some View {
-        StockDetailView(stateStore: stateStore)
-            .alert("Connection Lost", isPresented: $showsConnectionRetryAlert) {
-                Button("Retry") {
-                    showsConnectionRetryAlert = false
-                    onRetryConnection()
-                }
-                Button("Cancel", role: .cancel) {
-                    showsConnectionRetryAlert = false
-                }
-            } message: {
-                Text("Live updates stopped because the socket disconnected.")
-            }
+        StockDetailView(
+            stateStore: stateStore,
+            onRetryConnection: onRetryConnection
+        )
             .onReceive(stockUpdates.receive(on: DispatchQueue.main)) { stocks in
                 if let updatedStock = stocks.first(where: { $0.symbol == stock.symbol }) {
                     presenter.didReceive(updatedStock)
                 }
             }
             .onReceive(connectionStatus.removeDuplicates().receive(on: DispatchQueue.main)) { status in
-                if status.isConnected {
-                    showsConnectionRetryAlert = false
-                } else if lastConnectionStatus.isConnected {
-                    showsConnectionRetryAlert = true
-                }
-
+                let shouldShowRetryAlert = !status.isConnected && lastConnectionStatus.isConnected
                 lastConnectionStatus = status
+
+                DispatchQueue.main.async {
+                    if status.isConnected {
+                        stateStore.connectionRetryAlert = nil
+                    } else if shouldShowRetryAlert {
+                        stateStore.connectionRetryAlert = StockDetailPresenter.connectionRetryAlert
+                    }
+                }
             }
     }
 }

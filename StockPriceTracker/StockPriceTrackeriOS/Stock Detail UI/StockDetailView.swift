@@ -4,9 +4,14 @@ import StockPriceTracker
 
 public struct StockDetailView: View {
     @ObservedObject private var stateStore: StockDetailStateStore
+    private let onRetryConnection: () -> Void
     
-    public init(stateStore: StockDetailStateStore) {
+    public init(
+        stateStore: StockDetailStateStore,
+        onRetryConnection: @escaping () -> Void = {}
+    ) {
         self.stateStore = stateStore
+        self.onRetryConnection = onRetryConnection
     }
     
     public var body: some View {
@@ -33,6 +38,17 @@ public struct StockDetailView: View {
         }
         .navigationTitle(stateStore.viewModel?.symbol ?? "")
         .navigationBarTitleDisplayMode(.inline)
+        .alert(connectionRetryAlertTitle, isPresented: isShowingConnectionRetryAlert) {
+            Button(connectionRetryAlert?.retryActionTitle ?? "") {
+                stateStore.connectionRetryAlert = nil
+                onRetryConnection()
+            }
+            Button(connectionRetryAlert?.cancelActionTitle ?? "", role: .cancel) {
+                stateStore.connectionRetryAlert = nil
+            }
+        } message: {
+            Text(connectionRetryAlert?.message ?? "")
+        }
     }
     
     private func headerView(for viewModel: StockDetailViewModel) -> some View {
@@ -98,6 +114,21 @@ public struct StockDetailView: View {
                 .lineSpacing(4)
         }
     }
+
+    private var connectionRetryAlert: ConnectionRetryAlertViewModel? {
+        stateStore.connectionRetryAlert
+    }
+
+    private var connectionRetryAlertTitle: String {
+        connectionRetryAlert?.title ?? ""
+    }
+
+    private var isShowingConnectionRetryAlert: Binding<Bool> {
+        Binding(
+            get: { connectionRetryAlert != nil },
+            set: { _ in }
+        )
+    }
 }
 
 @MainActor
@@ -105,6 +136,7 @@ public final class StockDetailStateStore: ObservableObject {
     @Published public var viewModel: StockDetailViewModel?
     @Published public var isLoading = false
     @Published public var errorMessage: String?
+    @Published public var connectionRetryAlert: ConnectionRetryAlertViewModel?
     
     public init() {}
 }

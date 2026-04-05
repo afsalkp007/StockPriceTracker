@@ -14,6 +14,15 @@ public final class StockDetailPresenter {
         Localized.aboutTitle
     }
 
+    public static var connectionRetryAlert: ConnectionRetryAlertViewModel {
+        ConnectionRetryAlertViewModel(
+            title: Localized.connectionRetryAlertTitle,
+            message: Localized.connectionRetryAlertMessage,
+            retryActionTitle: Localized.connectionRetryActionTitle,
+            cancelActionTitle: Localized.connectionRetryCancelActionTitle
+        )
+    }
+
     public static func lastTicksTitle(_ count: Int) -> String {
         Localized.lastTicksTitle(count)
     }
@@ -76,6 +85,22 @@ private enum Localized {
 
     static var aboutTitle: String {
         localized("STOCK_DETAIL_ABOUT")
+    }
+
+    static var connectionRetryAlertTitle: String {
+        localized("STOCK_DETAIL_CONNECTION_RETRY_ALERT_TITLE")
+    }
+
+    static var connectionRetryAlertMessage: String {
+        localized("STOCK_DETAIL_CONNECTION_RETRY_ALERT_MESSAGE")
+    }
+
+    static var connectionRetryActionTitle: String {
+        localized("STOCK_DETAIL_CONNECTION_RETRY_ACTION")
+    }
+
+    static var connectionRetryCancelActionTitle: String {
+        localized("STOCK_DETAIL_CONNECTION_CANCEL_ACTION")
     }
 
     static func lastTicksTitle(_ count: Int) -> String {
