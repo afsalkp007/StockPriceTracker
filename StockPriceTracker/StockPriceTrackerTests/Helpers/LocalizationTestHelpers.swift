@@ -1,5 +1,6 @@
 import Foundation
 import XCTest
+import StockPriceTracker
 
 func assertLocalizedKeyAndValuesExist(
     in bundle: Bundle,
@@ -53,6 +54,33 @@ func localizedStringWithFormat(
 ) -> String {
     String(
         format: localizedString(forKey: key, table: table, bundle: bundle, file: file, line: line),
+        locale: Locale.current,
+        arguments: arguments
+    )
+}
+
+func localizedPresentationString(
+    forKey key: String,
+    file: StaticString = #filePath,
+    line: UInt = #line
+) -> String {
+    localizedString(
+        forKey: key,
+        table: "StockPresentation",
+        bundle: Bundle(for: StockPresenter.self),
+        file: file,
+        line: line
+    )
+}
+
+func localizedPresentationStringWithFormat(
+    _ key: String,
+    _ arguments: CVarArg...,
+    file: StaticString = #filePath,
+    line: UInt = #line
+) -> String {
+    String(
+        format: localizedPresentationString(forKey: key, file: file, line: line),
         locale: Locale.current,
         arguments: arguments
     )

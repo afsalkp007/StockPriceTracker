@@ -161,14 +161,6 @@ final class StockPresenterTests: XCTestCase {
         Stock(symbol: symbol, name: "\(symbol) Name", description: "Desc", price: price, previousPrice: previousPrice)
     }
 
-    private func localizedPresentationString(forKey key: String) -> String {
-        localizedString(
-            forKey: key,
-            table: "StockPresentation",
-            bundle: Bundle(for: StockPresenter.self)
-        )
-    }
-
     private class ViewSpy: ResourceView, ConnectionStatusViewProtocol {
         typealias ResourceViewModel = StockListViewModel
         

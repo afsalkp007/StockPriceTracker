@@ -5,48 +5,26 @@ import StockPriceTracker
 final class StockDetailPresenterTests: XCTestCase {
 
     func test_staticTitles_areLocalized() {
-        let bundle = Bundle(for: StockDetailPresenter.self)
-
         XCTAssertEqual(
             StockDetailPresenter.priceHistoryTitle,
-            localizedString(
-                forKey: "STOCK_DETAIL_PRICE_HISTORY",
-                table: "StockPresentation",
-                bundle: bundle
-            )
+            localizedPresentationString(forKey: "STOCK_DETAIL_PRICE_HISTORY")
         )
 
         XCTAssertEqual(
             StockDetailPresenter.aboutTitle,
-            localizedString(
-                forKey: "STOCK_DETAIL_ABOUT",
-                table: "StockPresentation",
-                bundle: bundle
-            )
+            localizedPresentationString(forKey: "STOCK_DETAIL_ABOUT")
         )
     }
 
     func test_lastTicksTitle_isLocalized() {
-        let bundle = Bundle(for: StockDetailPresenter.self)
-
         XCTAssertEqual(
             StockDetailPresenter.lastTicksTitle(1),
-            localizedStringWithFormat(
-                "STOCK_DETAIL_LAST_SINGLE_TICK",
-                table: "StockPresentation",
-                bundle: bundle,
-                1
-            )
+            localizedPresentationStringWithFormat("STOCK_DETAIL_LAST_SINGLE_TICK", 1)
         )
 
         XCTAssertEqual(
             StockDetailPresenter.lastTicksTitle(3),
-            localizedStringWithFormat(
-                "STOCK_DETAIL_LAST_MULTIPLE_TICKS",
-                table: "StockPresentation",
-                bundle: bundle,
-                3
-            )
+            localizedPresentationStringWithFormat("STOCK_DETAIL_LAST_MULTIPLE_TICKS", 3)
         )
     }
 

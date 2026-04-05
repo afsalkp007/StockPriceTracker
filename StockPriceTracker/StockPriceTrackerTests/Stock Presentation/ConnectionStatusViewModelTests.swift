@@ -26,12 +26,4 @@ final class ConnectionStatusViewModelTests: XCTestCase {
             localizedPresentationString(forKey: "STOCK_LIST_CONTROL_START")
         )
     }
-
-    private func localizedPresentationString(forKey key: String) -> String {
-        localizedString(
-            forKey: key,
-            table: "StockPresentation",
-            bundle: Bundle(for: StockPresenter.self)
-        )
-    }
 }
