@@ -43,6 +43,21 @@ func localizedString(
     return localizedString
 }
 
+func localizedStringWithFormat(
+    _ key: String,
+    table: String,
+    bundle: Bundle,
+    _ arguments: CVarArg...,
+    file: StaticString = #filePath,
+    line: UInt = #line
+) -> String {
+    String(
+        format: localizedString(forKey: key, table: table, bundle: bundle, file: file, line: line),
+        locale: Locale.current,
+        arguments: arguments
+    )
+}
+
 private typealias LocalizedBundle = (bundle: Bundle, localization: String)
 
 private func allLocalizationBundles(

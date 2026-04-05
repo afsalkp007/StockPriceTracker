@@ -27,17 +27,16 @@ final class StockListViewTests: XCTestCase {
 
     private func makeSUT() -> (sut: ViewHost, callbacks: CallbackSpy) {
         let callbacks = CallbackSpy()
-        let controller = UIHostingController(
+        let stateStore = StockListStateStore()
+        let sut = ViewHost(
             rootView: StockListView(
-                stateStore: StockListStateStore(),
+                stateStore: stateStore,
                 onStart: callbacks.start,
                 onStop: callbacks.stop,
                 onSort: { _ in },
                 onRowSelected: { _ in }
             )
         )
-
-        let sut = ViewHost(controller: controller)
 
         return (sut, callbacks)
     }
@@ -60,8 +59,8 @@ private final class ViewHost {
     private let window = UIWindow(frame: UIScreen.main.bounds)
     private let controller: UIHostingController<StockListView>
 
-    init(controller: UIHostingController<StockListView>) {
-        self.controller = controller
+    init(rootView: StockListView) {
+        controller = UIHostingController(rootView: rootView)
         controller.loadViewIfNeeded()
         window.rootViewController = controller
     }
@@ -70,14 +69,19 @@ private final class ViewHost {
         window.makeKeyAndVisible()
         controller.beginAppearanceTransition(true, animated: false)
         controller.endAppearanceTransition()
-        controller.view.layoutIfNeeded()
-        RunLoop.current.run(until: Date())
+        render()
     }
 
     func simulateDisappearance() {
         controller.beginAppearanceTransition(false, animated: false)
         controller.endAppearanceTransition()
         window.isHidden = true
-        RunLoop.current.run(until: Date())
+        RunLoop.current.run(until: Date().addingTimeInterval(0.01))
+    }
+
+    private func render() {
+        controller.view.setNeedsLayout()
+        controller.view.layoutIfNeeded()
+        RunLoop.current.run(until: Date().addingTimeInterval(0.01))
     }
 }

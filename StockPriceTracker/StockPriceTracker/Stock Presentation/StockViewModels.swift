@@ -50,18 +50,28 @@ public struct StockDetailViewModel: Equatable {
 public struct ConnectionStatusViewModel: Equatable {
     public let isConnected: Bool
     public let label: String
+    public let controlTitle: String
 
     public static var connected: ConnectionStatusViewModel {
-        ConnectionStatusViewModel(isConnected: true, label: Localized.connected)
+        ConnectionStatusViewModel(
+            isConnected: true,
+            label: Localized.connected,
+            controlTitle: Localized.stopControlTitle
+        )
     }
 
     public static var disconnected: ConnectionStatusViewModel {
-        ConnectionStatusViewModel(isConnected: false, label: Localized.disconnected)
+        ConnectionStatusViewModel(
+            isConnected: false,
+            label: Localized.disconnected,
+            controlTitle: Localized.startControlTitle
+        )
     }
 
-    private init(isConnected: Bool, label: String) {
+    private init(isConnected: Bool, label: String, controlTitle: String) {
         self.isConnected = isConnected
         self.label = label
+        self.controlTitle = controlTitle
     }
 }
 
@@ -72,6 +82,14 @@ private enum Localized {
 
     static var disconnected: String {
         localized("CONNECTION_STATUS_DISCONNECTED")
+    }
+
+    static var startControlTitle: String {
+        localized("STOCK_LIST_CONTROL_START")
+    }
+
+    static var stopControlTitle: String {
+        localized("STOCK_LIST_CONTROL_STOP")
     }
 
     private static func localized(_ key: String) -> String {

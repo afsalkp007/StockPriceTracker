@@ -66,12 +66,12 @@ public struct StockDetailView: View {
     private func sparklineCard(for viewModel: StockDetailViewModel) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
-                Text("Price History")
+                Text(StockDetailPresenter.priceHistoryTitle)
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .foregroundColor(.secondary)
                 Spacer()
-                Text("Last \(viewModel.history.count) ticks")
+                Text(StockDetailPresenter.lastTicksTitle(viewModel.history.count))
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -89,7 +89,7 @@ public struct StockDetailView: View {
     
     private func descriptionView(for viewModel: StockDetailViewModel) -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("About")
+            Text(StockDetailPresenter.aboutTitle)
                 .font(.headline)
             
             Text(viewModel.description)

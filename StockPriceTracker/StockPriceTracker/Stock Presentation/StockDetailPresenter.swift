@@ -6,6 +6,18 @@ public final class StockDetailPresenter {
     private let priceFormatter: NumberFormatter
     private let percentFormatter: NumberFormatter
 
+    public static var priceHistoryTitle: String {
+        Localized.priceHistoryTitle
+    }
+
+    public static var aboutTitle: String {
+        Localized.aboutTitle
+    }
+
+    public static func lastTicksTitle(_ count: Int) -> String {
+        Localized.lastTicksTitle(count)
+    }
+
     public init(detailView: any ResourceView<StockDetailViewModel>, locale: Locale = .current) {
         self.detailView = detailView
         self.priceFormatter = Self.makePriceFormatter(locale: locale)
@@ -54,5 +66,29 @@ public final class StockDetailPresenter {
         formatter.maximumFractionDigits = 2
         formatter.minimumFractionDigits = 2
         return formatter
+    }
+}
+
+private enum Localized {
+    static var priceHistoryTitle: String {
+        localized("STOCK_DETAIL_PRICE_HISTORY")
+    }
+
+    static var aboutTitle: String {
+        localized("STOCK_DETAIL_ABOUT")
+    }
+
+    static func lastTicksTitle(_ count: Int) -> String {
+        let key = count == 1 ? "STOCK_DETAIL_LAST_SINGLE_TICK" : "STOCK_DETAIL_LAST_MULTIPLE_TICKS"
+        return String(format: localized(key), locale: Locale.current, arguments: [count])
+    }
+
+    private static func localized(_ key: String) -> String {
+        NSLocalizedString(
+            key,
+            tableName: "StockPresentation",
+            bundle: Bundle(for: StockDetailPresenter.self),
+            comment: ""
+        )
     }
 }

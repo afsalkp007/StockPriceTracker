@@ -3,25 +3,35 @@ import StockPriceTracker
 
 final class ConnectionStatusViewModelTests: XCTestCase {
 
-    func test_connectedLabel_isLocalized() {
+    func test_connectedValues_areLocalized() {
         XCTAssertEqual(
             ConnectionStatusViewModel.connected.label,
-            localizedString(
-                forKey: "CONNECTION_STATUS_CONNECTED",
-                table: "StockPresentation",
-                bundle: Bundle(for: StockPresenter.self)
-            )
+            localizedPresentationString(forKey: "CONNECTION_STATUS_CONNECTED")
+        )
+
+        XCTAssertEqual(
+            ConnectionStatusViewModel.connected.controlTitle,
+            localizedPresentationString(forKey: "STOCK_LIST_CONTROL_STOP")
         )
     }
 
-    func test_disconnectedLabel_isLocalized() {
+    func test_disconnectedValues_areLocalized() {
         XCTAssertEqual(
             ConnectionStatusViewModel.disconnected.label,
-            localizedString(
-                forKey: "CONNECTION_STATUS_DISCONNECTED",
-                table: "StockPresentation",
-                bundle: Bundle(for: StockPresenter.self)
-            )
+            localizedPresentationString(forKey: "CONNECTION_STATUS_DISCONNECTED")
+        )
+
+        XCTAssertEqual(
+            ConnectionStatusViewModel.disconnected.controlTitle,
+            localizedPresentationString(forKey: "STOCK_LIST_CONTROL_START")
+        )
+    }
+
+    private func localizedPresentationString(forKey key: String) -> String {
+        localizedString(
+            forKey: key,
+            table: "StockPresentation",
+            bundle: Bundle(for: StockPresenter.self)
         )
     }
 }

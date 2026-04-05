@@ -8,6 +8,9 @@ public final class StockPresenter {
     private let percentFormatter: NumberFormatter
 
     public static var title: String { Localized.title }
+    public static var sortTitle: String { Localized.sortTitle }
+    public static var sortByPriceTitle: String { Localized.sortByPriceTitle }
+    public static var sortByChangeTitle: String { Localized.sortByChangeTitle }
 
     public init(
         listView: any ResourceView<StockListViewModel>,
@@ -88,8 +91,24 @@ public protocol ConnectionStatusViewProtocol {
 
 private enum Localized {
     static var title: String {
+        localized("STOCK_VIEW_TITLE")
+    }
+
+    static var sortTitle: String {
+        localized("STOCK_LIST_SORT")
+    }
+
+    static var sortByPriceTitle: String {
+        localized("STOCK_LIST_SORT_BY_PRICE")
+    }
+
+    static var sortByChangeTitle: String {
+        localized("STOCK_LIST_SORT_BY_CHANGE")
+    }
+
+    private static func localized(_ key: String) -> String {
         NSLocalizedString(
-            "STOCK_VIEW_TITLE",
+            key,
             tableName: "StockPresentation",
             bundle: Bundle(for: StockPresenter.self),
             comment: ""

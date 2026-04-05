@@ -7,11 +7,24 @@ final class StockPresenterTests: XCTestCase {
     func test_title_isLocalized() {
         XCTAssertEqual(
             StockPresenter.title,
-            localizedString(
-                forKey: "STOCK_VIEW_TITLE",
-                table: "StockPresentation",
-                bundle: Bundle(for: StockPresenter.self)
-            )
+            localizedPresentationString(forKey: "STOCK_VIEW_TITLE")
+        )
+    }
+
+    func test_sortTitles_areLocalized() {
+        XCTAssertEqual(
+            StockPresenter.sortTitle,
+            localizedPresentationString(forKey: "STOCK_LIST_SORT")
+        )
+
+        XCTAssertEqual(
+            StockPresenter.sortByPriceTitle,
+            localizedPresentationString(forKey: "STOCK_LIST_SORT_BY_PRICE")
+        )
+
+        XCTAssertEqual(
+            StockPresenter.sortByChangeTitle,
+            localizedPresentationString(forKey: "STOCK_LIST_SORT_BY_CHANGE")
         )
     }
 
@@ -146,6 +159,14 @@ final class StockPresenterTests: XCTestCase {
 
     private func makeStock(symbol: String, price: Double, previousPrice: Double) -> Stock {
         Stock(symbol: symbol, name: "\(symbol) Name", description: "Desc", price: price, previousPrice: previousPrice)
+    }
+
+    private func localizedPresentationString(forKey key: String) -> String {
+        localizedString(
+            forKey: key,
+            table: "StockPresentation",
+            bundle: Bundle(for: StockPresenter.self)
+        )
     }
 
     private class ViewSpy: ResourceView, ConnectionStatusViewProtocol {

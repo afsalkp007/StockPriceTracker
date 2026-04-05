@@ -81,7 +81,7 @@ public struct StockListView: View {
                     onStart()
                 }
             }) {
-                Text(stateStore.connectionViewModel.isConnected ? "Stop" : "Start")
+                Text(stateStore.connectionViewModel.controlTitle)
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .padding(.horizontal, 16)
@@ -93,15 +93,15 @@ public struct StockListView: View {
             
             Spacer()
             
-            Picker("Sort", selection: Binding(
+            Picker(StockPresenter.sortTitle, selection: Binding(
                 get: { stateStore.currentSort },
                 set: { newSort in
                     stateStore.currentSort = newSort
                     onSort(newSort)
                 }
             )) {
-                Text("Price").tag(SortOption.byPrice)
-                Text("Change").tag(SortOption.byPriceChange)
+                Text(StockPresenter.sortByPriceTitle).tag(SortOption.byPrice)
+                Text(StockPresenter.sortByChangeTitle).tag(SortOption.byPriceChange)
             }
             .pickerStyle(SegmentedPickerStyle())
             .frame(width: 150)
