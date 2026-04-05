@@ -47,7 +47,20 @@ public final class LoadResourcePresenter<Resource, View: ResourceView> {
     }
 
     public func didFinishLoading(with error: Error) {
-        errorView.display(.error(message: error.localizedDescription))
+        errorView.display(.error(message: Localized.genericConnectionError))
         loadingView.display(ResourceLoadingViewModel(isLoading: false))
     }
+}
+
+private enum Localized {
+    static var genericConnectionError: String {
+        NSLocalizedString(
+            "GENERIC_CONNECTION_ERROR",
+            tableName: "Shared",
+            bundle: Bundle(for: BundleToken.self),
+            comment: ""
+        )
+    }
+
+    private final class BundleToken {}
 }

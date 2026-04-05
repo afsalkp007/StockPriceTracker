@@ -86,6 +86,24 @@ func localizedPresentationStringWithFormat(
     )
 }
 
+func localizedSharedString(
+    forKey key: String,
+    file: StaticString = #filePath,
+    line: UInt = #line
+) -> String {
+    localizedString(
+        forKey: key,
+        table: "Shared",
+        bundle: Bundle(for: LoadResourcePresenter<String, SharedLocalizationBundleDummyView>.self),
+        file: file,
+        line: line
+    )
+}
+
+private final class SharedLocalizationBundleDummyView: ResourceView {
+    func display(_ viewModel: String) {}
+}
+
 private typealias LocalizedBundle = (bundle: Bundle, localization: String)
 
 private func allLocalizationBundles(

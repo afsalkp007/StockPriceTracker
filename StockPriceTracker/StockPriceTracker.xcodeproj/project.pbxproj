@@ -14,6 +14,8 @@
 		F40BE2302F7EC17900545F17 /* StockPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE22F2F7EC17900545F17 /* StockPresenterTests.swift */; };
 		F4A0C0012F8200010044964C /* LoadResourcePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A0C0002F8200010044964C /* LoadResourcePresenterTests.swift */; };
 		F4A0C0042F8201010044964C /* StockDetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A0C0032F8201010044964C /* StockDetailPresenterTests.swift */; };
+		F4D200012FF300010044964C /* Shared.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4D200052FF300010044964C /* Shared.strings */; };
+		F4D200022FF300010044964C /* SharedLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D200032FF300010044964C /* SharedLocalizationTests.swift */; };
 		F4B100012F9000010044964C /* StockPresentation.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4B100092F9000010044964C /* StockPresentation.strings */; };
 		F4B100022F9000010044964C /* LocalizationTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B100052F9000010044964C /* LocalizationTestHelpers.swift */; };
 		F4B100032F9000010044964C /* StockPresentationLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B100062F9000010044964C /* StockPresentationLocalizationTests.swift */; };
@@ -81,6 +83,8 @@
 		F40BE22F2F7EC17900545F17 /* StockPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPresenterTests.swift; sourceTree = "<group>"; };
 		F4A0C0002F8200010044964C /* LoadResourcePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadResourcePresenterTests.swift; sourceTree = "<group>"; };
 		F4A0C0032F8201010044964C /* StockDetailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailPresenterTests.swift; sourceTree = "<group>"; };
+		F4D200032FF300010044964C /* SharedLocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedLocalizationTests.swift; sourceTree = "<group>"; };
+		F4D200042FF300010044964C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/Shared.strings"; sourceTree = "<group>"; };
 		F4B100052F9000010044964C /* LocalizationTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationTestHelpers.swift; sourceTree = "<group>"; };
 		F4B100062F9000010044964C /* StockPresentationLocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPresentationLocalizationTests.swift; sourceTree = "<group>"; };
 		F4B100072F9000010044964C /* ConnectionStatusViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionStatusViewModelTests.swift; sourceTree = "<group>"; };
@@ -196,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				F4A0C0002F8200010044964C /* LoadResourcePresenterTests.swift */,
+				F4D200032FF300010044964C /* SharedLocalizationTests.swift */,
 			);
 			path = "Shared Presentation";
 			sourceTree = "<group>";
@@ -249,6 +254,7 @@
 				F470B3372F7EAA050044964C /* ResourceErrorViewModel.swift */,
 				F470B3382F7EAA050044964C /* ResourceLoadingViewModel.swift */,
 				F470B3392F7EAA050044964C /* ResourceView.swift */,
+				F4D200052FF300010044964C /* Shared.strings */,
 			);
 			path = "Shared Presentation";
 			sourceTree = "<group>";
@@ -504,6 +510,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4D200012FF300010044964C /* Shared.strings in Resources */,
 				F4B100012F9000010044964C /* StockPresentation.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -566,6 +573,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4D200022FF300010044964C /* SharedLocalizationTests.swift in Sources */,
 				F4B100042F9000010044964C /* ConnectionStatusViewModelTests.swift in Sources */,
 				F4A0C0042F8201010044964C /* StockDetailPresenterTests.swift in Sources */,
 				F4B100032F9000010044964C /* StockPresentationLocalizationTests.swift in Sources */,
@@ -584,6 +592,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		F4D200052FF300010044964C /* Shared.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F4D200042FF300010044964C /* en */,
+			);
+			name = Shared.strings;
+			sourceTree = "<group>";
+		};
 		F4B100092F9000010044964C /* StockPresentation.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

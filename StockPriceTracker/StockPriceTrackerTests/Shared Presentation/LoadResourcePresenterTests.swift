@@ -55,7 +55,7 @@ final class LoadResourcePresenterTests: XCTestCase {
         sut.didFinishLoading(with: "resource")
 
         XCTAssertEqual(view.messages, [
-            .displayErrorMessage(anyNSError().localizedDescription),
+            .displayErrorMessage(localizedSharedString(forKey: "GENERIC_CONNECTION_ERROR")),
             .displayLoading(false)
         ])
     }
@@ -66,13 +66,12 @@ final class LoadResourcePresenterTests: XCTestCase {
         sut.didFinishLoading(with: anyNSError())
 
         XCTAssertEqual(view.messages, [
-            .displayErrorMessage(anyNSError().localizedDescription),
+            .displayErrorMessage(localizedSharedString(forKey: "GENERIC_CONNECTION_ERROR")),
             .displayLoading(false)
         ])
     }
 
     private typealias SUT = LoadResourcePresenter<String, ViewSpy>
-    private typealias IdentitySUT = LoadResourcePresenter<String, ViewSpy>
 
     private func makeSUT(
         mapper: @escaping SUT.Mapper = { _ in "any" },
@@ -89,9 +88,9 @@ final class LoadResourcePresenterTests: XCTestCase {
     private func makeIdentitySUT(
         file: StaticString = #filePath,
         line: UInt = #line
-    ) -> (sut: IdentitySUT, view: ViewSpy) {
+    ) -> (sut: SUT, view: ViewSpy) {
         let view = ViewSpy()
-        let sut = IdentitySUT(resourceView: view, loadingView: view, errorView: view)
+        let sut = SUT(resourceView: view, loadingView: view, errorView: view)
         trackForMemoryLeaks(view, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, view)
