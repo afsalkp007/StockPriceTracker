@@ -24,6 +24,19 @@ final class WebSocketStockFeedLoaderTests: XCTestCase {
         // Stop explicitly to cancel the infinite loop task, allowing `sut` to deallocate.
         await sut.stop()
     }
+
+    func test_startFeed_finishesWithConnectError() async {
+        let (sut, client) = makeSUT()
+        let expectedError = anyNSError()
+        let stream = sut.startFeed()
+        client.connectError = expectedError
+
+        sut.start()
+
+        let receivedError = await completionError(from: stream)
+
+        XCTAssertEqual(receivedError, expectedError)
+    }
     
     func test_stop_disconnectsClientAndFinishesStream() async throws {
         let (sut, client) = makeSUT()
@@ -74,6 +87,20 @@ final class WebSocketStockFeedLoaderTests: XCTestCase {
         XCTAssertEqual(client.connectionCallCount, 1)
 
         await sut.stop()
+    }
+
+    func test_startFeed_finishesWithReceiveError() async {
+        let (sut, client) = makeSUT()
+        let expectedError = anyNSError()
+        let stream = sut.startFeed()
+
+        sut.start()
+        try? await Task.sleep(nanoseconds: 10_000_000)
+        client.completeReceive(with: expectedError)
+
+        let receivedError = await completionError(from: stream)
+
+        XCTAssertEqual(receivedError, expectedError)
     }
 
     func test_receivedMessage_appendsPriceToStockHistory() async throws {
@@ -175,15 +202,38 @@ final class WebSocketStockFeedLoaderTests: XCTestCase {
         return "[\(entries)]"
     }
 
+    private func completionError(
+        from stream: AsyncThrowingStream<[Stock], Error>,
+        timeout: TimeInterval = 1.0
+    ) async -> NSError? {
+        let errorBox = ErrorBox()
+        let exp = expectation(description: "Wait for stream completion")
+
+        Task { @MainActor in
+            do {
+                for try await _ in stream {}
+            } catch {
+                await errorBox.set(error as NSError)
+            }
+            exp.fulfill()
+        }
+
+        await fulfillment(of: [exp], timeout: timeout)
+        return await errorBox.value
+    }
 
     private class WebSocketClientSpy: WebSocketClient {
         var connectionCallCount = 0
         var disconnectedCalled: Bool?
+        var connectError: Error?
         
         private var streamContinuation: AsyncStream<Result<String, Error>>.Continuation?
         
         func connect() async throws {
             connectionCallCount += 1
+            if let connectError {
+                throw connectError
+            }
             // Small sleep to ensure task yielding works properly in testing
             try? await Task.sleep(nanoseconds: 1_000_000)
         }
@@ -213,6 +263,14 @@ final class WebSocketStockFeedLoaderTests: XCTestCase {
         func completeReceive(with error: Error) {
             streamContinuation?.yield(.failure(error))
             streamContinuation?.finish()
+        }
+    }
+
+    private actor ErrorBox {
+        private(set) var value: NSError?
+
+        func set(_ error: NSError) {
+            value = error
         }
     }
 }
