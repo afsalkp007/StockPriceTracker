@@ -19,7 +19,6 @@
 		F40BE2202F7EB37900545F17 /* StockDetailUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE21C2F7EB37900545F17 /* StockDetailUIComposer.swift */; };
 		F40BE2222F7EB4CF00545F17 /* StockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE2212F7EB4CF00545F17 /* StockService.swift */; };
 		F40BE2322F7ED49500545F17 /* StockUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE2312F7ED49500545F17 /* StockUIIntegrationTests.swift */; };
-		F4A1E0D32FAF4E4F00A8D9A1 /* StockServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A1E0D22FAF4E4F00A8D9A1 /* StockServiceTests.swift */; };
 		F470B2FE2F7E8C290044964C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F470B2F42F7E8C290044964C /* Assets.xcassets */; };
 		F470B2FF2F7E8C290044964C /* StockPriceTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B2F62F7E8C290044964C /* StockPriceTrackerApp.swift */; };
 		F470B3342F7E93660044964C /* StockPriceTrackerApp.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = F470B3332F7E93660044964C /* StockPriceTrackerApp.xctestplan */; };
@@ -61,7 +60,6 @@
 		F40BE21D2F7EB37900545F17 /* StockUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockUIComposer.swift; sourceTree = "<group>"; };
 		F40BE2212F7EB4CF00545F17 /* StockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockService.swift; sourceTree = "<group>"; };
 		F40BE2312F7ED49500545F17 /* StockUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockUIIntegrationTests.swift; sourceTree = "<group>"; };
-		F4A1E0D22FAF4E4F00A8D9A1 /* StockServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockServiceTests.swift; sourceTree = "<group>"; };
 		F428F9F42F7E8B4E00C84A3C /* StockPriceTrackerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StockPriceTrackerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F428FA012F7E8B4F00C84A3C /* StockPriceTrackerAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockPriceTrackerAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F470B2F42F7E8C290044964C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -153,7 +151,6 @@
 			isa = PBXGroup;
 			children = (
 				F470B3332F7E93660044964C /* StockPriceTrackerApp.xctestplan */,
-				F4A1E0D22FAF4E4F00A8D9A1 /* StockServiceTests.swift */,
 				F40BE2312F7ED49500545F17 /* StockUIIntegrationTests.swift */,
 			);
 			path = StockPriceTrackerAppTests;
@@ -281,7 +278,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4A1E0D32FAF4E4F00A8D9A1 /* StockServiceTests.swift in Sources */,
 				F40BE2322F7ED49500545F17 /* StockUIIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

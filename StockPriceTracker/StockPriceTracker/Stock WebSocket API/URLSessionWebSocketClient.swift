@@ -1,17 +1,33 @@
 import Foundation
 
+public protocol URLSessionWebSocketSession {
+    func makeWebSocketTask(with url: URL) -> any URLSessionWebSocketTasking
+}
+
+public protocol URLSessionWebSocketTasking: AnyObject {
+    func resume()
+    func cancel(with closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?)
+    func send(_ message: URLSessionWebSocketTask.Message) async throws
+    func receive(completionHandler: @escaping @Sendable (Result<URLSessionWebSocketTask.Message, Error>) -> Void)
+}
+
 public final class URLSessionWebSocketClient: WebSocketClient {
     private let url: URL
-    private let session: URLSession
-    private var task: URLSessionWebSocketTask?
+    private let session: any URLSessionWebSocketSession
+    private var task: (any URLSessionWebSocketTasking)?
 
     public init(url: URL, session: URLSession = .shared) {
         self.url = url
         self.session = session
     }
 
+    public init(url: URL, webSocketSession: any URLSessionWebSocketSession) {
+        self.url = url
+        self.session = webSocketSession
+    }
+
     public func connect() async throws {
-        task = session.webSocketTask(with: url)
+        task = session.makeWebSocketTask(with: url)
         task?.resume()
     }
 
@@ -47,3 +63,11 @@ public final class URLSessionWebSocketClient: WebSocketClient {
         }
     }
 }
+
+extension URLSession: URLSessionWebSocketSession {
+    public func makeWebSocketTask(with url: URL) -> any URLSessionWebSocketTasking {
+        webSocketTask(with: url)
+    }
+}
+
+extension URLSessionWebSocketTask: URLSessionWebSocketTasking {}
