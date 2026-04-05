@@ -100,7 +100,6 @@ public struct StockDetailView: View {
     }
 }
 
-// State Store to bridge the UIKit-style Presenter protocol logic into SwiftUI
 @MainActor
 public final class StockDetailStateStore: ObservableObject {
     @Published public var viewModel: StockDetailViewModel?

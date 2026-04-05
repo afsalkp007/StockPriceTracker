@@ -95,6 +95,100 @@ final class StockUIIntegrationTests: XCTestCase {
         XCTAssertEqual(stateStore.viewModel?.description, "Updated description")
     }
 
+    func test_stockDetailComposition_showsRetryAlertOnConnectionDrop() {
+        let initialStock = makeStock(
+            symbol: "AAPL",
+            name: "Apple",
+            description: "Initial description",
+            price: 150
+        )
+        let updates = PassthroughSubject<[Stock], Never>()
+        let connectionStatus = PassthroughSubject<ConnectionStatusViewModel, Never>()
+        let stateStore = StockDetailStateStore()
+        let sut = ViewHost(
+            rootView: StockDetailUIComposer.stockDetailComposedWith(
+                stock: initialStock,
+                stockUpdates: updates.eraseToAnyPublisher(),
+                connectionStatus: connectionStatus.eraseToAnyPublisher(),
+                stateStore: stateStore
+            )
+        )
+        sut.simulateAppearance()
+
+        connectionStatus.send(.connected)
+        waitForMainQueue()
+        sut.render()
+
+        connectionStatus.send(.disconnected)
+        waitForMainQueue()
+        sut.render()
+
+        XCTAssertEqual(sut.presentedAlertTitle, "Connection Lost")
+    }
+
+    func test_stockDetailComposition_doesNotShowRetryAlertWithoutPriorConnection() {
+        let initialStock = makeStock(
+            symbol: "AAPL",
+            name: "Apple",
+            description: "Initial description",
+            price: 150
+        )
+        let updates = PassthroughSubject<[Stock], Never>()
+        let connectionStatus = PassthroughSubject<ConnectionStatusViewModel, Never>()
+        let stateStore = StockDetailStateStore()
+        let sut = ViewHost(
+            rootView: StockDetailUIComposer.stockDetailComposedWith(
+                stock: initialStock,
+                stockUpdates: updates.eraseToAnyPublisher(),
+                connectionStatus: connectionStatus.eraseToAnyPublisher(),
+                stateStore: stateStore
+            )
+        )
+        sut.simulateAppearance()
+
+        connectionStatus.send(.disconnected)
+        waitForMainQueue()
+        sut.render()
+
+        XCTAssertNil(sut.presentedAlertTitle)
+    }
+
+    func test_stockDetailComposition_hidesRetryAlertWhenConnectionRecovers() {
+        let initialStock = makeStock(
+            symbol: "AAPL",
+            name: "Apple",
+            description: "Initial description",
+            price: 150
+        )
+        let updates = PassthroughSubject<[Stock], Never>()
+        let connectionStatus = PassthroughSubject<ConnectionStatusViewModel, Never>()
+        let stateStore = StockDetailStateStore()
+        let sut = ViewHost(
+            rootView: StockDetailUIComposer.stockDetailComposedWith(
+                stock: initialStock,
+                stockUpdates: updates.eraseToAnyPublisher(),
+                connectionStatus: connectionStatus.eraseToAnyPublisher(),
+                stateStore: stateStore
+            )
+        )
+        sut.simulateAppearance()
+
+        connectionStatus.send(.connected)
+        waitForMainQueue()
+        sut.render()
+
+        connectionStatus.send(.disconnected)
+        waitForMainQueue()
+        sut.render()
+
+        connectionStatus.send(.connected)
+        waitForMainQueue()
+        sut.render()
+
+        sut.waitUntilAlertIsDismissed()
+        XCTAssertNil(sut.presentedAlertTitle)
+    }
+
     // MARK: - Helpers
 
     private func makeSUT() -> (
@@ -154,6 +248,15 @@ final class StockUIIntegrationTests: XCTestCase {
 
         func stop() async {}
     }
+
+    private func waitForMainQueue(
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        let exp = expectation(description: "Wait for main queue dispatch")
+        DispatchQueue.main.async { exp.fulfill() }
+        wait(for: [exp], timeout: 1.0)
+    }
 }
 
 @MainActor
@@ -178,5 +281,17 @@ private final class ViewHost<Content: View> {
         controller.view.setNeedsLayout()
         controller.view.layoutIfNeeded()
         RunLoop.current.run(until: Date().addingTimeInterval(0.01))
+    }
+
+    func waitUntilAlertIsDismissed(timeout: TimeInterval = 1.0) {
+        let endDate = Date().addingTimeInterval(timeout)
+
+        while presentedAlertTitle != nil && Date() < endDate {
+            render()
+        }
+    }
+
+    var presentedAlertTitle: String? {
+        (controller.presentedViewController as? UIAlertController)?.title
     }
 }

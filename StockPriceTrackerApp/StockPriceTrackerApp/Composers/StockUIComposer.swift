@@ -10,10 +10,15 @@ public final class StockUIComposer {
         stateStore: StockListStateStore,
         feedLoader: @escaping () -> AsyncThrowingStream<[Stock], Error>,
         feedController: StockFeedController,
+        onFeedStartConfigured: ((@escaping () -> Void) -> Void)? = nil,
         selection: @escaping (Stock) -> Void
     ) -> some View {
         let presentationAdapter = StockFeedPresentationAdapter(loader: feedLoader)
         let viewAdapter = StockViewAdapter(stateStore: stateStore, selection: selection)
+        let startFeed = {
+            presentationAdapter.didRequestFeedLoad()
+            feedController.start()
+        }
         
         let presenter = LoadResourcePresenter<[Stock], StockViewAdapter>(
             resourceView: viewAdapter,
@@ -38,10 +43,7 @@ public final class StockUIComposer {
         
         let view = StockListView(
             stateStore: stateStore,
-            onStart: {
-                presentationAdapter.didRequestFeedLoad()
-                feedController.start()
-            },
+            onStart: startFeed,
             onStop: {
                 viewAdapter.display(.disconnected)
                 Task {
@@ -61,6 +63,8 @@ public final class StockUIComposer {
             }
         )
         
-        return view
+        return view.onAppear {
+            onFeedStartConfigured?(startFeed)
+        }
     }
 }

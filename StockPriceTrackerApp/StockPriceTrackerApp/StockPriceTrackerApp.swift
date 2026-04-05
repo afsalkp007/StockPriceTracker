@@ -15,6 +15,7 @@ struct StockPriceTrackerApp: App {
                     stateStore: stockListStateStore,
                     feedLoader: serviceState.service.makeFeedLoader(),
                     feedController: serviceState.service.feedController(),
+                    onFeedStartConfigured: { serviceState.startFeed = $0 },
                     selection: { stock in
                         serviceState.selectedStock = stock
                     }
@@ -22,7 +23,9 @@ struct StockPriceTrackerApp: App {
                 .navigationDestination(item: $serviceState.selectedStock) { stock in
                     StockDetailUIComposer.stockDetailComposedWith(
                         stock: stock,
-                        stockUpdates: stockListStateStore.$rawStocks.eraseToAnyPublisher()
+                        stockUpdates: stockListStateStore.$rawStocks.eraseToAnyPublisher(),
+                        connectionStatus: stockListStateStore.$connectionViewModel.eraseToAnyPublisher(),
+                        onRetryConnection: { serviceState.startFeed?() }
                     )
                 }
             }
@@ -35,4 +38,5 @@ struct StockPriceTrackerApp: App {
 final class AppServiceState: ObservableObject {
     let service = StockService()
     @Published var selectedStock: Stock?
+    var startFeed: (() -> Void)?
 }
