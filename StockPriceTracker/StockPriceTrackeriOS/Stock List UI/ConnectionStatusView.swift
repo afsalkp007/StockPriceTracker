@@ -2,7 +2,7 @@ import SwiftUI
 import StockPriceTracker
 
 public struct ConnectionStatusView: View {
-    public let viewModel: ConnectionStatusViewModel
+    private let viewModel: ConnectionStatusViewModel
     
     public init(viewModel: ConnectionStatusViewModel) {
         self.viewModel = viewModel

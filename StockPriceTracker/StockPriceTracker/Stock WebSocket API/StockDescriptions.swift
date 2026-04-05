@@ -1,10 +1,10 @@
-public enum StockDescriptions {
-    public struct Info {
-        public let name: String
-        public let description: String
+enum StockDescriptions {
+    struct Info {
+        let name: String
+        let description: String
     }
 
-    public static let catalog: [String: Info] = [
+    static let catalog: [String: Info] = [
         "AAPL": Info(name: "Apple Inc.", description: "Designs and sells consumer electronics, software, and online services including iPhone, Mac, and App Store."),
         "GOOG": Info(name: "Alphabet Inc.", description: "Parent company of Google, operating the world's largest search engine and digital advertising platform."),
         "TSLA": Info(name: "Tesla Inc.", description: "Designs and manufactures electric vehicles, energy storage, and solar products."),
@@ -32,5 +32,5 @@ public enum StockDescriptions {
         "HOOD": Info(name: "Robinhood Markets", description: "Commission-free investing app offering stocks, ETFs, options, and cryptocurrency trading."),
     ]
 
-    public static let symbols: [String] = Array(catalog.keys).sorted()
+    static let symbols: [String] = Array(catalog.keys).sorted()
 }

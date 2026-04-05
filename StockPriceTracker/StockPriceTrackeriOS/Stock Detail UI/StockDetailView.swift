@@ -3,7 +3,7 @@ import Combine
 import StockPriceTracker
 
 public struct StockDetailView: View {
-    @ObservedObject public var stateStore: StockDetailStateStore
+    @ObservedObject private var stateStore: StockDetailStateStore
     
     public init(stateStore: StockDetailStateStore) {
         self.stateStore = stateStore

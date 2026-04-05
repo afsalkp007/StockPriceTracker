@@ -5,8 +5,8 @@ import SwiftUI
 /// A native SwiftUI sparkline chart rendered using Path geometry.
 /// Automatically scales price history between min/max and animates on each new data point.
 public struct SparklineView: View {
-    public let data: [Double]
-    public let isPositive: Bool
+    private let data: [Double]
+    private let isPositive: Bool
 
     public init(data: [Double], isPositive: Bool) {
         self.data = data

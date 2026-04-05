@@ -3,11 +3,11 @@ import Combine
 import StockPriceTracker
 
 public struct StockListView: View {
-    @ObservedObject public var stateStore: StockListStateStore
-    public let onStart: () -> Void
-    public let onStop: () -> Void
-    public let onSort: (SortOption) -> Void
-    public let onRowSelected: (String) -> Void
+    @ObservedObject private var stateStore: StockListStateStore
+    private let onStart: () -> Void
+    private let onStop: () -> Void
+    private let onSort: (SortOption) -> Void
+    private let onRowSelected: (String) -> Void
     
     @Environment(\.scenePhase) private var scenePhase
     @State private var hasAppeared = false

@@ -1,8 +1,8 @@
 import SwiftUI
 
 public struct PriceChangeView: View {
-    public let text: String
-    public let isPositive: Bool
+    private let text: String
+    private let isPositive: Bool
     
     public init(text: String, isPositive: Bool) {
         self.text = text

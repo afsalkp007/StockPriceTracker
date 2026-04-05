@@ -2,14 +2,14 @@ import StockPriceTracker
 import StockPriceTrackeriOS
 
 @MainActor
-public final class StockDetailViewAdapter: ResourceView {
+final class StockDetailViewAdapter: ResourceView {
     private weak var stateStore: StockDetailStateStore?
 
-    public init(stateStore: StockDetailStateStore) {
+    init(stateStore: StockDetailStateStore) {
         self.stateStore = stateStore
     }
 
-    public func display(_ viewModel: StockDetailViewModel) {
+    func display(_ viewModel: StockDetailViewModel) {
         stateStore?.viewModel = viewModel
     }
 }

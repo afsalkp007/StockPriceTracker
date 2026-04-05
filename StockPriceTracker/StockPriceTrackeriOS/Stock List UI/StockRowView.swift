@@ -2,7 +2,7 @@ import SwiftUI
 import StockPriceTracker
 
 public struct StockRowView: View {
-    public let viewModel: StockRowViewModel
+    private let viewModel: StockRowViewModel
     
     public init(viewModel: StockRowViewModel) {
         self.viewModel = viewModel
