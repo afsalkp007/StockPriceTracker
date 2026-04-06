@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "55AEFFF3-9304-427D-95CC-E30AECF464B9",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:StockPriceTracker.xcodeproj",
+        "identifier" : "F4E3100D2FF500010044964C",
+        "name" : "StockWebSocketAPIEndToEndTests"
+      }
+    }
+  ],
+  "version" : 1
+}

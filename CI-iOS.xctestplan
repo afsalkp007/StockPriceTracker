@@ -32,6 +32,13 @@
         "identifier" : "F470B3102F7E8F580044964C",
         "name" : "StockPriceTrackeriOSTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/StockPriceTracker\/StockPriceTracker.xcodeproj",
+        "identifier" : "F4E3100D2FF500010044964C",
+        "name" : "StockWebSocketAPIEndToEndTests"
+      }
     }
   ],
   "version" : 1

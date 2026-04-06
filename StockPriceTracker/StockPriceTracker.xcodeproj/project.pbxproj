@@ -48,6 +48,9 @@
 		F4B100042F9000010044964C /* ConnectionStatusViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B100072F9000010044964C /* ConnectionStatusViewModelTests.swift */; };
 		F4D200012FF300010044964C /* Shared.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4D200052FF300010044964C /* Shared.strings */; };
 		F4D200022FF300010044964C /* SharedLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D200032FF300010044964C /* SharedLocalizationTests.swift */; };
+		F4E310022FF500010044964C /* StockWebSocketAPIEndToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E310032FF500010044964C /* StockWebSocketAPIEndToEndTests.swift */; };
+		F4E310042FF500010044964C /* StockPriceTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48301C52F7E7CEE00310FC2 /* StockPriceTracker.framework */; };
+		F4E310052FF500010044964C /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE2232F7EBE5A00545F17 /* XCTestCase+MemoryLeakTracking.swift */; };
 		F4E310012FF400010044964C /* URLSessionWebSocketClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E310002FF400010044964C /* URLSessionWebSocketClientTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +63,13 @@
 			remoteInfo = StockPriceTrackeriOS;
 		};
 		F470B3692F7EACA20044964C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F48301BC2F7E7CEE00310FC2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F48301C42F7E7CEE00310FC2;
+			remoteInfo = StockPriceTracker;
+		};
+		F4E3100B2FF500010044964C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F48301BC2F7E7CEE00310FC2 /* Project object */;
 			proxyType = 1;
@@ -120,6 +130,8 @@
 		F4D200032FF300010044964C /* SharedLocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedLocalizationTests.swift; sourceTree = "<group>"; };
 		F4D200042FF300010044964C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Shared.strings; sourceTree = "<group>"; };
 		F4E310002FF400010044964C /* URLSessionWebSocketClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionWebSocketClientTests.swift; sourceTree = "<group>"; };
+		F4E310032FF500010044964C /* StockWebSocketAPIEndToEndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockWebSocketAPIEndToEndTests.swift; sourceTree = "<group>"; };
+		F4E310062FF500010044964C /* StockWebSocketAPIEndToEndTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockWebSocketAPIEndToEndTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +163,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				F48301CF2F7E7CEF00310FC2 /* StockPriceTracker.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4E310082FF500010044964C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4E310042FF500010044964C /* StockPriceTracker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +239,14 @@
 				F40BE2292F7EBE5A00545F17 /* Stock WebSocket API */,
 			);
 			path = StockPriceTrackerTests;
+			sourceTree = "<group>";
+		};
+		F4E310072FF500010044964C /* StockWebSocketAPIEndToEndTests */ = {
+			isa = PBXGroup;
+			children = (
+				F4E310032FF500010044964C /* StockWebSocketAPIEndToEndTests.swift */,
+			);
+			path = StockWebSocketAPIEndToEndTests;
 			sourceTree = "<group>";
 		};
 		F470B3272F7E8FC40044964C /* StockPriceTrackeriOS */ = {
@@ -316,6 +344,7 @@
 			children = (
 				F428F9AB2F7E7DA000C84A3C /* StockPriceTracker */,
 				F428F9AD2F7E7DA000C84A3C /* StockPriceTrackerTests */,
+				F4E310072FF500010044964C /* StockWebSocketAPIEndToEndTests */,
 				F470B3272F7E8FC40044964C /* StockPriceTrackeriOS */,
 				F470B3292F7E8FC40044964C /* StockPriceTrackeriOSTests */,
 				F470B3662F7EACA20044964C /* Frameworks */,
@@ -328,6 +357,7 @@
 			children = (
 				F48301C52F7E7CEE00310FC2 /* StockPriceTracker.framework */,
 				F48301CE2F7E7CEF00310FC2 /* StockPriceTrackerTests.xctest */,
+				F4E310062FF500010044964C /* StockWebSocketAPIEndToEndTests.xctest */,
 				F470B3092F7E8F580044964C /* StockPriceTrackeriOS.framework */,
 				F470B3112F7E8F580044964C /* StockPriceTrackeriOSTests.xctest */,
 			);
@@ -444,6 +474,26 @@
 			productReference = F48301CE2F7E7CEF00310FC2 /* StockPriceTrackerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		F4E3100D2FF500010044964C /* StockWebSocketAPIEndToEndTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F4E310102FF500010044964C /* Build configuration list for PBXNativeTarget "StockWebSocketAPIEndToEndTests" */;
+			buildPhases = (
+				F4E3100A2FF500010044964C /* Sources */,
+				F4E310082FF500010044964C /* Frameworks */,
+				F4E310092FF500010044964C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F4E3100C2FF500010044964C /* PBXTargetDependency */,
+			);
+			name = StockWebSocketAPIEndToEndTests;
+			packageProductDependencies = (
+			);
+			productName = StockWebSocketAPIEndToEndTests;
+			productReference = F4E310062FF500010044964C /* StockWebSocketAPIEndToEndTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -466,6 +516,9 @@
 					F48301CD2F7E7CEF00310FC2 = {
 						CreatedOnToolsVersion = 26.4;
 					};
+					F4E3100D2FF500010044964C = {
+						CreatedOnToolsVersion = 26.4;
+					};
 				};
 			};
 			buildConfigurationList = F48301BF2F7E7CEE00310FC2 /* Build configuration list for PBXProject "StockPriceTracker" */;
@@ -484,6 +537,7 @@
 			targets = (
 				F48301C42F7E7CEE00310FC2 /* StockPriceTracker */,
 				F48301CD2F7E7CEF00310FC2 /* StockPriceTrackerTests */,
+				F4E3100D2FF500010044964C /* StockWebSocketAPIEndToEndTests */,
 				F470B3082F7E8F580044964C /* StockPriceTrackeriOS */,
 				F470B3102F7E8F580044964C /* StockPriceTrackeriOSTests */,
 			);
@@ -516,6 +570,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F48301CC2F7E7CEF00310FC2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4E310092FF500010044964C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -589,6 +650,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F4E3100A2FF500010044964C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4E310022FF500010044964C /* StockWebSocketAPIEndToEndTests.swift in Sources */,
+				F4E310052FF500010044964C /* XCTestCase+MemoryLeakTracking.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -606,6 +676,11 @@
 			isa = PBXTargetDependency;
 			target = F48301C42F7E7CEE00310FC2 /* StockPriceTracker */;
 			targetProxy = F48301D02F7E7CEF00310FC2 /* PBXContainerItemProxy */;
+		};
+		F4E3100C2FF500010044964C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F48301C42F7E7CEE00310FC2 /* StockPriceTracker */;
+			targetProxy = F4E3100B2FF500010044964C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -997,6 +1072,50 @@
 			};
 			name = Release;
 		};
+		F4E3100E2FF500010044964C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.afsal.StockWebSocketAPIEndToEndTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		F4E3100F2FF500010044964C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.afsal.StockWebSocketAPIEndToEndTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1041,6 +1160,15 @@
 			buildConfigurations = (
 				F48301DB2F7E7CEF00310FC2 /* Debug */,
 				F48301DC2F7E7CEF00310FC2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F4E310102FF500010044964C /* Build configuration list for PBXNativeTarget "StockWebSocketAPIEndToEndTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4E3100E2FF500010044964C /* Debug */,
+				F4E3100F2FF500010044964C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
