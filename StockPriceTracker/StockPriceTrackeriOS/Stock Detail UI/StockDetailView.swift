@@ -18,10 +18,27 @@ public struct StockDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
                 if let viewModel = stateStore.viewModel {
-                    headerView(for: viewModel)
-                    sparklineCard(for: viewModel)
-                    Divider()
-                    descriptionView(for: viewModel)
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(viewModel.symbol)
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                        Text(viewModel.name)
+                            .font(.title3)
+                            .foregroundColor(.secondary)
+                    }
+                    .padding(.horizontal)
+                    
+                    VStack(spacing: 16) {
+                        headerView(for: viewModel)
+                        sparklineCard(for: viewModel)
+                        descriptionView(for: viewModel)
+                        
+                        HStack(spacing: 16) {
+                            detailCard(title: "Symbol", value: viewModel.symbol)
+                            detailCard(title: "Company", value: viewModel.name)
+                        }
+                    }
+                    .padding(.horizontal)
                 } else if stateStore.isLoading {
                     ProgressView()
                         .frame(maxWidth: .infinity, alignment: .center)
@@ -34,8 +51,9 @@ public struct StockDetailView: View {
                         .padding()
                 }
             }
-            .padding()
+            .padding(.vertical)
         }
+        .background(Color(.systemGroupedBackground))
         .navigationTitle(stateStore.viewModel?.symbol ?? "")
         .navigationBarTitleDisplayMode(.inline)
         .alert(connectionRetryAlertTitle, isPresented: isShowingConnectionRetryAlert) {
@@ -52,31 +70,31 @@ public struct StockDetailView: View {
     }
     
     private func headerView(for viewModel: StockDetailViewModel) -> some View {
-        HStack(alignment: .top) {
-            VStack(alignment: .leading, spacing: 8) {
-                Text(viewModel.name)
-                    .font(.title2)
-                    .fontWeight(.semibold)
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Current Price")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+            
+            Text(viewModel.price)
+                .font(.system(size: 40, weight: .bold, design: .default))
+                .monospacedDigit()
+                .contentTransition(.numericText())
+                .animation(.default, value: viewModel.price)
+            
+            HStack(spacing: 8) {
+                PriceChangeView(
+                    text: viewModel.priceChange,
+                    isPositive: viewModel.isPositive
+                )
                 
-                Text(viewModel.price)
-                    .font(.system(size: 40, weight: .bold, design: .default))
-                    .monospacedDigit()
-                    .contentTransition(.numericText())
-                    .animation(.default, value: viewModel.price)
-                
-                HStack(spacing: 8) {
-                    PriceChangeView(
-                        text: viewModel.priceChange,
-                        isPositive: viewModel.isPositive
-                    )
-                    
-                    Text("(\(viewModel.priceChangePercent))")
-                        .font(.headline)
-                        .foregroundColor(viewModel.isPositive ? .green : .red)
-                }
+                Text(viewModel.priceChangePercent)
+                    .font(.headline)
+                    .foregroundColor(viewModel.isPositive ? .green : .red)
             }
-            Spacer()
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding()
+        .background(RoundedRectangle(cornerRadius: 16).fill(Color(.secondarySystemGroupedBackground)))
     }
     
     private func sparklineCard(for viewModel: StockDetailViewModel) -> some View {
@@ -98,8 +116,8 @@ public struct StockDetailView: View {
         }
         .padding()
         .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color(.secondarySystemBackground))
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color(.secondarySystemGroupedBackground))
         )
     }
     
@@ -113,6 +131,24 @@ public struct StockDetailView: View {
                 .foregroundColor(.secondary)
                 .lineSpacing(4)
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding()
+        .background(RoundedRectangle(cornerRadius: 16).fill(Color(.secondarySystemGroupedBackground)))
+    }
+    
+    private func detailCard(title: String, value: String) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title)
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+            
+            Text(value)
+                .font(.headline)
+                .lineLimit(1)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding()
+        .background(RoundedRectangle(cornerRadius: 16).fill(Color(.secondarySystemGroupedBackground)))
     }
 
     private var connectionRetryAlert: ConnectionRetryAlertViewModel? {
