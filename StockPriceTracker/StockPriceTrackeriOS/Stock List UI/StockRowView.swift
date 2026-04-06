@@ -31,7 +31,14 @@ public struct StockRowView: View {
                     isPositive: viewModel.isPositive
                 )
             }
+            
+            Image(systemName: "chevron.right")
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundColor(Color(.tertiaryLabel))
+                .padding(.leading, 8)
         }
-        .padding(.vertical, 4)
+        .padding(16)
+        .background(Color(.secondarySystemGroupedBackground))
+        .cornerRadius(16)
     }
 }

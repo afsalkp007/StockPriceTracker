@@ -34,15 +34,21 @@ public struct StockListView: View {
             
             toolbarView
             
-            List(stateStore.listViewModel.rows) { row in
-                Button(action: { onRowSelected(row.symbol) }) {
-                    StockRowView(viewModel: row)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .contentShape(Rectangle())
+            ScrollView {
+                LazyVStack(spacing: 12) {
+                    ForEach(stateStore.listViewModel.rows) { row in
+                        Button(action: { onRowSelected(row.symbol) }) {
+                            StockRowView(viewModel: row)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .contentShape(Rectangle())
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .padding(.horizontal)
+                    }
                 }
-                .buttonStyle(PlainButtonStyle())
+                .padding(.vertical)
             }
-            .listStyle(PlainListStyle())
+            .background(Color(.systemGroupedBackground))
             .overlay(Group {
                 if stateStore.isLoading && stateStore.listViewModel.rows.isEmpty {
                     StockListShimmerView()
@@ -143,15 +149,15 @@ private struct StockListShimmerView: View {
             VStack(spacing: 0) {
                 ForEach(0..<6, id: \.self) { _ in
                     StockRowPlaceholderView()
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 12)
-
-                    Divider()
-                        .padding(.leading, 16)
+                        .padding(16)
+                        .background(Color(.secondarySystemGroupedBackground))
+                        .cornerRadius(16)
+                        .padding(.horizontal)
                 }
             }
+            .padding(.vertical)
         }
-        .background(Color(UIColor.systemBackground))
+        .background(Color(.systemGroupedBackground))
         .allowsHitTesting(false)
     }
 }
