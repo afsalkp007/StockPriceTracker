@@ -54,26 +54,55 @@ extension WebSocketStockFeedLoader: StockFeedController {
 
 extension WebSocketStockFeedLoader {
 
+    private enum FeedLoopResult {
+        case sendLoopCompleted
+        case receiveLoopCompleted(Error?)
+    }
+
+    private enum FeedCompletion {
+        case none
+        case finished
+        case failed(Error)
+    }
+
     private func runFeedLoop() async {
+        var didConnect = false
+        var completion: FeedCompletion = .none
+
+        defer {
+            if didConnect {
+                client.disconnect()
+            }
+            finishContinuation(with: completion)
+        }
+
         do {
             try await client.connect()
+            didConnect = true
         } catch {
-            continuation?.finish(throwing: error)
+            completion = .failed(error)
             return
         }
 
-        defer { client.disconnect() }
-
-        await withTaskGroup(of: Void.self) { group in
+        let result = await withTaskGroup(of: FeedLoopResult.self, returning: FeedLoopResult.self) { group in
             group.addTask { await self.sendLoop() }
             group.addTask { await self.receiveLoop() }
-            await group.next()
+
+            let firstResult = await group.next() ?? .sendLoopCompleted
             group.cancelAll()
             while await group.next() != nil {}
+            return firstResult
+        }
+
+        switch result {
+        case .sendLoopCompleted:
+            break
+        case .receiveLoopCompleted(let error):
+            completion = error.map(FeedCompletion.failed) ?? .finished
         }
     }
 
-    private func sendLoop() async {
+    private func sendLoop() async -> FeedLoopResult {
         while !Task.isCancelled {
             var updates: [[String: Any]] = []
             for symbol in StockDescriptions.symbols {
@@ -88,11 +117,13 @@ extension WebSocketStockFeedLoader {
             
             try? await Task.sleep(nanoseconds: UInt64(updateInterval * 1_000_000_000))
         }
+
+        return .sendLoopCompleted
     }
 
-    private func receiveLoop() async {
+    private func receiveLoop() async -> FeedLoopResult {
         for await result in client.receive() {
-            guard !Task.isCancelled else { break }
+            guard !Task.isCancelled else { return .receiveLoopCompleted(nil) }
             switch result {
             case .success(let message):
                 guard let updates = try? StockMessageMapper.map(message) else { continue }
@@ -101,13 +132,11 @@ extension WebSocketStockFeedLoader {
                 }
                 continuation?.yield(currentStocks())
             case .failure(let error):
-                continuation?.finish(throwing: error)
-                return
+                return .receiveLoopCompleted(error)
             }
         }
 
-        guard !Task.isCancelled else { return }
-        continuation?.finish()
+        return .receiveLoopCompleted(nil)
     }
 
     private func applyUpdate(_ update: StockMessageMapper.StockPriceUpdate) {
@@ -140,5 +169,18 @@ extension WebSocketStockFeedLoader {
         guard activeFeedID == feedID else { return }
         feedTask = nil
         activeFeedID = nil
+    }
+
+    private func finishContinuation(with completion: FeedCompletion) {
+        switch completion {
+        case .none:
+            break
+        case .finished:
+            continuation?.finish()
+            continuation = nil
+        case .failed(let error):
+            continuation?.finish(throwing: error)
+            continuation = nil
+        }
     }
 }

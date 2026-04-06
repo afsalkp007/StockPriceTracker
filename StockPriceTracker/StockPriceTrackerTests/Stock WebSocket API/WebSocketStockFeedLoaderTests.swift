@@ -62,6 +62,7 @@ final class WebSocketStockFeedLoaderTests: XCTestCase {
         await waitUntil { client.connectionCallCount == 1 }
         client.completeReceive(with: anyNSError())
         _ = await completionError(from: firstStream)
+        await waitUntil { client.disconnectedCalled == true }
 
         _ = sut.startFeed()
         sut.start()
