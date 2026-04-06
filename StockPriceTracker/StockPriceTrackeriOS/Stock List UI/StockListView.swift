@@ -146,15 +146,12 @@ private struct ErrorBannerView: View {
 private struct StockListShimmerView: View {
     var body: some View {
         ScrollView {
-            VStack(spacing: 0) {
+            LazyVStack(spacing: 12) {
                 ForEach(0..<6, id: \.self) { _ in
                     StockRowPlaceholderView()
-                        .padding(16)
-                        .background(Color(.secondarySystemGroupedBackground))
-                        .cornerRadius(16)
-                        .padding(.horizontal)
                 }
             }
+            .padding(.horizontal)
             .padding(.vertical)
         }
         .background(Color(.systemGroupedBackground))
@@ -176,7 +173,12 @@ private struct StockRowPlaceholderView: View {
                 placeholder(width: 92, height: 18)
                 placeholder(width: 84, height: 26)
             }
+
+            placeholder(width: 10, height: 16)
         }
+        .padding(16)
+        .background(Color(.secondarySystemGroupedBackground))
+        .cornerRadius(16)
         .modifier(ShimmerModifier())
     }
 
