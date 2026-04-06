@@ -1,49 +1,168 @@
-# Stock Price Tracker
+# Stock Price Tracker App Case Study
 
 ![CI-iOS](https://github.com/afsalkp007/StockPriceTracker/actions/workflows/CI-iOS.yml/badge.svg)
 ![CI-macOS](https://github.com/afsalkp007/StockPriceTracker/actions/workflows/CI-macOS.yml/badge.svg)
 
-A production-ready iOS application built to track real-time stock prices. It is built strictly adhering to Clean Architecture principles, the Model-View-Presenter (MVP) pattern, and test-driven development, mirroring the architectural blueprints of the *Essential Feed* case study but utilizing modern SwiftUI for the presentation rendering.
+This project is a Clean Architecture case study for a real-time stock tracker built with three modules:
 
-## Architecture
+- `StockPriceTracker`: feature, presentation, shared presentation, and websocket API
+- `StockPriceTrackeriOS`: SwiftUI rendering layer
+- `StockPriceTrackerApp`: composition root, app services, and navigation
 
-The project is structured into two main workspaces to strictly separate business logic from composition:
+The app tracks 25 seeded stocks, streams live price updates through a websocket echo server, supports list sorting and detail navigation, and handles connection loss with retry flows on both screens.
 
-1. **`StockPriceTracker.fw` (Business Logic Framework)**: Contains the pure Domain, API infrastructure, and agnostic Presentation layers (Presenters & ViewModels). It has zero dependencies on SwiftUI or UIKit (except in the UI-specific module).
-2. **`StockPriceTrackerApp` (Composition Root)**: Contains the true `@main` entry point. It instantiates the API clients, connects them to the Presenters using Adapters and `WeakRefVirtualProxy` objects, and returns the composed SwiftUI Views.
 
-```mermaid
-graph TD
-    App[StockPriceTrackerApp<br>Composition Root] --> FW[StockPriceTracker<br>Feature / Domain]
-    App --> API[Stock WebSocket API<br>Infrastructure]
-    App --> Pres[Stock Presentation<br>MVP / State]
-    App --> UI[StockPriceTrackeriOS<br>SwiftUI Renderers]
-    
-    API --> FW
-    Pres --> FW
-    UI --> Pres
+> Editable source remains available in `docs/diagram.drawio` and exported PNGs in `docs/stock-flow.png` / `docs/stock-architecture.png`.
+
+## Model Specs
+
+### Stock
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `symbol` | `String` | Unique stock ticker used as the primary identity |
+| `name` | `String` | Company display name |
+| `description` | `String` | Company description shown on the detail screen |
+| `price` | `Double` | Latest known stock price |
+| `previousPrice` | `Double` | Previous stock price used to compute change |
+| `history` | `[Double]` | Sliding window of recent prices for the sparkline |
+
+### Payload contract
+
+The app connects to:
+
+```text
+wss://ws.postman-echo.com/raw
 ```
 
-## Layers & Components
+The websocket feed uses JSON arrays of stock price updates:
 
-- **Domain**: Pure `Stock` entity and `StockFeedLoader` protocols. All async logic operates over `AsyncThrowingStream` for robust concurrency.
-- **API**: A `WebSocketClient` abstraction with concrete `URLSessionWebSocketClient` using Postman Echo to simulate incoming real-time socket data.
-- **Presentation**: Generic `LoadResourcePresenter` handles loading and error states, while `StockPresenter` handles formatting prices and sorting logic entirely independent of UI frameworks.
-- **SwiftUI Integration**: Presenter protocols (like `ResourceView`) are fulfilled by App-level Adapters that hydrate `@StateObject` wrappers, bridging agnostic architecture into reactive UI seamlessly. Memory retain cycles are naturally mitigated using `WeakRefVirtualProxy`.
+```json
+[
+  {
+    "symbol": "AAPL",
+    "price": 182.50
+  },
+  {
+    "symbol": "MSFT",
+    "price": 405.12
+  }
+]
+```
 
-## Built With
+`Postman Echo` returns the same frame payload, which the app maps into `StockMessageMapper.StockPriceUpdate` values before merging into the current stock state.
 
-- **Swift 5.10 / iOS 17+**
-- **SwiftUI** & **NavigationStack**
-- **Structured Concurrency** (`async/await`, `TaskGroups`, `AsyncStream`)
-- **TDD** (Dependency injection & Protocol-driven abstractions)
+## Module Breakdown
 
-## Testing
+### `StockPriceTracker`
 
-The project uses pure unit tests decoupled from SDKs like `URLProtocol` when web sockets are involved (spy techniques). To run the tests, select either the framework scheme targeting macOS (for instant headless testing) or the App scheme targeting the iOS Simulator.
+- Domain model for `Stock`
+- Feed abstractions such as `StockFeedLoader` and `StockFeedController`
+- Stock presentation layer with presenters, view models, sorting, and localization
+- Shared presentation layer for loading and error presentation
+- Websocket infrastructure boundary with `WebSocketStockFeedLoader`, `URLSessionWebSocketClient`, and `StockMessageMapper`
 
-## Running the App
+### `StockPriceTrackeriOS`
 
-1. Open `StockPriceTracker.xcworkspace`.
-2. Select the **StockPriceTrackerApp** scheme.
-3. Build and Run (`⌘R`) on any iOS Simulator. The app will immediately establish a WebSocket connection and begin broadcasting mocked live prices for 25 major market symbols.
+- SwiftUI screens for the stock list and detail flows
+- UI-specific observable state stores
+- Reusable rendering components such as connection, price change, and sparkline views
+
+### `StockPriceTrackerApp`
+
+- Composition root and navigation setup
+- Shared `StockService`
+- App-layer composers and adapters that bridge feature APIs into the SwiftUI state stores
+
+## Build Instructions
+
+### Requirements
+
+- Xcode 16+ installed (default path: `/Applications/Xcode.app`)
+- iOS Simulator runtimes installed
+- macOS can reach `wss://ws.postman-echo.com/raw` for end-to-end websocket tests
+
+### Quick Start (Xcode)
+
+1. Open `StockPriceTrackerApp/StockPriceTrackerApp.xcworkspace`
+2. Select scheme `StockPriceTrackerApp`
+3. Select an iOS Simulator (for example, iPhone 17 Pro)
+4. Run (`Cmd + R`)
+
+### Run Tests (Xcode)
+
+- iOS CI-equivalent suite: scheme `CI-iOS` (workspace: `StockPriceTrackerApp/StockPriceTrackerApp.xcworkspace`)
+- macOS CI-equivalent suite: scheme `CI-macOS` (project: `StockPriceTracker/StockPriceTracker.xcodeproj`)
+- WebSocket E2E suite: scheme `StockWebSocketAPIEndToEndTests` (project: `StockPriceTracker/StockPriceTracker.xcodeproj`)
+
+### Build and Test from CLI
+
+From repo root:
+
+```bash
+xcodebuild clean build test \
+  -workspace StockPriceTrackerApp/StockPriceTrackerApp.xcworkspace \
+  -scheme "CI-iOS" \
+  CODE_SIGN_IDENTITY="" \
+  CODE_SIGNING_REQUIRED=NO \
+  -sdk iphonesimulator \
+  -destination "platform=iOS Simulator,name=iPhone 17 Pro,OS=latest" \
+  ONLY_ACTIVE_ARCH=YES
+```
+
+```bash
+xcodebuild clean build test \
+  -project StockPriceTracker/StockPriceTracker.xcodeproj \
+  -scheme "CI-macOS" \
+  CODE_SIGN_IDENTITY="" \
+  CODE_SIGNING_REQUIRED=NO \
+  -sdk macosx \
+  -destination "platform=macOS" \
+  ONLY_ACTIVE_ARCH=YES
+```
+
+### Build App Only (without tests)
+
+```bash
+xcodebuild build \
+  -workspace StockPriceTrackerApp/StockPriceTrackerApp.xcworkspace \
+  -scheme "StockPriceTrackerApp" \
+  -sdk iphonesimulator \
+  -destination "platform=iOS Simulator,name=iPhone 17 Pro,OS=latest"
+```
+
+### Run WebSocket End-to-End Tests Only
+
+```bash
+xcodebuild test \
+  -project StockPriceTracker/StockPriceTracker.xcodeproj \
+  -scheme "StockWebSocketAPIEndToEndTests" \
+  -sdk macosx \
+  -destination "platform=macOS"
+```
+
+## Testing Strategy
+
+The test suite follows the same general direction as the Essential Feed case study:
+
+- framework unit tests focus on public feature, presentation, shared presentation, localization, and websocket seams
+- app integration tests exercise the composed list and detail flows through public composition interfaces
+- websocket end-to-end coverage lives in a dedicated target and shared scheme so it does not get mixed into the regular unit suite
+
+Current testing layers include:
+
+- `StockPriceTrackerTests`
+- `StockPriceTrackeriOSTests`
+- `StockPriceTrackerAppTests`
+- `StockWebSocketAPIEndToEndTests`
+
+## Editable Diagram Source
+
+Both documentation diagrams live in a single editable draw.io file with two pages:
+
+- [docs/diagram.drawio](docs/diagram.drawio)
+
+The exported PNG assets used by this README are:
+
+- [docs/stock-flow.png](docs/stock-flow.png)
+- [docs/stock-architecture.png](docs/stock-architecture.png)
