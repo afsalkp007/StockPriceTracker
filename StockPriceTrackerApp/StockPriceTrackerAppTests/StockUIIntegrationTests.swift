@@ -55,6 +55,31 @@ final class StockUIIntegrationTests: XCTestCase {
         XCTAssertNotNil(stateStore.errorMessage)
         XCTAssertFalse(stateStore.isLoading)
     }
+
+    func test_feedLoad_runsAutomaticallyOnlyOnFirstAppearance() {
+        let (sut, _, _, feedController) = makeSUT()
+
+        sut.simulateAppearance()
+        sut.simulateDisappearance()
+        sut.simulateAppearance()
+
+        XCTAssertEqual(feedController.startCallCount, 1)
+    }
+
+    func test_feedEnd_updatesConnectionStateToDisconnected() async {
+        let (sut, stateStore, loader, _) = makeSUT()
+
+        sut.simulateAppearance()
+        loader.emit([makeStock(symbol: "AAPL", price: 150)])
+        try? await Task.sleep(nanoseconds: 10_000_000)
+
+        XCTAssertEqual(stateStore.connectionViewModel, .connected)
+
+        loader.complete()
+        try? await Task.sleep(nanoseconds: 10_000_000)
+
+        XCTAssertEqual(stateStore.connectionViewModel, .disconnected)
+    }
     
     func test_stockDetailComposition_rendersInitialAndUpdatedMatchingStock() {
         let initialStock = makeStock(
@@ -274,6 +299,13 @@ private final class ViewHost<Content: View> {
         window.makeKeyAndVisible()
         controller.beginAppearanceTransition(true, animated: false)
         controller.endAppearanceTransition()
+        render()
+    }
+
+    func simulateDisappearance() {
+        controller.beginAppearanceTransition(false, animated: false)
+        controller.endAppearanceTransition()
+        window.isHidden = true
         render()
     }
 
