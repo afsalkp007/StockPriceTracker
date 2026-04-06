@@ -13,8 +13,8 @@ struct StockPriceTrackerApp: App {
             NavigationStack {
                 StockUIComposer.stockListComposedWith(
                     stateStore: stockListStateStore,
-                    feedLoader: serviceState.service.makeFeedLoader(),
-                    feedController: serviceState.service.feedController(),
+                    feedLoader: serviceState.makeFeedLoader(),
+                    feedController: serviceState.feedController,
                     onFeedStartConfigured: { serviceState.startFeed = $0 },
                     selection: { stock in
                         serviceState.selectedStock = stock
@@ -33,10 +33,29 @@ struct StockPriceTrackerApp: App {
     }
 }
 
-// AppServiceState ensures StockService is retained and provides observable state for SwiftUI Navigation
 @MainActor
 final class AppServiceState: ObservableObject {
-    let service = StockService()
+    private let stockFeed: any StockFeedLoader & StockFeedController
     @Published var selectedStock: Stock?
     var startFeed: (() -> Void)?
+
+    init(stockFeed: (any StockFeedLoader & StockFeedController)? = nil) {
+        self.stockFeed = stockFeed ?? Self.makeDefaultStockFeed()
+    }
+
+    var feedController: StockFeedController {
+        stockFeed
+    }
+
+    func makeFeedLoader() -> () -> AsyncThrowingStream<[Stock], Error> {
+        { [stockFeed] in
+            stockFeed.startFeed()
+        }
+    }
+
+    private static func makeDefaultStockFeed() -> any StockFeedLoader & StockFeedController {
+        let url = URL(string: "wss://ws.postman-echo.com/raw")!
+        let client = URLSessionWebSocketClient(url: url)
+        return WebSocketStockFeedLoader(client: client)
+    }
 }
