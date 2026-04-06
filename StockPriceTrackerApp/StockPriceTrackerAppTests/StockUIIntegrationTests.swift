@@ -22,9 +22,7 @@ final class StockUIIntegrationTests: XCTestCase {
         
         let stock1 = makeStock(symbol: "A", price: 100)
         loader.emit([stock1])
-        
-        // Yield to allow the async sequence to process the emitted element
-        try? await Task.sleep(nanoseconds: 10_000_000)
+        await waitUntil { stateStore.listViewModel.rows.count == 1 }
         
         XCTAssertEqual(stateStore.listViewModel.rows.count, 1)
         XCTAssertEqual(stateStore.listViewModel.rows.first?.symbol, "A")
@@ -32,8 +30,7 @@ final class StockUIIntegrationTests: XCTestCase {
         
         let stock2 = makeStock(symbol: "B", price: 200)
         loader.emit([stock1, stock2])
-        
-        try? await Task.sleep(nanoseconds: 10_000_000)
+        await waitUntil { stateStore.listViewModel.rows.count == 2 }
         XCTAssertEqual(stateStore.listViewModel.rows.count, 2)
         XCTAssertFalse(stateStore.isLoading)
 
@@ -49,8 +46,7 @@ final class StockUIIntegrationTests: XCTestCase {
         XCTAssertTrue(stateStore.isLoading)
         
         loader.complete(with: NSError(domain: "any error", code: 0))
-        
-        try? await Task.sleep(nanoseconds: 10_000_000)
+        await waitUntil { stateStore.errorMessage != nil && stateStore.isLoading == false }
         
         XCTAssertNotNil(stateStore.errorMessage)
         XCTAssertFalse(stateStore.isLoading)
@@ -71,12 +67,12 @@ final class StockUIIntegrationTests: XCTestCase {
 
         sut.simulateAppearance()
         loader.emit([makeStock(symbol: "AAPL", price: 150)])
-        try? await Task.sleep(nanoseconds: 10_000_000)
+        await waitUntil { stateStore.connectionViewModel == .connected }
 
         XCTAssertEqual(stateStore.connectionViewModel, .connected)
 
         loader.complete()
-        try? await Task.sleep(nanoseconds: 10_000_000)
+        await waitUntil { stateStore.connectionViewModel == .disconnected }
 
         XCTAssertEqual(stateStore.connectionViewModel, .disconnected)
     }
@@ -281,6 +277,26 @@ final class StockUIIntegrationTests: XCTestCase {
         let exp = expectation(description: "Wait for main queue dispatch")
         DispatchQueue.main.async { exp.fulfill() }
         wait(for: [exp], timeout: 1.0)
+    }
+
+    private func waitUntil(
+        timeout: TimeInterval = 1.0,
+        file: StaticString = #filePath,
+        line: UInt = #line,
+        condition: @escaping () -> Bool
+    ) async {
+        let exp = expectation(description: "Wait until condition is met")
+
+        Task { @MainActor in
+            let deadline = Date().addingTimeInterval(timeout)
+            while !condition() && Date() < deadline {
+                await Task.yield()
+            }
+            exp.fulfill()
+        }
+
+        await fulfillment(of: [exp], timeout: timeout)
+        XCTAssertTrue(condition(), file: file, line: line)
     }
 }
 
