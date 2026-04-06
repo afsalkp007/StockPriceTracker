@@ -48,10 +48,10 @@
 		F4B100042F9000010044964C /* ConnectionStatusViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B100072F9000010044964C /* ConnectionStatusViewModelTests.swift */; };
 		F4D200012FF300010044964C /* Shared.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4D200052FF300010044964C /* Shared.strings */; };
 		F4D200022FF300010044964C /* SharedLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D200032FF300010044964C /* SharedLocalizationTests.swift */; };
+		F4E310012FF400010044964C /* URLSessionWebSocketClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E310002FF400010044964C /* URLSessionWebSocketClientTests.swift */; };
 		F4E310022FF500010044964C /* StockWebSocketAPIEndToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E310032FF500010044964C /* StockWebSocketAPIEndToEndTests.swift */; };
 		F4E310042FF500010044964C /* StockPriceTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48301C52F7E7CEE00310FC2 /* StockPriceTracker.framework */; };
 		F4E310052FF500010044964C /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE2232F7EBE5A00545F17 /* XCTestCase+MemoryLeakTracking.swift */; };
-		F4E310012FF400010044964C /* URLSessionWebSocketClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E310002FF400010044964C /* URLSessionWebSocketClientTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,14 +69,14 @@
 			remoteGlobalIDString = F48301C42F7E7CEE00310FC2;
 			remoteInfo = StockPriceTracker;
 		};
-		F4E3100B2FF500010044964C /* PBXContainerItemProxy */ = {
+		F48301D02F7E7CEF00310FC2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F48301BC2F7E7CEE00310FC2 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = F48301C42F7E7CEE00310FC2;
 			remoteInfo = StockPriceTracker;
 		};
-		F48301D02F7E7CEF00310FC2 /* PBXContainerItemProxy */ = {
+		F4E3100B2FF500010044964C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F48301BC2F7E7CEE00310FC2 /* Project object */;
 			proxyType = 1;
@@ -93,7 +93,6 @@
 		F40BE22F2F7EC17900545F17 /* StockPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPresenterTests.swift; sourceTree = "<group>"; };
 		F470B3092F7E8F580044964C /* StockPriceTrackeriOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StockPriceTrackeriOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F470B3112F7E8F580044964C /* StockPriceTrackeriOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockPriceTrackeriOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F470B32E2F7E92510044964C /* StockPriceTracker.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = StockPriceTracker.xctestplan; sourceTree = "<group>"; };
 		F470B3312F7E930E0044964C /* StockPriceTrackeriOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = StockPriceTrackeriOS.xctestplan; sourceTree = "<group>"; };
 		F470B3362F7EAA050044964C /* LoadResourcePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadResourcePresenter.swift; sourceTree = "<group>"; };
 		F470B3372F7EAA050044964C /* ResourceErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceErrorViewModel.swift; sourceTree = "<group>"; };
@@ -231,7 +230,6 @@
 		F428F9AD2F7E7DA000C84A3C /* StockPriceTrackerTests */ = {
 			isa = PBXGroup;
 			children = (
-				F470B32E2F7E92510044964C /* StockPriceTracker.xctestplan */,
 				F40BE2242F7EBE5A00545F17 /* Helpers */,
 				F4A0C0022F8200010044964C /* Shared Presentation */,
 				F40BE2262F7EBE5A00545F17 /* Stock Feature */,
@@ -239,14 +237,6 @@
 				F40BE2292F7EBE5A00545F17 /* Stock WebSocket API */,
 			);
 			path = StockPriceTrackerTests;
-			sourceTree = "<group>";
-		};
-		F4E310072FF500010044964C /* StockWebSocketAPIEndToEndTests */ = {
-			isa = PBXGroup;
-			children = (
-				F4E310032FF500010044964C /* StockWebSocketAPIEndToEndTests.swift */,
-			);
-			path = StockWebSocketAPIEndToEndTests;
 			sourceTree = "<group>";
 		};
 		F470B3272F7E8FC40044964C /* StockPriceTrackeriOS */ = {
@@ -371,6 +361,14 @@
 				F4D200032FF300010044964C /* SharedLocalizationTests.swift */,
 			);
 			path = "Shared Presentation";
+			sourceTree = "<group>";
+		};
+		F4E310072FF500010044964C /* StockWebSocketAPIEndToEndTests */ = {
+			isa = PBXGroup;
+			children = (
+				F4E310032FF500010044964C /* StockWebSocketAPIEndToEndTests.swift */,
+			);
+			path = StockWebSocketAPIEndToEndTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

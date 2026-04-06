@@ -20,7 +20,6 @@
 		F40BE2322F7ED49500545F17 /* StockUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE2312F7ED49500545F17 /* StockUIIntegrationTests.swift */; };
 		F470B2FE2F7E8C290044964C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F470B2F42F7E8C290044964C /* Assets.xcassets */; };
 		F470B2FF2F7E8C290044964C /* StockPriceTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B2F62F7E8C290044964C /* StockPriceTrackerApp.swift */; };
-		F470B3342F7E93660044964C /* StockPriceTrackerApp.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = F470B3332F7E93660044964C /* StockPriceTrackerApp.xctestplan */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,7 +61,6 @@
 		F428FA012F7E8B4F00C84A3C /* StockPriceTrackerAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockPriceTrackerAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F470B2F42F7E8C290044964C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F470B2F62F7E8C290044964C /* StockPriceTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPriceTrackerApp.swift; sourceTree = "<group>"; };
-		F470B3332F7E93660044964C /* StockPriceTrackerApp.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = StockPriceTrackerApp.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,7 +145,6 @@
 		F470B2F92F7E8C290044964C /* StockPriceTrackerAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				F470B3332F7E93660044964C /* StockPriceTrackerApp.xctestplan */,
 				F40BE2312F7ED49500545F17 /* StockUIIntegrationTests.swift */,
 			);
 			path = StockPriceTrackerAppTests;
@@ -249,7 +246,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F470B3342F7E93660044964C /* StockPriceTrackerApp.xctestplan in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
