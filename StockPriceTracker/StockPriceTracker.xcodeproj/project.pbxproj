@@ -48,6 +48,9 @@
 		F4B100042F9000010044964C /* ConnectionStatusViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B100072F9000010044964C /* ConnectionStatusViewModelTests.swift */; };
 		F4B1000A2FF700010044964C /* StockViewModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B1000B2FF700010044964C /* StockViewModelsTests.swift */; };
 		F4B1000C2FF700020044964C /* ResourceViewModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B1000D2FF700020044964C /* ResourceViewModelsTests.swift */; };
+		F4B100152FF700030044964C /* XCTestCase+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B100122FF700030044964C /* XCTestCase+Snapshot.swift */; };
+		F4B100162FF700030044964C /* UIViewController+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B100132FF700030044964C /* UIViewController+Snapshot.swift */; };
+		F4B100172FF700030044964C /* View+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B100142FF700030044964C /* View+Snapshot.swift */; };
 		F4D200012FF300010044964C /* Shared.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4D200052FF300010044964C /* Shared.strings */; };
 		F4D200022FF300010044964C /* SharedLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D200032FF300010044964C /* SharedLocalizationTests.swift */; };
 		F4E310012FF400010044964C /* URLSessionWebSocketClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E310002FF400010044964C /* URLSessionWebSocketClientTests.swift */; };
@@ -129,6 +132,9 @@
 		F4B100072F9000010044964C /* ConnectionStatusViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionStatusViewModelTests.swift; sourceTree = "<group>"; };
 		F4B1000B2FF700010044964C /* StockViewModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockViewModelsTests.swift; sourceTree = "<group>"; };
 		F4B1000D2FF700020044964C /* ResourceViewModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceViewModelsTests.swift; sourceTree = "<group>"; };
+		F4B100122FF700030044964C /* XCTestCase+Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Snapshot.swift"; sourceTree = "<group>"; };
+		F4B100132FF700030044964C /* UIViewController+Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Snapshot.swift"; sourceTree = "<group>"; };
+		F4B100142FF700030044964C /* View+Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Snapshot.swift"; sourceTree = "<group>"; };
 		F4B100082F9000010044964C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/StockPresentation.strings; sourceTree = "<group>"; };
 		F4D200032FF300010044964C /* SharedLocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedLocalizationTests.swift; sourceTree = "<group>"; };
 		F4D200042FF300010044964C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Shared.strings; sourceTree = "<group>"; };
@@ -256,6 +262,7 @@
 		F470B3292F7E8FC40044964C /* StockPriceTrackeriOSTests */ = {
 			isa = PBXGroup;
 			children = (
+				F4B100112FF700030044964C /* Helpers */,
 			);
 			path = StockPriceTrackeriOSTests;
 			sourceTree = "<group>";
@@ -367,6 +374,16 @@
 				F4D200032FF300010044964C /* SharedLocalizationTests.swift */,
 			);
 			path = "Shared Presentation";
+			sourceTree = "<group>";
+		};
+		F4B100112FF700030044964C /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F4B100122FF700030044964C /* XCTestCase+Snapshot.swift */,
+				F4B100132FF700030044964C /* UIViewController+Snapshot.swift */,
+				F4B100142FF700030044964C /* View+Snapshot.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		F4E310072FF500010044964C /* StockWebSocketAPIEndToEndTests */ = {
@@ -607,6 +624,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4B100152FF700030044964C /* XCTestCase+Snapshot.swift in Sources */,
+				F4B100162FF700030044964C /* UIViewController+Snapshot.swift in Sources */,
+				F4B100172FF700030044964C /* View+Snapshot.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
