@@ -10,6 +10,7 @@ public struct StockListView: View {
     private let onRowSelected: (String) -> Void
     
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var hasAppeared = false
     
     public init(
@@ -75,46 +76,83 @@ public struct StockListView: View {
     }
     
     private var toolbarView: some View {
-        HStack {
-            ConnectionStatusView(viewModel: stateStore.connectionViewModel)
-            
-            Spacer()
-            
-            Button(action: {
-                if stateStore.connectionViewModel.isConnected {
-                    onStop()
-                } else {
-                    onStart()
+        Group {
+            if dynamicTypeSize.isAccessibilitySize {
+                VStack(alignment: .leading, spacing: 16) {
+                    HStack {
+                        ConnectionStatusView(viewModel: stateStore.connectionViewModel)
+                        Spacer()
+                        startStopButton
+                    }
+
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(StockPresenter.sortTitle)
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                        menuSortPicker
+                    }
                 }
-            }) {
-                Text(stateStore.connectionViewModel.controlTitle)
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 6)
-                    .background(stateStore.connectionViewModel.isConnected ? Color.red.opacity(0.15) : Color.green.opacity(0.15))
-                    .foregroundColor(stateStore.connectionViewModel.isConnected ? .red : .green)
-                    .cornerRadius(8)
-            }
-            
-            Spacer()
-            
-            Picker(StockPresenter.sortTitle, selection: Binding(
-                get: { stateStore.currentSort },
-                set: { newSort in
-                    stateStore.currentSort = newSort
-                    onSort(newSort)
+            } else {
+                HStack(spacing: 12) {
+                    ConnectionStatusView(viewModel: stateStore.connectionViewModel)
+                    
+                    Spacer()
+                    
+                    startStopButton
+                    
+                    segmentedSortPicker
+                        .frame(maxWidth: 220)
                 }
-            )) {
-                Text(StockPresenter.sortByPriceTitle).tag(SortOption.byPrice)
-                Text(StockPresenter.sortByChangeTitle).tag(SortOption.byPriceChange)
             }
-            .pickerStyle(SegmentedPickerStyle())
-            .frame(width: 150)
         }
         .padding()
         .background(Color(UIColor.systemBackground))
         .shadow(color: Color.black.opacity(0.05), radius: 2, y: 2)
+    }
+
+    private var startStopButton: some View {
+        Button(action: {
+            if stateStore.connectionViewModel.isConnected {
+                onStop()
+            } else {
+                onStart()
+            }
+        }) {
+            Text(stateStore.connectionViewModel.controlTitle)
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 6)
+                .background(stateStore.connectionViewModel.isConnected ? Color.red.opacity(0.15) : Color.green.opacity(0.15))
+                .foregroundColor(stateStore.connectionViewModel.isConnected ? .red : .green)
+                .cornerRadius(8)
+        }
+    }
+
+    private var segmentedSortPicker: some View {
+        Picker(StockPresenter.sortTitle, selection: sortSelection) {
+            Text(StockPresenter.sortByPriceTitle).tag(SortOption.byPrice)
+            Text(StockPresenter.sortByChangeTitle).tag(SortOption.byPriceChange)
+        }
+        .pickerStyle(.segmented)
+    }
+
+    private var menuSortPicker: some View {
+        Picker(StockPresenter.sortTitle, selection: sortSelection) {
+            Text(StockPresenter.sortByPriceTitle).tag(SortOption.byPrice)
+            Text(StockPresenter.sortByChangeTitle).tag(SortOption.byPriceChange)
+        }
+        .pickerStyle(.menu)
+    }
+
+    private var sortSelection: Binding<SortOption> {
+        Binding(
+            get: { stateStore.currentSort },
+            set: { newSort in
+                stateStore.currentSort = newSort
+                onSort(newSort)
+            }
+        )
     }
 }
 

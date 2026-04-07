@@ -3,42 +3,71 @@ import StockPriceTracker
 
 public struct StockRowView: View {
     private let viewModel: StockRowViewModel
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     
     public init(viewModel: StockRowViewModel) {
         self.viewModel = viewModel
     }
     
     public var body: some View {
-        HStack {
+        Group {
+            if dynamicTypeSize.isAccessibilitySize {
+                VStack(alignment: .leading, spacing: 12) {
+                    headerContent
+                    valueContent(alignment: .leading)
+                }
+            } else {
+                HStack {
+                    headerContent
+                    
+                    Spacer()
+                    
+                    valueContent(alignment: .trailing)
+                    
+                    chevron
+                }
+            }
+        }
+        .padding(16)
+        .background(Color(.secondarySystemGroupedBackground))
+        .cornerRadius(16)
+    }
+
+    private var headerContent: some View {
+        HStack(alignment: .top, spacing: 12) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(viewModel.symbol)
                     .font(.headline)
                 Text(viewModel.name)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
-                    .lineLimit(1)
+                    .lineLimit(dynamicTypeSize.isAccessibilitySize ? 2 : 1)
             }
             
-            Spacer()
-            
-            VStack(alignment: .trailing, spacing: 4) {
-                Text(viewModel.price)
-                    .font(.headline)
-                    .monospacedDigit()
-                
-                PriceChangeView(
-                    text: viewModel.priceChange,
-                    isPositive: viewModel.isPositive
-                )
+            if dynamicTypeSize.isAccessibilitySize {
+                Spacer(minLength: 12)
+                chevron
             }
-            
-            Image(systemName: "chevron.right")
-                .font(.system(size: 14, weight: .semibold))
-                .foregroundColor(Color(.tertiaryLabel))
-                .padding(.leading, 8)
         }
-        .padding(16)
-        .background(Color(.secondarySystemGroupedBackground))
-        .cornerRadius(16)
+    }
+
+    private func valueContent(alignment: HorizontalAlignment) -> some View {
+        VStack(alignment: alignment, spacing: 4) {
+            Text(viewModel.price)
+                .font(.headline)
+                .monospacedDigit()
+            
+            PriceChangeView(
+                text: viewModel.priceChange,
+                isPositive: viewModel.isPositive
+            )
+        }
+    }
+
+    private var chevron: some View {
+        Image(systemName: "chevron.right")
+            .font(.subheadline.weight(.semibold))
+            .foregroundColor(Color(.tertiaryLabel))
+            .padding(.leading, 8)
     }
 }

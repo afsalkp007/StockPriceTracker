@@ -5,6 +5,7 @@ import StockPriceTracker
 public struct StockDetailView: View {
     @ObservedObject private var stateStore: StockDetailStateStore
     private let onRetryConnection: () -> Void
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     
     public init(
         stateStore: StockDetailStateStore,
@@ -32,11 +33,8 @@ public struct StockDetailView: View {
                         headerView(for: viewModel)
                         sparklineCard(for: viewModel)
                         descriptionView(for: viewModel)
-                        
-                        HStack(spacing: 16) {
-                            detailCard(title: "Symbol", value: viewModel.symbol)
-                            detailCard(title: "Company", value: viewModel.name)
-                        }
+
+                        detailCards(for: viewModel)
                     }
                     .padding(.horizontal)
                 } else if stateStore.isLoading {
@@ -76,7 +74,8 @@ public struct StockDetailView: View {
                 .foregroundColor(.secondary)
             
             Text(viewModel.price)
-                .font(.system(size: 40, weight: .bold, design: .default))
+                .font(.largeTitle)
+                .fontWeight(.bold)
                 .monospacedDigit()
                 .contentTransition(.numericText())
                 .animation(.default, value: viewModel.price)
@@ -135,6 +134,21 @@ public struct StockDetailView: View {
         .padding()
         .background(RoundedRectangle(cornerRadius: 16).fill(Color(.secondarySystemGroupedBackground)))
     }
+
+    @ViewBuilder
+    private func detailCards(for viewModel: StockDetailViewModel) -> some View {
+        if dynamicTypeSize.isAccessibilitySize {
+            VStack(spacing: 16) {
+                detailCard(title: "Symbol", value: viewModel.symbol)
+                detailCard(title: "Company", value: viewModel.name)
+            }
+        } else {
+            HStack(spacing: 16) {
+                detailCard(title: "Symbol", value: viewModel.symbol)
+                detailCard(title: "Company", value: viewModel.name)
+            }
+        }
+    }
     
     private func detailCard(title: String, value: String) -> some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -144,7 +158,7 @@ public struct StockDetailView: View {
             
             Text(value)
                 .font(.headline)
-                .lineLimit(1)
+                .lineLimit(2)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
