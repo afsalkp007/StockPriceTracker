@@ -37,6 +37,7 @@
 		F470B3652F7EAC5F0044964C /* ConnectionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B35C2F7EAC5F0044964C /* ConnectionStatusView.swift */; };
 		F470B3672F7EACA20044964C /* StockPriceTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48301C52F7E7CEE00310FC2 /* StockPriceTracker.framework */; };
 		F48301CF2F7E7CEF00310FC2 /* StockPriceTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48301C52F7E7CEE00310FC2 /* StockPriceTracker.framework */; };
+		F4866CDE2F84E28A009B0B2F /* StockListShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4866CDD2F84E28A009B0B2F /* StockListShimmerView.swift */; };
 		F48A0F352F7FF7E80084C3FD /* SparklineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48A0F342F7FF7E80084C3FD /* SparklineView.swift */; };
 		F48A0F372F7FF9650084C3FD /* StockHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48A0F362F7FF9650084C3FD /* StockHistoryTests.swift */; };
 		F48A0F392F7FF9720084C3FD /* StockDetailPresenterSparklineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48A0F382F7FF9720084C3FD /* StockDetailPresenterSparklineTests.swift */; };
@@ -117,6 +118,7 @@
 		F470B35F2F7EAC5F0044964C /* StockRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockRowView.swift; sourceTree = "<group>"; };
 		F48301C52F7E7CEE00310FC2 /* StockPriceTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StockPriceTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48301CE2F7E7CEF00310FC2 /* StockPriceTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockPriceTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4866CDD2F84E28A009B0B2F /* StockListShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockListShimmerView.swift; sourceTree = "<group>"; };
 		F48A0F342F7FF7E80084C3FD /* SparklineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SparklineView.swift; sourceTree = "<group>"; };
 		F48A0F362F7FF9650084C3FD /* StockHistoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockHistoryTests.swift; sourceTree = "<group>"; };
 		F48A0F382F7FF9720084C3FD /* StockDetailPresenterSparklineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailPresenterSparklineTests.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 				F470B35D2F7EAC5F0044964C /* PriceChangeView.swift */,
 				F470B35E2F7EAC5F0044964C /* StockListView.swift */,
 				F470B35F2F7EAC5F0044964C /* StockRowView.swift */,
+				F4866CDD2F84E28A009B0B2F /* StockListShimmerView.swift */,
 			);
 			path = "Stock List UI";
 			sourceTree = "<group>";
@@ -591,6 +594,7 @@
 				F470B3612F7EAC5F0044964C /* StockRowView.swift in Sources */,
 				F470B3622F7EAC5F0044964C /* StockListView.swift in Sources */,
 				F470B3632F7EAC5F0044964C /* PriceChangeView.swift in Sources */,
+				F4866CDE2F84E28A009B0B2F /* StockListShimmerView.swift in Sources */,
 				F470B3642F7EAC5F0044964C /* StockDetailView.swift in Sources */,
 				F48A0F352F7FF7E80084C3FD /* SparklineView.swift in Sources */,
 				F470B3652F7EAC5F0044964C /* ConnectionStatusView.swift in Sources */,
