@@ -38,9 +38,7 @@ public struct StockDetailView: View {
                     }
                     .padding(.horizontal)
                 } else if stateStore.isLoading {
-                    ProgressView()
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .padding(.top, 40)
+                    StockDetailShimmerView()
                 }
                 
                 if let error = stateStore.errorMessage {
