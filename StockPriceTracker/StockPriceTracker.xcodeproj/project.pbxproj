@@ -46,6 +46,8 @@
 		F4B100022F9000010044964C /* LocalizationTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B100052F9000010044964C /* LocalizationTestHelpers.swift */; };
 		F4B100032F9000010044964C /* StockPresentationLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B100062F9000010044964C /* StockPresentationLocalizationTests.swift */; };
 		F4B100042F9000010044964C /* ConnectionStatusViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B100072F9000010044964C /* ConnectionStatusViewModelTests.swift */; };
+		F4B1000A2FF700010044964C /* StockViewModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B1000B2FF700010044964C /* StockViewModelsTests.swift */; };
+		F4B1000C2FF700020044964C /* ResourceViewModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B1000D2FF700020044964C /* ResourceViewModelsTests.swift */; };
 		F4D200012FF300010044964C /* Shared.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4D200052FF300010044964C /* Shared.strings */; };
 		F4D200022FF300010044964C /* SharedLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D200032FF300010044964C /* SharedLocalizationTests.swift */; };
 		F4E310012FF400010044964C /* URLSessionWebSocketClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E310002FF400010044964C /* URLSessionWebSocketClientTests.swift */; };
@@ -125,6 +127,8 @@
 		F4B100052F9000010044964C /* LocalizationTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationTestHelpers.swift; sourceTree = "<group>"; };
 		F4B100062F9000010044964C /* StockPresentationLocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockPresentationLocalizationTests.swift; sourceTree = "<group>"; };
 		F4B100072F9000010044964C /* ConnectionStatusViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionStatusViewModelTests.swift; sourceTree = "<group>"; };
+		F4B1000B2FF700010044964C /* StockViewModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockViewModelsTests.swift; sourceTree = "<group>"; };
+		F4B1000D2FF700020044964C /* ResourceViewModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceViewModelsTests.swift; sourceTree = "<group>"; };
 		F4B100082F9000010044964C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/StockPresentation.strings; sourceTree = "<group>"; };
 		F4D200032FF300010044964C /* SharedLocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedLocalizationTests.swift; sourceTree = "<group>"; };
 		F4D200042FF300010044964C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Shared.strings; sourceTree = "<group>"; };
@@ -201,6 +205,7 @@
 				F4A0C0032F8201010044964C /* StockDetailPresenterTests.swift */,
 				F4B100062F9000010044964C /* StockPresentationLocalizationTests.swift */,
 				F40BE22F2F7EC17900545F17 /* StockPresenterTests.swift */,
+				F4B1000B2FF700010044964C /* StockViewModelsTests.swift */,
 				F48A0F382F7FF9720084C3FD /* StockDetailPresenterSparklineTests.swift */,
 			);
 			path = "Stock Presentation";
@@ -358,6 +363,7 @@
 			isa = PBXGroup;
 			children = (
 				F4A0C0002F8200010044964C /* LoadResourcePresenterTests.swift */,
+				F4B1000D2FF700020044964C /* ResourceViewModelsTests.swift */,
 				F4D200032FF300010044964C /* SharedLocalizationTests.swift */,
 			);
 			path = "Shared Presentation";
@@ -632,10 +638,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4D200022FF300010044964C /* SharedLocalizationTests.swift in Sources */,
+				F4B1000C2FF700020044964C /* ResourceViewModelsTests.swift in Sources */,
 				F4B100042F9000010044964C /* ConnectionStatusViewModelTests.swift in Sources */,
 				F4A0C0042F8201010044964C /* StockDetailPresenterTests.swift in Sources */,
 				F4B100032F9000010044964C /* StockPresentationLocalizationTests.swift in Sources */,
 				F40BE2302F7EC17900545F17 /* StockPresenterTests.swift in Sources */,
+				F4B1000A2FF700010044964C /* StockViewModelsTests.swift in Sources */,
 				F40BE22A2F7EBE5A00545F17 /* StockMessageMapperTests.swift in Sources */,
 				F4E310012FF400010044964C /* URLSessionWebSocketClientTests.swift in Sources */,
 				F4A0C0012F8200010044964C /* LoadResourcePresenterTests.swift in Sources */,
