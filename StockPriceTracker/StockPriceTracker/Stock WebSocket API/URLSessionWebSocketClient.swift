@@ -11,7 +11,7 @@ public protocol URLSessionWebSocketTasking: AnyObject {
     func receive(completionHandler: @escaping @Sendable (Result<URLSessionWebSocketTask.Message, Error>) -> Void)
 }
 
-public final class URLSessionWebSocketClient: WebSocketClient {
+public final class URLSessionWebSocketClient {
     private let url: URL
     private let session: any URLSessionWebSocketSession
     private var task: (any URLSessionWebSocketTasking)?
@@ -25,7 +25,10 @@ public final class URLSessionWebSocketClient: WebSocketClient {
         self.url = url
         self.session = webSocketSession
     }
+}
 
+extension URLSessionWebSocketClient: WebSocketClient {
+    
     public func connect() async throws {
         task = session.makeWebSocketTask(with: url)
         task?.resume()
@@ -45,8 +48,9 @@ public final class URLSessionWebSocketClient: WebSocketClient {
             self?.receiveNext(continuation: continuation)
         }
     }
+}
 
-    // MARK: - Private Helpers -
+extension URLSessionWebSocketClient {
 
     private func receiveNext(continuation: AsyncStream<Result<String, Error>>.Continuation) {
         task?.receive { [weak self] result in
