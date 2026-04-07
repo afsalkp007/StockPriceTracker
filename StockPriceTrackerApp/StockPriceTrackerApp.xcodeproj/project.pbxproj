@@ -18,6 +18,7 @@
 		F40BE21F2F7EB37900545F17 /* StockUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE21D2F7EB37900545F17 /* StockUIComposer.swift */; };
 		F40BE2202F7EB37900545F17 /* StockDetailUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE21C2F7EB37900545F17 /* StockDetailUIComposer.swift */; };
 		F40BE2322F7ED49500545F17 /* StockUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE2312F7ED49500545F17 /* StockUIIntegrationTests.swift */; };
+		F4A111112F90000100545F17 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4A111102F90000100545F17 /* LaunchScreen.storyboard */; };
 		F470B2FE2F7E8C290044964C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F470B2F42F7E8C290044964C /* Assets.xcassets */; };
 		F470B2FF2F7E8C290044964C /* StockPriceTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F470B2F62F7E8C290044964C /* StockPriceTrackerApp.swift */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		F40BE21C2F7EB37900545F17 /* StockDetailUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailUIComposer.swift; sourceTree = "<group>"; };
 		F40BE21D2F7EB37900545F17 /* StockUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockUIComposer.swift; sourceTree = "<group>"; };
 		F40BE2312F7ED49500545F17 /* StockUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockUIIntegrationTests.swift; sourceTree = "<group>"; };
+		F4A111122F90000100545F17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F428F9F42F7E8B4E00C84A3C /* StockPriceTrackerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StockPriceTrackerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F428FA012F7E8B4F00C84A3C /* StockPriceTrackerAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockPriceTrackerAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F470B2F42F7E8C290044964C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				F470B2F42F7E8C290044964C /* Assets.xcassets */,
+				F4A111102F90000100545F17 /* LaunchScreen.storyboard */,
 				F470B2F62F7E8C290044964C /* StockPriceTrackerApp.swift */,
 				F40BE21E2F7EB37900545F17 /* Composers */,
 				F40BE2172F7EB23100545F17 /* Adapters */,
@@ -151,6 +154,17 @@
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXVariantGroup section */
+		F4A111102F90000100545F17 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F4A111122F90000100545F17 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin PBXNativeTarget section */
 		F428F9F32F7E8B4E00C84A3C /* StockPriceTrackerApp */ = {
@@ -238,6 +252,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4A111112F90000100545F17 /* LaunchScreen.storyboard in Resources */,
 				F470B2FE2F7E8C290044964C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -415,7 +430,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
@@ -451,7 +466,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
