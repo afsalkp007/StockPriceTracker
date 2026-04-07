@@ -3,6 +3,20 @@ import UIKit
 
 extension XCTestCase {
 
+    func verify(
+        snapshot: UIImage,
+        named name: String,
+        record: Bool,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        if record {
+            store(snapshot: snapshot, named: name, file: file, line: line)
+        } else {
+            assert(snapshot: snapshot, named: name, file: file, line: line)
+        }
+    }
+
     func assert(
         snapshot: UIImage,
         named name: String,
@@ -41,6 +55,16 @@ extension XCTestCase {
         file: StaticString = #filePath,
         line: UInt = #line
     ) {
+        store(snapshot: snapshot, named: name, file: file, line: line)
+        XCTFail("Record succeeded. Switch this test to `assert` now.", file: file, line: line)
+    }
+
+    private func store(
+        snapshot: UIImage,
+        named name: String,
+        file: StaticString,
+        line: UInt
+    ) {
         let snapshotURL = makeSnapshotURL(named: name, file: file)
         let snapshotData = makeSnapshotData(for: snapshot, file: file, line: line)
 
@@ -51,7 +75,6 @@ extension XCTestCase {
             )
 
             try snapshotData?.write(to: snapshotURL)
-            XCTFail("Record succeeded. Switch this test to `assert` now.", file: file, line: line)
         } catch {
             XCTFail("Failed to record snapshot with error: \(error)", file: file, line: line)
         }
