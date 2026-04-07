@@ -20,4 +20,4 @@ jobs:
       run: /usr/bin/xcodebuild -version
 
     - name: Build and Test
-      run: xcodebuild clean build test -workspace StockPriceTrackerApp/StockPriceTrackerApp.xcworkspace -scheme "CI-iOS" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 17 Pro,OS=latest" ONLY_ACTIVE_ARCH=YES
+      run: xcodebuild clean build test -workspace StockPriceTrackerApp/StockPriceTrackerApp.xcworkspace -scheme "CI-iOS" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 16,OS=18.5" ONLY_ACTIVE_ARCH=YES
