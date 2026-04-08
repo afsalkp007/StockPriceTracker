@@ -1,0 +1,4 @@
+#include "StockPriceTrackerAppProject-Debug.xcconfig"
+#include "StockPriceTrackerAppTestsTarget-Base.xcconfig"
+
+SWIFT_OPTIMIZATION_LEVEL = -Onone

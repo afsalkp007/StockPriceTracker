@@ -1,0 +1,2 @@
+#include "StockPriceTrackerAppProject-Release.xcconfig"
+#include "StockPriceTrackerAppTestsTarget-Base.xcconfig"
