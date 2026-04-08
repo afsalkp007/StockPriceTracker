@@ -1,0 +1,2 @@
+#include "StockPriceTrackerProject-Release.xcconfig"
+#include "StockWebSocketAPIEndToEndTestsTarget-Base.xcconfig"

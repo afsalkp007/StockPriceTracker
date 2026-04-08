@@ -182,6 +182,15 @@
 		F4E310182FF800040044964C /* StockPriceTrackeriOSTarget-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StockPriceTrackeriOSTarget-Base.xcconfig"; sourceTree = "<group>"; };
 		F4E310192FF800040044964C /* StockPriceTrackeriOSTarget-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StockPriceTrackeriOSTarget-Debug.xcconfig"; sourceTree = "<group>"; };
 		F4E3101A2FF800040044964C /* StockPriceTrackeriOSTarget-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StockPriceTrackeriOSTarget-Release.xcconfig"; sourceTree = "<group>"; };
+		F4E3101B2FF800050044964C /* StockPriceTrackeriOSTestsTarget-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StockPriceTrackeriOSTestsTarget-Base.xcconfig"; sourceTree = "<group>"; };
+		F4E3101C2FF800050044964C /* StockPriceTrackeriOSTestsTarget-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StockPriceTrackeriOSTestsTarget-Debug.xcconfig"; sourceTree = "<group>"; };
+		F4E3101D2FF800050044964C /* StockPriceTrackeriOSTestsTarget-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StockPriceTrackeriOSTestsTarget-Release.xcconfig"; sourceTree = "<group>"; };
+		F4E3101E2FF800050044964C /* StockPriceTrackerTestsTarget-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StockPriceTrackerTestsTarget-Base.xcconfig"; sourceTree = "<group>"; };
+		F4E3101F2FF800050044964C /* StockPriceTrackerTestsTarget-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StockPriceTrackerTestsTarget-Debug.xcconfig"; sourceTree = "<group>"; };
+		F4E310202FF800050044964C /* StockPriceTrackerTestsTarget-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StockPriceTrackerTestsTarget-Release.xcconfig"; sourceTree = "<group>"; };
+		F4E310212FF800050044964C /* StockWebSocketAPIEndToEndTestsTarget-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StockWebSocketAPIEndToEndTestsTarget-Base.xcconfig"; sourceTree = "<group>"; };
+		F4E310222FF800050044964C /* StockWebSocketAPIEndToEndTestsTarget-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StockWebSocketAPIEndToEndTestsTarget-Debug.xcconfig"; sourceTree = "<group>"; };
+		F4E310232FF800050044964C /* StockWebSocketAPIEndToEndTestsTarget-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StockWebSocketAPIEndToEndTestsTarget-Release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -472,6 +481,15 @@
 				F4E310182FF800040044964C /* StockPriceTrackeriOSTarget-Base.xcconfig */,
 				F4E310192FF800040044964C /* StockPriceTrackeriOSTarget-Debug.xcconfig */,
 				F4E3101A2FF800040044964C /* StockPriceTrackeriOSTarget-Release.xcconfig */,
+				F4E3101B2FF800050044964C /* StockPriceTrackeriOSTestsTarget-Base.xcconfig */,
+				F4E3101C2FF800050044964C /* StockPriceTrackeriOSTestsTarget-Debug.xcconfig */,
+				F4E3101D2FF800050044964C /* StockPriceTrackeriOSTestsTarget-Release.xcconfig */,
+				F4E3101E2FF800050044964C /* StockPriceTrackerTestsTarget-Base.xcconfig */,
+				F4E3101F2FF800050044964C /* StockPriceTrackerTestsTarget-Debug.xcconfig */,
+				F4E310202FF800050044964C /* StockPriceTrackerTestsTarget-Release.xcconfig */,
+				F4E310212FF800050044964C /* StockWebSocketAPIEndToEndTestsTarget-Base.xcconfig */,
+				F4E310222FF800050044964C /* StockWebSocketAPIEndToEndTestsTarget-Debug.xcconfig */,
+				F4E310232FF800050044964C /* StockWebSocketAPIEndToEndTestsTarget-Release.xcconfig */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -844,43 +862,15 @@
 		};
 		F470B31C2F7E8F580044964C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4E3101C2FF800050044964C /* StockPriceTrackeriOSTestsTarget-Debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.afsal.StockPriceTrackeriOSTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		F470B31D2F7E8F580044964C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4E3101D2FF800050044964C /* StockPriceTrackeriOSTestsTarget-Release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.afsal.StockPriceTrackeriOSTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -914,89 +904,29 @@
 		};
 		F48301DB2F7E7CEF00310FC2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4E3101F2FF800050044964C /* StockPriceTrackerTestsTarget-Debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.afsal.StockPriceTrackerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		F48301DC2F7E7CEF00310FC2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4E310202FF800050044964C /* StockPriceTrackerTestsTarget-Release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.afsal.StockPriceTrackerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 		F4E3100E2FF500010044964C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4E310222FF800050044964C /* StockWebSocketAPIEndToEndTestsTarget-Debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.afsal.StockWebSocketAPIEndToEndTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		F4E3100F2FF500010044964C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4E310232FF800050044964C /* StockWebSocketAPIEndToEndTestsTarget-Release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.afsal.StockWebSocketAPIEndToEndTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
