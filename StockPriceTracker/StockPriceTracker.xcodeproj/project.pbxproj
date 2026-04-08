@@ -179,6 +179,9 @@
 		F4E310152FF800030044964C /* StockPriceTrackerTarget-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StockPriceTrackerTarget-Base.xcconfig"; sourceTree = "<group>"; };
 		F4E310162FF800030044964C /* StockPriceTrackerTarget-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StockPriceTrackerTarget-Debug.xcconfig"; sourceTree = "<group>"; };
 		F4E310172FF800030044964C /* StockPriceTrackerTarget-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StockPriceTrackerTarget-Release.xcconfig"; sourceTree = "<group>"; };
+		F4E310182FF800040044964C /* StockPriceTrackeriOSTarget-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StockPriceTrackeriOSTarget-Base.xcconfig"; sourceTree = "<group>"; };
+		F4E310192FF800040044964C /* StockPriceTrackeriOSTarget-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StockPriceTrackeriOSTarget-Debug.xcconfig"; sourceTree = "<group>"; };
+		F4E3101A2FF800040044964C /* StockPriceTrackeriOSTarget-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "StockPriceTrackeriOSTarget-Release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -466,6 +469,9 @@
 				F4E310152FF800030044964C /* StockPriceTrackerTarget-Base.xcconfig */,
 				F4E310162FF800030044964C /* StockPriceTrackerTarget-Debug.xcconfig */,
 				F4E310172FF800030044964C /* StockPriceTrackerTarget-Release.xcconfig */,
+				F4E310182FF800040044964C /* StockPriceTrackeriOSTarget-Base.xcconfig */,
+				F4E310192FF800040044964C /* StockPriceTrackeriOSTarget-Debug.xcconfig */,
+				F4E3101A2FF800040044964C /* StockPriceTrackeriOSTarget-Release.xcconfig */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -824,79 +830,15 @@
 /* Begin XCBuildConfiguration section */
 		F470B3192F7E8F580044964C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4E310192FF800040044964C /* StockPriceTrackeriOSTarget-Debug.xcconfig */;
 			buildSettings = {
-				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
-				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
-				PRODUCT_BUNDLE_IDENTIFIER = com.afsal.StockPriceTrackeriOS;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_INSTALL_MODULE = YES;
-				SWIFT_INSTALL_OBJC_HEADER = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		F470B31A2F7E8F580044964C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4E3101A2FF800040044964C /* StockPriceTrackeriOSTarget-Release.xcconfig */;
 			buildSettings = {
-				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
-				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
-				PRODUCT_BUNDLE_IDENTIFIER = com.afsal.StockPriceTrackeriOS;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_INSTALL_MODULE = YES;
-				SWIFT_INSTALL_OBJC_HEADER = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

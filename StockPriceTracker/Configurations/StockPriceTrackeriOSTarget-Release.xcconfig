@@ -1,0 +1,2 @@
+#include "StockPriceTrackerProject-Release.xcconfig"
+#include "StockPriceTrackeriOSTarget-Base.xcconfig"
