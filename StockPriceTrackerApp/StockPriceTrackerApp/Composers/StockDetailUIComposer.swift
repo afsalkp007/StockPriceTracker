@@ -54,7 +54,7 @@ private struct ComposedStockDetailView: View {
                 let shouldShowRetryAlert = !status.isConnected && lastConnectionStatus.isConnected
                 lastConnectionStatus = status
 
-                DispatchQueue.main.async {
+                Task { @MainActor in
                     if status.isConnected {
                         stateStore.connectionRetryAlert = nil
                     } else if shouldShowRetryAlert {

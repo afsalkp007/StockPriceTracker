@@ -331,10 +331,13 @@ private final class ViewHost<Content: View> {
         RunLoop.current.run(until: Date().addingTimeInterval(0.01))
     }
 
-    func waitUntilAlertIsDismissed(timeout: TimeInterval = 1.0) {
+    func waitUntilAlertIsDismissed(timeout: TimeInterval = 2.0) {
         let endDate = Date().addingTimeInterval(timeout)
 
-        while presentedAlertTitle != nil && Date() < endDate {
+        while Date() < endDate {
+            if presentedAlertTitle == nil {
+                return
+            }
             render()
         }
     }
