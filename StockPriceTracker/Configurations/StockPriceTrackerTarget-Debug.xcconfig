@@ -1,0 +1,2 @@
+#include "StockPriceTrackerProject-Debug.xcconfig"
+#include "StockPriceTrackerTarget-Base.xcconfig"
